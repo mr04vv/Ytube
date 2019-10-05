@@ -17,16 +17,16 @@ export const providerGoogle = new firebase.auth.GoogleAuthProvider();
 export const providerTwitter = new firebase.auth.TwitterAuthProvider();
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAMflWWyJGIjb_1AS6OnrIBKuQcm-ZpwlI',
-  authDomain: 'tapitapi-f601b.firebaseapp.com',
-  databaseURL: 'https://tapitapi-f601b.firebaseio.com',
-  projectId: 'tapitapi-f601b',
+  apiKey: 'AIzaSyBd6qvPBAcBO7zPEG5leDFQVzZL6gYnqhw',
+  authDomain: 'ytube-938fd.firebaseapp.com',
+  databaseURL: 'https://ytube-938fd.firebaseio.com',
+  projectId: 'ytube-938fd',
   storageBucket: '',
-  messagingSenderId: '779676974115',
-  appId: '1:779676974115:web:64b3250346ff2c64',
+  messagingSenderId: '786349780781',
+  appId: '1:786349780781:web:2986137e904ca815046da4',
+  measurementId: 'G-000EQW30EY',
 };
 // Initialize Firebase
-
 firebase.initializeApp(firebaseConfig);
 
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
