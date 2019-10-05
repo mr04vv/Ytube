@@ -9,6 +9,8 @@ import * as firebase from 'firebase';
 import 'firebase/firestore';
 import BottomFooter from 'components/BottomFooter';
 import Top from 'pages/Top';
+import Header from 'components/Header';
+import { StylesProvider } from '@material-ui/styles';
 import * as serviceWorker from './serviceWorker';
 
 export const providerGoogle = new firebase.auth.GoogleAuthProvider();
@@ -40,8 +42,11 @@ const App = () => (
 reactDom.render(
   <Provider store={store}>
     <Router>
-      <App />
-      <BottomFooter />
+      <StylesProvider injectFirst>
+        <Header />
+        <App />
+        <BottomFooter />
+      </StylesProvider>
     </Router>
   </Provider>,
   document.getElementById('root'),
