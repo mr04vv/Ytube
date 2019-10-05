@@ -37,7 +37,7 @@ const Top = () => {
               start: 986, end: 992,
             },
           }}
-          onStart={() => setIsPlaying([true, false, false])}
+          onPlay={() => setIsPlaying([true, false, false])}
           playing={isPlaying[0]}
         />
         <CustomCardContent>
@@ -72,22 +72,34 @@ const Top = () => {
         />
         <ReactPlayer
           width="100%"
-          ref={refs[1]}
+          height={window.innerWidth < 420 ? '300px' : '500px'}
+          controls
           onPlay={() => setIsPlaying([false, true, false])}
+          playing={isPlaying[1]}
+          ref={refs[1]}
           onEnded={() => loop(refs[1].current, 1133)}
           url="https://www.youtube.com/watch?v=2RXTJoGYCWI"
           youtubeConfig={{ playerVars: { start: 1133, end: 1150 } }}
         />
-        <CardContent>
+        <CustomCardContent>
           <Typography gutterBottom component="h4">
             ﾄﾞｩｰﾄﾞｩﾙﾄﾞｩﾄﾞｩｯﾄﾞｩ♪
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             ゎ・ゎ・ゎ・ゎ♪
           </Typography>
-        </CardContent>
+        </CustomCardContent>
+        <CardActionContainer>
+          <CustomCardAction>
+            <CustomIconButton aria-label="add to favorites">
+              <FavoriteIcon width="3px" fontSize="small" />
+            </CustomIconButton>
+            <CustomIconButton aria-label="add to favorites">
+              <PlaylistAdd />
+            </CustomIconButton>
+          </CustomCardAction>
+        </CardActionContainer>
         <Hr />
-
       </div>
       <div>
         <CardHeader
@@ -101,21 +113,34 @@ const Top = () => {
         />
         <ReactPlayer
           width="100%"
+          height={window.innerWidth < 420 ? '300px' : '500px'}
+          controls
+          playing={isPlaying[2]}
+          onPlay={() => setIsPlaying([false, false, true])}
           ref={refs[2]}
-          onEnded={() => loop(refs[2].current, 1016)}
+          onEnded={() => loop(refs[2].current, 1028)}
           url="https://www.youtube.com/watch?v=LjzlxjgO70o"
-          youtubeConfig={{ playerVars: { start: 1016, end: 1092 } }}
+          youtubeConfig={{ playerVars: { start: 1028, end: 1051 } }}
         />
-        <CardContent>
+        <CustomCardContent>
           <Typography gutterBottom component="h4">
             詰んだ逃走犯
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            バグって出れなくなるわいわい笑
+            逃げる気まったくないｗｗ
           </Typography>
-        </CardContent>
+        </CustomCardContent>
+        <CardActionContainer>
+          <CustomCardAction>
+            <CustomIconButton aria-label="add to favorites">
+              <FavoriteIcon width="3px" fontSize="small" />
+            </CustomIconButton>
+            <CustomIconButton aria-label="add to favorites">
+              <PlaylistAdd />
+            </CustomIconButton>
+          </CustomCardAction>
+        </CardActionContainer>
         <Hr />
-
       </div>
     </Container>
   );
