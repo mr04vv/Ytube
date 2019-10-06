@@ -1,50 +1,62 @@
 /* eslint-disable no-console */
 import firebase from 'firebase';
 import { providerTwitter, providerGoogle } from 'index';
-import { useMemo, useState } from 'react';
-import { loginSuccess } from 'reduxes/modules/accounts/login';
-import { useDispatch } from 'react-redux';
+import {
+  useState, useEffect,
+} from 'react';
 import useReactRouter from 'use-react-router';
+import { signIn } from 'reduxes/modules/accounts/login';
+import { useDispatch } from 'react-redux';
 
 
 const useLogin = () => {
   const [isLoaggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [userId, setUserId] = useState<string>();
-  const { location } = useReactRouter();
+  const [uid, setUid] = useState<string>();
+  const { history } = useReactRouter();
   const dispatch = useDispatch();
-  const [historyItems, setHistoryItems] = useState<any>();
-
-  useMemo(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      setIsLoading(true);
-      if (user) {
-        dispatch(loginSuccess({}));
-        setIsLoggedIn(true);
-        setUserId(user.uid);
-        if (location.pathname === '/histories') {
-          (async () => {
-            const db = firebase.firestore();
-            const historyDoc = await db.collection('historyList').doc(user.uid).get();
-            const historyData = historyDoc.data();
-            const historyItem = historyData ? historyData.item : [];
-            setHistoryItems(historyItem);
-          })();
+  useEffect(() => {
+    (async () => {
+      firebase.auth().onAuthStateChanged(async (user) => {
+        if (user) {
+          try {
+            const firebaseToken = await user.getIdToken();
+            const userInfo = await dispatch(signIn(firebaseToken));
+            console.debug(userInfo);
+            console.debug(user);
+            setUid(user.uid);
+          } catch {
+            history.push({
+              pathname: '/login',
+            });
+          }
+        } else {
+          history.push({
+            pathname: '/login',
+          });
         }
-        setIsLoading(false);
-        return;
-      }
-      setUserId(undefined);
-      setIsLoading(false);
-    });
-  }, [dispatch, location.pathname]);
+      });
+    })();
+  }, [history, dispatch]);
 
   const loginWithGoogle = async () => {
-    firebase.auth().signInWithRedirect(providerGoogle);
+    setIsLoading(true);
+    try {
+      await firebase.auth().signInWithPopup(providerGoogle);
+      setIsLoading(false);
+    } catch {
+      setIsLoading(false);
+    }
   };
 
-  const loginWithTwitter = () => {
-    firebase.auth().signInWithRedirect(providerTwitter);
+  const loginWithTwitter = async () => {
+    setIsLoading(true);
+    try {
+      await firebase.auth().signInWithPopup(providerTwitter);
+      setIsLoading(false);
+    } catch {
+      setIsLoading(false);
+    }
   };
 
   const signOut = () => {
@@ -57,9 +69,8 @@ const useLogin = () => {
     isLoading,
     loginWithTwitter,
     loginWithGoogle,
-    userId,
+    uid,
     signOut,
-    historyItems,
   };
 };
 

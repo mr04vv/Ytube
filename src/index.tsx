@@ -11,7 +11,11 @@ import BottomFooter from 'components/BottomFooter';
 import Top from 'pages/Top';
 import Header from 'components/Header';
 import { StylesProvider } from '@material-ui/styles';
+import Login from 'pages/Login';
+import useFetch from 'hooks/Login/useFetchMe';
+import Account from 'pages/Account';
 import * as serviceWorker from './serviceWorker';
+import Home from 'pages/Home';
 
 export const providerGoogle = new firebase.auth.GoogleAuthProvider();
 export const providerTwitter = new firebase.auth.TwitterAuthProvider();
@@ -32,11 +36,17 @@ firebase.initializeApp(firebaseConfig);
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 const store = configureStore();
 
-const App = () => (
-  <Switch>
-    <Route exact path="/" component={Top} />
-  </Switch>
-);
+const App = () => {
+  useFetch();
+  return (
+    <Switch>
+      <Route exact path="/" component={Top} />
+      <Route exact path="/home" component={Home} />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/accounts" component={Account} />
+    </Switch>
+  );
+};
 
 // React entry point.
 reactDom.render(
