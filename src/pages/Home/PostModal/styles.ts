@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Modal from 'react-modal';
 import {
-  Button, Select, makeStyles, createStyles, Theme,
+  Button,
 } from '@material-ui/core';
 
 const CustomModal = styled(Modal)`
@@ -94,12 +94,25 @@ const LengthCountError = styled.p`
   color: red;
 `;
 
-const useStyles = makeStyles(() => createStyles({
-  select: {
-    zIndex: 4000,
-  },
-}));
+const ColumnContainer = styled.div`
+  margin: 10px auto;
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+`;
+
+const NewPostContainer = styled.div`
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+`;
+
+const AddButton = styled(CustomButton)`
+  margin-top: 16px;
+  margin-bottom: 8px;
+  padding-bottom: 3px;
+`;
 
 export {
-  CustomModal, PostContainer, TimeContainer, Time, CustomButton, PostButtonContainer, PostHeader, PostButton, LengthCount, LengthCountError, useStyles,
+  CustomModal, PostContainer, TimeContainer, Time, CustomButton, PostButtonContainer, PostHeader, PostButton, LengthCount, LengthCountError, ColumnContainer, NewPostContainer, AddButton,
 };

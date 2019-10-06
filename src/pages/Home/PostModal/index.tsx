@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Modal from 'react-modal';
 import ReactPlayer from 'react-player';
 import {
-  TextField, IconButton, Select, MenuItem,
+  TextField, IconButton, Select, MenuItem, InputLabel, FormControl, Input, ListItemText, Checkbox,
 } from '@material-ui/core';
 import usePost from 'hooks/Post/usePost';
 import DeleteIcon from '@material-ui/icons/Clear';
 import Arrow from '@material-ui/icons/ArrowBack';
 import SimpleSnackBar from 'components/SimpleSnackBar';
-import zIndex from '@material-ui/core/styles/zIndex';
+import { GameInterface } from 'interfaces/GameInterface';
+import { CategoryInterface } from 'interfaces/CategoryInterface';
+import usePostColumn from 'hooks/Post/usePostColumn';
 import {
-  CustomModal, PostContainer, TimeContainer, Time, CustomButton, PostHeader, PostButton, LengthCount, LengthCountError, useStyles,
+  CustomModal, PostContainer, TimeContainer, Time, CustomButton, PostHeader, PostButton, LengthCount, LengthCountError, ColumnContainer, NewPostContainer, AddButton,
 } from './styles';
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('#root');
@@ -23,7 +25,7 @@ interface PropsInterface {
 const PostModal = ({ isOpen, closeModal }: PropsInterface) => {
   const refs = React.useRef(null);
   const post = usePost();
-  const classes = useStyles();
+  const add = usePostColumn();
   const ConvertTime = (time: string) => {
     const second = parseInt(time, 10);
     return `${Math.floor(second / 60).toString()}:${(second % 60).toString()}`;
@@ -68,8 +70,8 @@ const PostModal = ({ isOpen, closeModal }: PropsInterface) => {
           <PostButton
             color="primary"
             variant="contained"
-            onClick={() => post.setTabIndex(1)}
-            disabled={(post.title.length === 0 || post.title.length > 20 || post.comment.length === 0 || post.comment.length > 200)}
+            onClick={() => post.post()}
+            disabled={(post.title.length === 0 || post.title.length > 20 || post.comment.length === 0 || post.comment.length > 200 || post.category.length === 0 || post.game === undefined)}
           >
             投稿
           </PostButton>
@@ -110,7 +112,7 @@ const PostModal = ({ isOpen, closeModal }: PropsInterface) => {
         : (
           <>
             <TextField
-              style={{ margin: '10vh auto 0', width: '90%', display: 'flex' }}
+              style={{ margin: '4vh auto 0', width: '90%', display: 'flex' }}
               placeholder="タイトルを入力してね(20字以内)"
               margin="normal"
               InputLabelProps={{
@@ -157,14 +159,77 @@ const PostModal = ({ isOpen, closeModal }: PropsInterface) => {
                   /200
                 </LengthCount>
               )}
-            <Select
-              value={post.game}
-              onChange={(e: any) => post.setGame(e.target.value)}
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
+
+            <ColumnContainer>
+
+              <FormControl fullWidth style={{ minWidth: '50%' }}>
+                <InputLabel>ゲームタイトル</InputLabel>
+                <Select
+                  fullWidth
+                  value={post.game}
+                  onChange={(e: any) => post.setGame(e.target.value)}
+                >
+                  {post.gameMaster.map((game: GameInterface) => (
+                    <MenuItem value={game.id}>{game.title}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl fullWidth style={{ minWidth: '50%' }}>
+                <InputLabel>カテゴリ</InputLabel>
+                <Select
+                  multiple
+                  input={<Input />}
+                  value={post.categoryName}
+                  renderValue={selected => (selected as string[]).join(', ')}
+                  onChange={(e: any) => post.setCategory(e.target.value)}
+                >
+                  {post.categoryMaster.map((category: CategoryInterface) => (
+                    <MenuItem value={category.name}>
+                      <Checkbox checked={post.category.indexOf(category.id) > -1} />
+                      <ListItemText primary={category.name} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+
+
+            </ColumnContainer>
+            <NewPostContainer>
+              <TextField
+                placeholder="ゲームを追加する"
+                margin="normal"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                fullWidth
+                value={add.newGame}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => add.setNewGame(e.target.value)}
+              />
+              <AddButton
+                disabled={add.isLoadingGame || !add.newGame}
+                onClick={() => add.postGame()}
+              >
+                追加
+              </AddButton>
+            </NewPostContainer>
+            <NewPostContainer>
+              <TextField
+                placeholder="カテゴリを追加する"
+                margin="normal"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                fullWidth
+                value={add.newCategory}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => add.setNewCategory(e.target.value)}
+              />
+              <AddButton
+                disabled={add.isLoadingCategory || !add.newCategory}
+                onClick={() => add.postCategory()}
+              >
+                追加
+              </AddButton>
+            </NewPostContainer>
           </>
         )
       }
