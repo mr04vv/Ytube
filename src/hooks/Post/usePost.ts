@@ -10,6 +10,7 @@ import { fetchGames } from 'reduxes/modules/games/gameList';
 import { fetchCategories } from 'reduxes/modules/categories/categoryList';
 import { createPost } from 'reduxes/modules/posts/post';
 import { CreatePostInterface } from 'interfaces/posts/CreatePostInterface';
+import { fetchPosts } from 'reduxes/modules/posts/fetchPost';
 
 const usePost = () => {
   const [startTime, setStartTime] = useState<string>('0');
@@ -100,6 +101,7 @@ const usePost = () => {
     });
     init();
     closeModal();
+    dispatch(fetchPosts('1', '10'));
     setIsLoading(false);
   };
 
