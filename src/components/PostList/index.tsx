@@ -36,7 +36,7 @@ const PostList = ({
       {isLoading ? <CircularProgress style={{ margin: '30vh auto' }} />
         : (
           posts && posts.map((p: PostInterface, index: number) => (
-            <div>
+            <div key={p.title}>
               <CardHeader
                 avatar={(
                   <CustomAvater aria-label="recipe" src={p.user.imageUrl} />
