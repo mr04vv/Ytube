@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { TwitterShareButton, TwitterIcon } from 'react-share';
 
 const spHelp = require('images/helpSP.jpg');
 const urlHelp = require('images/url.jpg');
@@ -61,6 +62,17 @@ const Help = () => (
       <SNSLink target="_brank" href="https://mooriii.com/">作者ホームページ</SNSLink>
       <SNSLink target="_brank" href="https://github.com/mr04vv/Ytube">ソースコード</SNSLink>
       <Text>その他ご要望等がある場合TwiiterのDMにて受け付けております。ご気軽にお申し付けください。</Text>
+      <Share>ツイッターでこのサイトを共有する</Share>
+      <Share>↓↓↓↓↓↓</Share>
+      <TwitterShareButton
+        url="https://ytube-938fd.firebaseapp.com/home"
+        title="YtubeでYYさんの好きなシーンを共有しよう！"
+      >
+        <TwitterIcon
+          size={32}
+          round
+        />
+      </TwitterShareButton>
       <Attention>
         Created by
         {' '}
@@ -133,4 +145,9 @@ const Attention = styled.p`
   margin-top: 20px;
   font-size: 10px;
   color: #a5a5a5;
+`;
+
+const Share = styled.div`
+  margin: 0px;
+  font-size: 18px;
 `;
