@@ -5,7 +5,6 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { User } from 'interfaces/UserInterface';
 import { signOut } from 'reduxes/modules/accounts/login';
-import useReactRouter from 'use-react-router';
 import firebase from 'firebase';
 
 const useMyInfo = () => {

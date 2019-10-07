@@ -39,22 +39,12 @@ const useLogin = () => {
 
   const loginWithGoogle = async () => {
     setIsLoading(true);
-    try {
-      await firebase.auth().signInWithPopup(providerGoogle);
-      setIsLoading(false);
-    } catch {
-      setIsLoading(false);
-    }
+    await firebase.auth().signInWithPopup(providerGoogle);
   };
 
   const loginWithTwitter = async () => {
     setIsLoading(true);
-    try {
-      await firebase.auth().signInWithPopup(providerTwitter);
-      setIsLoading(false);
-    } catch {
-      setIsLoading(false);
-    }
+    await firebase.auth().signInWithPopup(providerTwitter);
   };
 
   const signOut = () => {
