@@ -71,7 +71,7 @@ const PostModal = ({ isOpen, closeModal }: PropsInterface) => {
             color="primary"
             variant="contained"
             onClick={() => post.post(() => closeModal())}
-            disabled={(post.isLoading || post.title.length === 0 || post.title.length > 20 || post.comment.length === 0 || post.comment.length > 200 || post.category.length === 0 || post.game === undefined)}
+            disabled={(post.isLoading || post.title.length === 0 || post.title.length > 20 || post.comment.length > 200 || post.category.length === 0 || post.game === undefined)}
           >
             投稿
           </PostButton>
@@ -136,7 +136,7 @@ const PostModal = ({ isOpen, closeModal }: PropsInterface) => {
               )}
             <TextField
               style={{ margin: '20px auto', width: '90%', display: 'flex' }}
-              placeholder="コメントを入力してね(200字以内)"
+              placeholder="コメントを入力してね(任意)"
               multiline
               rows="5"
               margin="normal"
@@ -147,7 +147,7 @@ const PostModal = ({ isOpen, closeModal }: PropsInterface) => {
               value={post.comment}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => post.setComment(e)}
             />
-            {(post.comment.length === 0 || post.comment.length > 200) ? (
+            {(post.comment.length > 200) ? (
               <LengthCountError>
                 {post.comment.length}
                 /200
