@@ -3,19 +3,22 @@ import {
   useState, useEffect,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPosts, fetchMyPosts } from 'reduxes/modules/posts/fetchPost';
+import { fetchPosts } from 'reduxes/modules/posts/fetchPost';
 import { PostInterface } from 'interfaces/posts/PostInterface';
 import useReactRouter from 'use-react-router';
+import { fetchMyPosts } from 'reduxes/modules/posts/fetchMyPost';
 
 const useFetchPost = () => {
   const [posts, setPosts] = useState<PostInterface[]>([]);
   const [per] = useState<string>('10');
   const postSelector = (state: any) => state.fetchPost;
+  const myPostSelector = (state: any) => state.fetchPostMe;
   const postState = useSelector(postSelector);
+  const myPostState = useSelector(myPostSelector);
   const { history, location } = useReactRouter();
   const [hasNext, setHasNext] = useState<boolean>(false);
   const [hasPrev, setHasPrev] = useState<boolean>(false);
-
+  const [myPosts, setMyPosts] = useState<PostInterface[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch = useDispatch();
   const params = new URLSearchParams(location.search);
@@ -45,6 +48,16 @@ const useFetchPost = () => {
     }
   }, [postState]);
 
+  useEffect(() => {
+    if (myPostState.data) {
+      setMyPosts(myPostState.data.posts);
+      setIsLoading(false);
+      if (myPostState.data.meta) {
+        setHasNext(!!myPostState.data.meta.nextPage);
+        setHasPrev(!!myPostState.data.meta.prevPage);
+      }
+    }
+  }, [myPostState]);
 
   return {
     posts,
@@ -52,6 +65,7 @@ const useFetchPost = () => {
     hasNext,
     hasPrev,
     page,
+    myPosts,
     next: () => {
       setIsLoading(true);
       setPage((parseInt(page, 10) + 1).toString());

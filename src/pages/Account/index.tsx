@@ -34,7 +34,7 @@ const Account = () => {
       </Container>
       {!info.isLoading && info.loginStatus === 'success' && (
         <PostList
-          posts={post.posts}
+          posts={post.myPosts}
           isLoading={post.isLoading}
           hasNext={post.hasNext}
           hasPrev={post.hasPrev}
