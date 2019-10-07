@@ -6,19 +6,25 @@ import History from '@material-ui/icons/Home';
 import NotificationsNone from '@material-ui/icons/HelpOutline';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import useNavigation from 'hooks/Footer/useNavigation';
+import useReactRouter from 'use-react-router';
 import useStyles from './styles';
 
 const BottomFooter = () => {
   const classes = useStyles();
   const nav = useNavigation();
+  const { location } = useReactRouter();
 
   return (
-    <BottomNavigation showLabels value={nav.value} onChange={nav.handleChange} className={classes.root}>
-      <BottomNavigationAction className={classes.icon} classes={{ selected: classes.selected }} value="/home" icon={<History />} />
-      {/* <BottomNavigationAction className={classes.icon} classes={{ selected: classes.selected }} value="/" icon={<SearchIcon />} /> */}
-      <BottomNavigationAction className={classes.icon} classes={{ selected: classes.selected }} value="/help" icon={<NotificationsNone />} />
-      <BottomNavigationAction className={classes.icon} classes={{ selected: classes.selected }} value="/accounts" icon={<AccountCircle />} />
-    </BottomNavigation>
+    <>
+      {location.pathname !== '/login' && (
+        <BottomNavigation showLabels value={nav.value} onChange={nav.handleChange} className={classes.root}>
+          <BottomNavigationAction className={classes.icon} classes={{ selected: classes.selected }} value="/home" icon={<History />} />
+          {/* <BottomNavigationAction className={classes.icon} classes={{ selected: classes.selected }} value="/" icon={<SearchIcon />} /> */}
+          <BottomNavigationAction className={classes.icon} classes={{ selected: classes.selected }} value="/help" icon={<NotificationsNone />} />
+          <BottomNavigationAction className={classes.icon} classes={{ selected: classes.selected }} value="/accounts" icon={<AccountCircle />} />
+        </BottomNavigation>
+      )}
+    </>
   );
 };
 
