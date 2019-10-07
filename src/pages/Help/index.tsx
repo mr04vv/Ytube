@@ -44,17 +44,23 @@ const Help = () => (
     </Container>
     <FooterContainer>
       <Title>
+        わいわいさんリンク
+      </Title>
+      <SNSLink target="_brank" href="https://www.youtube.com/channel/UCSkLRGGIGKOtinamhcy_42g">[YouTube]YY-CHANNEL [YCH]</SNSLink>
+      <SNSLink target="_brank" href="https://twitter.com/ABCDYY">[Twitter]わいわい(31)</SNSLink>
+      <SNSLink target="_brank" href="https://www.instagram.com/waiwai_31yearsold/?hl=ja">[Instagram]わいわい(31)</SNSLink>
+      <Title>
         運営より
       </Title>
-      <div>
+      <Text>
         本サイトの運営には月1,000円ほどかかっています(2019/10/8現在)。本サイトを今後も継続していく為、皆様のご支援をよろしくおねがいします。
-      </div>
+      </Text>
       <SNSLink target="_brank" href="https://www.amazon.co.jp/hz/wishlist/ls/J7CJ3KNEL2PF">サイトを支援する</SNSLink>
       <SNSLink target="_brank" href="https://twitter.com/_mooriii">作者Twitterリンク</SNSLink>
       <SNSLink target="_brank" href="https://twitter.com/akkun_jiro">作者Twitterリンク２</SNSLink>
       <SNSLink target="_brank" href="https://mooriii.com/">作者ホームページ</SNSLink>
       <SNSLink target="_brank" href="https://github.com/mr04vv/Ytube">ソースコード</SNSLink>
-      <div>その他ご要望等がある場合TwiiterのDMにて受け付けております。ご気軽にお申し付けください。</div>
+      <Text>その他ご要望等がある場合TwiiterのDMにて受け付けております。ご気軽にお申し付けください。</Text>
       <Attention>
         Created by
         {' '}
@@ -81,7 +87,9 @@ const Container = styled.div`
 `;
 
 const FooterContainer = styled.div`
-  margin: 80px auto 80px;
+  width: 90%;
+  max-width: 800px;
+  margin: 20px auto 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -108,16 +116,21 @@ const ExplainContent = styled.p`
 `;
 
 const Title = styled.p`
-  margin-top: 10px;
+  margin: 30px 0 0;
   font-size: 20px;
 `;
 
 const SNSLink = styled.a`
+  margin: 2px 0;
+`;
+
+const Text = styled.div`
+  margin: 10px;
+  font-size: 18px;
 `;
 
 const Attention = styled.p`
   margin-top: 20px;
-  max-width: 80%;
   font-size: 10px;
   color: #a5a5a5;
 `;
