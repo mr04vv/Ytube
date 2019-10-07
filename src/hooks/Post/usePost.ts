@@ -100,6 +100,7 @@ const usePost = () => {
       throw err;
     });
     init();
+    setTabIndex(0);
     closeModal();
     dispatch(fetchPosts('1', '10'));
     setIsLoading(false);
