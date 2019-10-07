@@ -23,15 +23,18 @@ const useLogin = () => {
             const firebaseToken = await user.getIdToken();
             await dispatch(signIn(firebaseToken));
             setUid(user.uid);
+            setIsLoading(false);
             history.push({
               pathname: '/home',
             });
           } catch {
+            setIsLoading(false);
             history.push({
               pathname: '/login',
             });
           }
         } else {
+          setIsLoading(false);
           history.push({
             pathname: '/login',
           });
@@ -63,6 +66,7 @@ const useLogin = () => {
   const signOut = () => {
     firebase.auth().signOut();
     setIsLoggedIn(false);
+    setIsLoading(false);
   };
 
   return {
