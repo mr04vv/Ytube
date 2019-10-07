@@ -70,8 +70,8 @@ const PostModal = ({ isOpen, closeModal }: PropsInterface) => {
           <PostButton
             color="primary"
             variant="contained"
-            onClick={() => post.post()}
-            disabled={(post.title.length === 0 || post.title.length > 20 || post.comment.length === 0 || post.comment.length > 200 || post.category.length === 0 || post.game === undefined)}
+            onClick={() => post.post(() => closeModal())}
+            disabled={(post.isLoading || post.title.length === 0 || post.title.length > 20 || post.comment.length === 0 || post.comment.length > 200 || post.category.length === 0 || post.game === undefined)}
           >
             投稿
           </PostButton>

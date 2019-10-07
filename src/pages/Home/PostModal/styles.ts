@@ -13,6 +13,9 @@ const CustomModal = styled(Modal)`
     background-color: white;
     max-width: 800px;
     margin: 0 auto;
+    :focus {
+      outline: none;
+    }
 `;
 
 const PostContainer = styled.div`

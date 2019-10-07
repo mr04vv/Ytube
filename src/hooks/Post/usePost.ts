@@ -8,12 +8,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchGames } from 'reduxes/modules/games/gameList';
 
 import { fetchCategories } from 'reduxes/modules/categories/categoryList';
+import { createPost } from 'reduxes/modules/posts/post';
+import { CreatePostInterface } from 'interfaces/posts/CreatePostInterface';
 
 const usePost = () => {
   const [startTime, setStartTime] = useState<string>('0');
   const [endTime, setEndTime] = useState<string>('0');
   const [url, setUrl] = useState<string>('');
-  const [tabIndex, setTabIndex] = useState<number>(1);
+  const [tabIndex, setTabIndex] = useState<number>(0);
   const [error, setError] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const [titleError] = useState<string>('');
@@ -29,6 +31,7 @@ const usePost = () => {
   const categorySelector = (state: any) => state.categoryList;
   const categoryState = useSelector(categorySelector);
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const init = () => {
     setTitle('');
@@ -74,10 +77,30 @@ const usePost = () => {
     setTabIndex(1);
   };
 
-  const post = () => {
+  const post = async (closeModal: () => void) => {
+    setIsLoading(true);
+    const body: CreatePostInterface = {
+      title,
+      detail: comment,
+      start_time: parseInt(startTime, 10),
+      end_time: parseInt(endTime, 10),
+      video_url: url,
+      game_id: game!,
+      category_ids: category,
+    };
+
+    await dispatch<any>(createPost(body)).catch((err: any) => {
+      if (err.response.status === 400) {
+        setError('YYの動画のみ投稿可能です');
+      } else {
+        setError('投稿に失敗しました');
+      }
+      setIsLoading(false);
+      throw err;
+    });
     init();
-    console.debug(game);
-    console.debug(category);
+    closeModal();
+    setIsLoading(false);
   };
 
 
@@ -118,6 +141,7 @@ const usePost = () => {
     },
     categoryName,
     post,
+    isLoading,
   };
 };
 
