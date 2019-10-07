@@ -6,23 +6,17 @@ import useReactRouter from 'use-react-router';
 import { fetchMe } from 'reduxes/modules/accounts/login';
 import { useDispatch } from 'react-redux';
 
-
 const useFetch = () => {
   const [isLoaggedIn] = useState<boolean>(false);
   const [isLoading] = useState<boolean>(true);
   const [uid] = useState<string>();
   const { history } = useReactRouter();
   const dispatch = useDispatch();
+
   useEffect(() => {
     (async () => {
-      try {
-        if (history.location.pathname !== '/login') {
-          await dispatch(fetchMe());
-        }
-      } catch {
-        history.push({
-          pathname: '/login',
-        });
+      if (history.location.pathname !== '/login') {
+        await dispatch(fetchMe());
       }
     })();
   }, [history, dispatch]);

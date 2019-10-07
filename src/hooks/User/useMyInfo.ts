@@ -14,27 +14,29 @@ const useMyInfo = () => {
   const userState = useSelector(userSelector);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch = useDispatch();
-  const { history } = useReactRouter();
+  const [loginStatus, setLoginStatus] = useState<string | undefined>('');
 
   useEffect(() => {
-    if (userState.data) {
+    if (Object.keys(userState.data).length !== 0) {
       setUserInfo(userState.data);
       setIsLoading(false);
     }
-  }, [userState.data]);
+    if (userState.status) {
+      setLoginStatus(userState.status);
+      setIsLoading(false);
+    }
+  }, [userState]);
 
   const logout = () => {
     dispatch(signOut());
     firebase.auth().signOut();
-    history.push({
-      pathname: '/login',
-    });
   };
 
   return {
     userInfo,
     isLoading,
     logout,
+    loginStatus,
   };
 };
 

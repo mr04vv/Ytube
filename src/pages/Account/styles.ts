@@ -4,6 +4,7 @@ import { Avatar } from '@material-ui/core';
 const Container = styled.div`
   margin: 80px auto 0;
   max-width: 500px;
+  display: flex;
 `;
 
 const ProfileContainer = styled.div`

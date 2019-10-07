@@ -3,7 +3,7 @@ import { Button } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Container = styled.div`
-  height: 400px;
+  height: 200px;
   align-items: center;
   display: flex;
   flex-direction: column;

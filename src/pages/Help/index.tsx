@@ -15,6 +15,9 @@ const Help = () => (
       <Title>
         使い方
       </Title>
+      <PromptContainer>
+        <div>投稿機能の利用にはログインが必要です</div>
+      </PromptContainer>
       <Explain>
         中央下部の＋ボタンを押します
       </Explain>
@@ -150,4 +153,13 @@ const Attention = styled.p`
 const Share = styled.div`
   margin: 0px;
   font-size: 18px;
+`;
+
+const PromptContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  color: red;
+  font-weight: bold;
 `;

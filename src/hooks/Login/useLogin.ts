@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 
 const useLogin = () => {
   const [isLoaggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [uid, setUid] = useState<string>();
   const { history } = useReactRouter();
   const dispatch = useDispatch();
@@ -29,15 +29,9 @@ const useLogin = () => {
             });
           } catch {
             setIsLoading(false);
-            history.push({
-              pathname: '/login',
-            });
           }
         } else {
           setIsLoading(false);
-          history.push({
-            pathname: '/login',
-          });
         }
       });
     })();
