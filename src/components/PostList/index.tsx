@@ -80,7 +80,10 @@ const PostList = ({
               <Hr />
             </div>
           )))}
-      {!isLoading && posts && (
+      {posts && posts.length === 0 && (
+        <NoPost>投稿がありません</NoPost>
+      )}
+      {!isLoading && posts && posts.length !== 0 && (
         <PageButtonContainer>
           <PageButton
             color="primary"
@@ -155,6 +158,11 @@ const PageButton = styled(Button)`
 //   padding: 0;
 
 // `;
+
+const NoPost = styled.div`
+  text-align: center;
+  margin: 40px;
+`;
 
 const CustomCardContent = styled(CardContent as React.SFC)`
   padding-bottom: 0;
