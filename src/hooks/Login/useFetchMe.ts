@@ -8,8 +8,8 @@ import { useDispatch } from 'react-redux';
 
 
 const useFetch = () => {
-  const [isLoaggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoaggedIn] = useState<boolean>(false);
+  const [isLoading] = useState<boolean>(true);
   const [uid] = useState<string>();
   const { history } = useReactRouter();
   const dispatch = useDispatch();

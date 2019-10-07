@@ -21,10 +21,11 @@ const useLogin = () => {
         if (user) {
           try {
             const firebaseToken = await user.getIdToken();
-            const userInfo = await dispatch(signIn(firebaseToken));
-            console.debug(userInfo);
-            console.debug(user);
+            await dispatch(signIn(firebaseToken));
             setUid(user.uid);
+            history.push({
+              pathname: '/home',
+            });
           } catch {
             history.push({
               pathname: '/login',

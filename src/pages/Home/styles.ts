@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { Button, Fab } from '@material-ui/core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Fab } from '@material-ui/core';
 
 const Container = styled.div`
   max-width: 800px;
@@ -9,8 +8,10 @@ const Container = styled.div`
 const CustomFab = styled(Fab)`
   background-color: #ffe62b;
   position: fixed;
-  bottom: 100px;
-  right: 40px;
+  bottom: 70px;
+  right: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   @media screen and (min-width:420px) {
     right: 300px;
   }

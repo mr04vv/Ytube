@@ -2,13 +2,15 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   root: {
-    width: '100%',
+    top: '100px',
+    height: '200px',
     position: 'fixed',
-    left: 0,
-    bottom: 0,
+    left: '40px',
     zIndex: 1000,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
     textAlign: 'center',
-    '@media (min-width: 1261px)': {
+    '@media (max-width: 1260px)': {
       display: 'none',
     },
   },

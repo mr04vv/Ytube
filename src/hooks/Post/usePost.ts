@@ -47,7 +47,7 @@ const usePost = () => {
   useEffect(() => {
     dispatch(fetchCategories());
     dispatch(fetchGames());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (categoryState.data.length > 0) {

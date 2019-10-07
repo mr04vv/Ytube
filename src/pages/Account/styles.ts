@@ -21,12 +21,14 @@ const CustomAvater = styled(Avatar)`
 const UserInfoContainer = styled.div`
   margin-left: 16px;
   display: flex;
+  align-items: center;
   flex-direction: column;
 `;
 
 const UserName = styled.p`
   margin: 0;
   font-size: 15px;
+  width: 'fit-content';
 `;
 
 export {

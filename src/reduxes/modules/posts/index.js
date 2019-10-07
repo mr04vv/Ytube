@@ -1,3 +1,4 @@
 import post from './post';
+import fetchPost from './fetchPost';
 
-export { post };
+export { post, fetchPost };
