@@ -18,6 +18,11 @@ const useFetch = () => {
       if (history.location.pathname !== '/login') {
         await dispatch(fetchMe());
       }
+      if (history.location.pathname !== '/') {
+        history.push({
+          pathname: '/home',
+        });
+      }
     })();
   }, [history, dispatch]);
 
