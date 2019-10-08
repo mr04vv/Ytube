@@ -15,13 +15,13 @@ const useFetch = () => {
 
   useEffect(() => {
     (async () => {
-      if (history.location.pathname !== '/login') {
-        await dispatch(fetchMe());
-      }
-      if (history.location.pathname !== '/') {
+      if (history.location.pathname === '/') {
         history.push({
           pathname: '/home',
         });
+      }
+      if (history.location.pathname !== '/login') {
+        await dispatch(fetchMe());
       }
     })();
   }, [history, dispatch]);

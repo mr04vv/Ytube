@@ -1,4 +1,3 @@
-/* eslint-disable func-names */
 // This optional code is used to register a service worker.
 // register() is not called by default.
 
@@ -10,7 +9,7 @@
 
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
-const CACHE_NAME = 'v0.0.1';
+
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost'
   // [::1] is the IPv6 localhost address.
@@ -31,18 +30,6 @@ export function register(config) {
       // serve assets; see https://github.com/facebook/create-react-app/issues/2374
       return;
     }
-    window.addEventListener('activate', (event) => {
-      event.waitUntil(
-        (function () {
-          caches.keys().then((oldCacheKeys) => {
-            oldCacheKeys
-              .filter(key => key !== CACHE_NAME)
-              .map(key => caches.delete(key));
-          });
-          clients.claim();
-        }()),
-      );
-    });
 
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
