@@ -20,12 +20,12 @@ const Account = () => {
         {info.isLoading && <CircularProgress style={{ margin: '30vh auto' }} />}
         {!info.isLoading && info.loginStatus === 'success' && (
           <ProfileContainer>
-            <CustomAvater aria-label="recipe" src={info.userInfo!.imageUrl}>
+            <CustomAvater aria-label="recipe" src={info.userInfo && info.userInfo.imageUrl}>
               <AccountCircle fontSize="large" />
             </CustomAvater>
             <UserInfoContainer>
               <UserName>
-                {info.userInfo!.name}
+                {info.userInfo && info.userInfo.name}
               </UserName>
               <CustomButton size="small" variant="contained" color="primary" onClick={() => info.logout()}>ログアウト</CustomButton>
             </UserInfoContainer>
@@ -41,6 +41,7 @@ const Account = () => {
           page={post.page}
           next={post.next}
           prev={post.prev}
+          per={post.per}
         />
       )}
       {!info.isLoading && info.loginStatus !== 'success' && (

@@ -11,7 +11,7 @@ import BottomFooter from 'components/BottomFooter';
 // import Top from 'pages/Top';
 import Header from 'components/Header';
 import { StylesProvider } from '@material-ui/styles';
-import Login from 'pages/Login';
+// import Login from 'pages/Login';
 import useFetch from 'hooks/Login/useFetchMe';
 import Account from 'pages/Account';
 import Home from 'pages/Home';

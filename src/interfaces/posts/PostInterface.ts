@@ -13,4 +13,5 @@ export interface PostInterface {
   game: GameInterface;
   categories: CategoryInterface[];
   createdAt: string;
+  isAnonymous: boolean;
 }

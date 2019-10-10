@@ -7,12 +7,16 @@ import NotificationsNone from '@material-ui/icons/HelpOutline';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import useNavigation from 'hooks/Footer/useNavigation';
 import useReactRouter from 'use-react-router';
+import useMyInfo from 'hooks/User/useMyInfo';
+import styled from 'styled-components';
+import { Avatar } from '@material-ui/core';
 import useStyles from './styles';
 
 const BottomFooter = () => {
   const classes = useStyles();
   const nav = useNavigation();
   const { location } = useReactRouter();
+  const user = useMyInfo();
 
   return (
     <>
@@ -21,7 +25,10 @@ const BottomFooter = () => {
           <BottomNavigationAction className={classes.icon} classes={{ selected: classes.selected }} value="/home" icon={<History />} />
           {/* <BottomNavigationAction className={classes.icon} classes={{ selected: classes.selected }} value="/" icon={<SearchIcon />} /> */}
           <BottomNavigationAction className={classes.icon} classes={{ selected: classes.selected }} value="/help" icon={<NotificationsNone />} />
-          <BottomNavigationAction className={classes.icon} classes={{ selected: classes.selected }} value="/accounts" icon={<AccountCircle />} />
+          {user.userInfo && user.userInfo.imageUrl
+            ? <BottomNavigationAction className={classes.icon} classes={{ selected: classes.selected }} value="/accounts" icon={<CustomAvater aria-label="recipe" src={user.userInfo.imageUrl} />} />
+            : <BottomNavigationAction className={classes.icon} classes={{ selected: classes.selected }} value="/accounts" icon={<AccountCircle />} />}
+
         </BottomNavigation>
       )}
     </>
@@ -29,3 +36,8 @@ const BottomFooter = () => {
 };
 
 export default BottomFooter;
+
+const CustomAvater = styled(Avatar)`
+  width: 24px;
+  height: 24px;
+`;

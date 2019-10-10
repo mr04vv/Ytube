@@ -2,7 +2,7 @@ import React from 'react';
 import Modal from 'react-modal';
 import ReactPlayer from 'react-player';
 import {
-  TextField, IconButton, Select, MenuItem, InputLabel, FormControl, Input, ListItemText, Checkbox,
+  TextField, IconButton, Select, MenuItem, InputLabel, FormControl, Input, ListItemText, Checkbox, FormControlLabel, withStyles,
 } from '@material-ui/core';
 import usePost from 'hooks/Post/usePost';
 import DeleteIcon from '@material-ui/icons/Clear';
@@ -11,6 +11,7 @@ import SimpleSnackBar from 'components/SimpleSnackBar';
 import { GameInterface } from 'interfaces/GameInterface';
 import { CategoryInterface } from 'interfaces/CategoryInterface';
 import usePostColumn from 'hooks/Post/usePostColumn';
+import { CheckboxProps } from '@material-ui/core/Checkbox';
 import {
   CustomModal, PostContainer, TimeContainer, Time, CustomButton, PostHeader, PostButton, LengthCount, LengthCountError, ColumnContainer, NewPostContainer, AddButton,
 } from './styles';
@@ -230,6 +231,19 @@ const PostModal = ({ isOpen, closeModal }: PropsInterface) => {
                 追加
               </AddButton>
             </NewPostContainer>
+            <NewPostContainer>
+              <FormControlLabel
+                control={(
+                  <YellowCheckbox
+                    // checked={state.checkedB}
+                    onChange={() => post.setIsAnonymous(!post.isAnonymous)}
+                    value={post.isAnonymous}
+                    color="primary"
+                  />
+                )}
+                label="匿名で投稿する"
+              />
+            </NewPostContainer>
           </>
         )
       }
@@ -237,3 +251,12 @@ const PostModal = ({ isOpen, closeModal }: PropsInterface) => {
   );
 };
 export default PostModal;
+
+const YellowCheckbox = withStyles({
+  root: {
+    '&$checked': {
+      color: '#ffe62b',
+    },
+  },
+  checked: {},
+})((props: CheckboxProps) => <Checkbox color="default" {...props} />);

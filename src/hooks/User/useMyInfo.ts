@@ -8,7 +8,7 @@ import { signOut } from 'reduxes/modules/accounts/login';
 import firebase from 'firebase';
 
 const useMyInfo = () => {
-  const [userInfo, setUserInfo] = useState<User>();
+  const [userInfo, setUserInfo] = useState<User | undefined>();
   const userSelector = (state: any) => state.login;
   const userState = useSelector(userSelector);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -24,11 +24,15 @@ const useMyInfo = () => {
       setLoginStatus(userState.status);
       setIsLoading(false);
     }
+    if (userState.status === 'logout') {
+      setUserInfo(undefined);
+    }
   }, [userState]);
 
   const logout = () => {
     dispatch(signOut());
     firebase.auth().signOut();
+    setLoginStatus('logout');
   };
 
   return {

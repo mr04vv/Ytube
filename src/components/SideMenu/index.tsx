@@ -5,14 +5,16 @@ import History from '@material-ui/icons/Home';
 import NotificationsNone from '@material-ui/icons/HelpOutline';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import useNavigation from 'hooks/Footer/useNavigation';
-import { Button } from '@material-ui/core';
+import { Button, Avatar } from '@material-ui/core';
 import styled from 'styled-components';
 import useReactRouter from 'use-react-router';
+import useMyInfo from 'hooks/User/useMyInfo';
 import useStyles from './styles';
 
 const SideMenu = () => {
   const classes = useStyles();
   const nav = useNavigation();
+  const user = useMyInfo();
   const { location, history } = useReactRouter();
 
   return (
@@ -65,7 +67,9 @@ const SideMenu = () => {
                 pathname: '/accounts',
               })}
               >
-                <AccountCircle />
+                {(user.userInfo && user.userInfo.imageUrl)
+                  ? <CustomAvater aria-label="recipe" src={user.userInfo.imageUrl} />
+                  : <AccountCircle />}
                 <Title>マイページ</Title>
               </SelectedButton>
             )}
@@ -74,7 +78,9 @@ const SideMenu = () => {
                 pathname: '/accounts',
               })}
               >
-                <AccountCircle />
+                {(user.userInfo && user.userInfo.imageUrl)
+                  ? <CustomAvater aria-label="recipe" src={user.userInfo.imageUrl} />
+                  : <AccountCircle />}
                 <Title>マイページ</Title>
               </CustomButton>
             )}
@@ -113,4 +119,9 @@ const SelectedButton = styled(Button)`
 
 const Title = styled.p`
   margin: 0 10px;
+`;
+
+const CustomAvater = styled(Avatar)`
+  width: 24px;
+  height: 24px;
 `;

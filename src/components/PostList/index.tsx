@@ -1,16 +1,19 @@
-import * as React from 'react';
+import React from 'react';
 import ReactPlayer from 'react-player';
 // import {
 //   CardHeader, Avatar, IconButton, CardContent, Typography, CardActions,
 // } from '@material-ui/core';
 import {
-  CardHeader, CardContent, Typography, CircularProgress, Button,
+  CardHeader, CardContent, Typography, CircularProgress, Button, IconButton, Menu, MenuItem, Avatar,
 } from '@material-ui/core';
 import styled from 'styled-components';
 // import FavoriteIcon from '@material-ui/icons/FavoriteBorderOutlined';
 // import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
 import { PostInterface } from 'interfaces/posts/PostInterface';
 import { CustomAvater } from 'pages/Account/styles';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import useEditPost from 'hooks/Post/useEditPost';
+import useMyInfo from 'hooks/User/useMyInfo';
 
 interface PropInterface {
   posts: PostInterface[];
@@ -18,32 +21,57 @@ interface PropInterface {
   hasNext: boolean;
   hasPrev: boolean;
   page: string;
+  per: string;
   next: Function;
   prev: Function;
 }
 
 const PostList = ({
-  posts, isLoading, hasNext, hasPrev, page, next, prev,
+  posts, isLoading, hasNext, hasPrev, page, next, prev, per,
 }: PropInterface) => {
   const refs: any[] = [React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null)];
   const [isPlaying, setIsPlaying] = React.useState<boolean[]>([false, false, false, false, false, false, false, false, false, false]);
   const loop = (r: any, second: number) => {
     r.player.seekTo(second, 'seconds');
   };
+  const edit = useEditPost();
+  const user = useMyInfo();
 
   return (
     <Container>
-      {isLoading ? <CircularProgress style={{ margin: '30vh auto' }} />
+      {(isLoading || edit.isLoading) ? <CircularProgress style={{ margin: '30vh auto' }} />
         : (
           posts && posts.map((p: PostInterface, index: number) => (
-            <div key={p.title}>
+            <div key={p.id}>
               <CardHeader
-                avatar={(
-                  <CustomAvater aria-label="recipe" src={p.user.imageUrl} />
+                avatar={
+                  p.isAnonymous ? (
+                    <Avatar aria-label="recipe">匿</Avatar>
+                  )
+                    : (
+                      <CustomAvater aria-label="recipe" src={p.user.imageUrl} />
+                    )}
+                action={(
+                  <>
+                    {user.userInfo && user.userInfo.id === p.user.id && (
+                      <IconButton aria-label="settings" aria-controls="simple-menu" onClick={(e: React.MouseEvent<HTMLButtonElement>) => edit.handleClick(e, index + 1)}>
+                        <MoreVertIcon />
+                      </IconButton>
+                    )}
+                  </>
                 )}
-                title={p.user.name}
+                title={p.isAnonymous ? '匿名ユーザー' : p.user.name}
                 subheader={new Date(p.createdAt).toLocaleString('ja')}
               />
+              <Menu
+                id="simple-menu"
+                anchorEl={edit.anchorEl}
+                keepMounted
+                open={edit.isOpenNumber === index + 1}
+                onClose={edit.handleClose}
+              >
+                <MenuItem onClick={() => edit.del(p.id, page, per)}>削除</MenuItem>
+              </Menu>
               <ReactPlayer
                 width="100%"
                 height={window.innerWidth < 420 ? '300px' : '500px'}
@@ -79,30 +107,35 @@ const PostList = ({
               </CardActionContainer> */}
               <Hr />
             </div>
-          )))}
-      {posts && posts.length === 0 && (
-        <NoPost>投稿がありません</NoPost>
-      )}
-      {!isLoading && posts && posts.length !== 0 && (
-        <PageButtonContainer>
-          <PageButton
-            color="primary"
-            variant="contained"
-            disabled={!hasPrev}
-            onClick={() => prev()}
-          >
-            前へ
-          </PageButton>
-          <PageButton
-            color="primary"
-            variant="contained"
-            disabled={!hasNext}
-            onClick={() => next()}
-          >
-            次へ
-          </PageButton>
-        </PageButtonContainer>
-      )}
+          )))
+      }
+      {
+        posts && posts.length === 0 && (
+          <NoPost>投稿がありません</NoPost>
+        )
+      }
+      {
+        !isLoading && posts && posts.length !== 0 && (
+          <PageButtonContainer>
+            <PageButton
+              color="primary"
+              variant="contained"
+              disabled={!hasPrev}
+              onClick={() => prev()}
+            >
+              前へ
+            </PageButton>
+            <PageButton
+              color="primary"
+              variant="contained"
+              disabled={!hasNext}
+              onClick={() => next()}
+            >
+              次へ
+            </PageButton>
+          </PageButtonContainer>
+        )
+      }
     </Container>
   );
 };

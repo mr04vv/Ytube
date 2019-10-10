@@ -14,6 +14,21 @@ const Help = () => {
     <>
       <Container>
         <Title>
+          更新情報
+        </Title>
+        <Explain>
+          2019.10.11
+        </Explain>
+        <Info>
+          匿名での投稿が可能になりました
+        </Info>
+        <Info>
+          ログイン時にメニューにアイコンが表示されるようになりました
+        </Info>
+        <Info>
+          投稿の削除が可能になりました
+        </Info>
+        <Title>
           使い方
         </Title>
         <PromptContainer>
@@ -57,12 +72,12 @@ const Help = () => {
         <Title>
           運営より
         </Title>
-        <Text>
+        {/* <Text>
           本サイトの運営には月1,000円ほどかかっています(2019/10/8現在)。本サイトを今後も継続していく為、皆様のご支援をよろしくおねがいします。
-        </Text>
-        <SNSLink target="_brank" href="https://www.amazon.co.jp/hz/wishlist/ls/J7CJ3KNEL2PF">サイトを支援する</SNSLink>
-        <SNSLink target="_brank" href="https://twitter.com/_mooriii">作者Twitterリンク</SNSLink>
-        <SNSLink target="_brank" href="https://twitter.com/akkun_jiro">作者Twitterリンク２</SNSLink>
+        </Text> */}
+        {/* <SNSLink target="_brank" href="https://www.amazon.co.jp/hz/wishlist/ls/J7CJ3KNEL2PF">サイトを支援する</SNSLink> */}
+        <SNSLink target="_brank" href="https://twitter.com/YTube_official">作者Twitterリンク</SNSLink>
+        {/* <SNSLink target="_brank" href="https://twitter.com/akkun_jiro">作者Twitterリンク２</SNSLink> */}
         <SNSLink target="_brank" href="https://mooriii.com/">作者ホームページ</SNSLink>
         <SNSLink target="_brank" href="https://github.com/mr04vv/Ytube">ソースコード</SNSLink>
         <Text>その他ご要望等がある場合TwiiterのDMにて受け付けております。ご気軽にお申し付けください。</Text>
@@ -120,7 +135,7 @@ const ImageContainer = styled.img`
 
 const Explain = styled.p`
   width: 80%;
-  margin: 30px auto;
+  margin: 20px auto;
   text-align: center;
   font-weight: bold;
 `;
@@ -164,4 +179,10 @@ const PromptContainer = styled.div`
   text-align: center;
   color: red;
   font-weight: bold;
+`;
+
+const Info = styled.p`
+  margin: 4px;
+  width: 80%;
+  text-align: center;
 `;

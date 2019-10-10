@@ -66,6 +66,7 @@ const useFetchPost = () => {
     hasPrev,
     page,
     myPosts,
+    per,
     next: () => {
       setIsLoading(true);
       setPage((parseInt(page, 10) + 1).toString());

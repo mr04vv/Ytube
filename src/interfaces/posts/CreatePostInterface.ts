@@ -7,4 +7,5 @@ export interface CreatePostInterface {
   video_url: string;
   game_id: number;
   category_ids: number[];
+  is_anonymous: boolean;
 }

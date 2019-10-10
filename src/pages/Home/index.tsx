@@ -23,6 +23,7 @@ const Home = () => {
         page={post.page}
         next={post.next}
         prev={post.prev}
+        per={post.per}
       />
       {info.loginStatus === 'success' && (
         <Container>

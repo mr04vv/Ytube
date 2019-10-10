@@ -33,6 +33,7 @@ const usePost = () => {
   const categoryState = useSelector(categorySelector);
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isAnonymous, setIsAnonymous] = useState<boolean>(false);
 
   const init = () => {
     setTitle('');
@@ -88,6 +89,7 @@ const usePost = () => {
       video_url: url,
       game_id: game!,
       category_ids: category,
+      is_anonymous: isAnonymous,
     };
 
     await dispatch<any>(createPost(body)).catch((err: any) => {
@@ -145,6 +147,8 @@ const usePost = () => {
     categoryName,
     post,
     isLoading,
+    isAnonymous,
+    setIsAnonymous,
   };
 };
 
