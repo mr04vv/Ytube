@@ -40,7 +40,6 @@ const PostList = ({
   const { location } = useReactRouter();
 
   useEffect(() => {
-    console.debug(location);
     setRefs([null, null, null, null, null, null, null, null, null, null]);
     setIsPlaying([false, false, false, false, false, false, false, false, false, false]);
   }, [location]);
