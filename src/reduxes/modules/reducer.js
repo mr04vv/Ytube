@@ -5,6 +5,7 @@ import * as storeList from './stores';
 import * as games from './games';
 import * as categories from './categories';
 import * as posts from './posts';
+import * as likes from './likes';
 
 export default combineReducers({
   ...accounts,
@@ -12,4 +13,5 @@ export default combineReducers({
   ...games,
   ...categories,
   ...posts,
+  ...likes,
 });

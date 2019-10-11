@@ -13,7 +13,6 @@ import {
 const Account = () => {
   const info = useMyInfo();
   const post = useFetchPost();
-  window.scrollTo(0, 0);
   return (
     <>
       <Container>
@@ -34,6 +33,7 @@ const Account = () => {
       </Container>
       {!info.isLoading && info.loginStatus === 'success' && (
         <PostList
+          path="accounts"
           posts={post.myPosts}
           isLoading={post.isLoading}
           hasNext={post.hasNext}

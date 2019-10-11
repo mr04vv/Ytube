@@ -67,6 +67,7 @@ const useFetchPost = () => {
     page,
     myPosts,
     per,
+    setPosts: (v: PostInterface[]) => setPosts(v),
     next: () => {
       setIsLoading(true);
       setPage((parseInt(page, 10) + 1).toString());

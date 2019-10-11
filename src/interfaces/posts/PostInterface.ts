@@ -14,4 +14,6 @@ export interface PostInterface {
   categories: CategoryInterface[];
   createdAt: string;
   isAnonymous: boolean;
+  alreadyLiked: boolean;
+  likeCount: number;
 }

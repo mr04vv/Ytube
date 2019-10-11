@@ -11,11 +11,11 @@ const Home = () => {
   const modalOpen = usePostModal();
   const post = useFetchPost();
   const info = useMyInfo();
-  window.scrollTo(0, 0);
 
   return (
     <>
       <PostList
+        path="home"
         posts={post.posts}
         isLoading={post.isLoading}
         hasNext={post.hasNext}

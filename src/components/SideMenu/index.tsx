@@ -23,18 +23,24 @@ const SideMenu = () => {
         <BottomNavigation showLabels value={nav.value} onChange={nav.handleChange} className={classes.root}>
           <ButtonWrapper>
             {location.pathname === '/home' && (
-              <SelectedButton onClick={() => history.push({
-                pathname: '/home',
-              })}
+              <SelectedButton onClick={() => {
+                window.scrollTo(0, 0);
+                history.push({
+                  pathname: '/home',
+                });
+              }}
               >
                 <History />
                 <Title>ホーム</Title>
               </SelectedButton>
             )}
             {location.pathname !== '/home' && (
-              <CustomButton onClick={() => history.push({
-                pathname: '/home',
-              })}
+              <CustomButton onClick={() => {
+                window.scrollTo(0, 0);
+                history.push({
+                  pathname: '/home',
+                });
+              }}
               >
                 <History />
                 <Title>ホーム</Title>
@@ -43,18 +49,24 @@ const SideMenu = () => {
           </ButtonWrapper>
           <ButtonWrapper>
             {location.pathname === '/help' && (
-              <SelectedButton onClick={() => history.push({
-                pathname: '/help',
-              })}
+              <SelectedButton onClick={() => {
+                window.scrollTo(0, 0);
+                history.push({
+                  pathname: '/help',
+                });
+              }}
               >
                 <NotificationsNone />
                 <Title>ヘルプ</Title>
               </SelectedButton>
             )}
             {location.pathname !== '/help' && (
-              <CustomButton onClick={() => history.push({
-                pathname: '/help',
-              })}
+              <CustomButton onClick={() => {
+                window.scrollTo(0, 0);
+                history.push({
+                  pathname: '/help',
+                });
+              }}
               >
                 <NotificationsNone />
                 <Title>ヘルプ</Title>
@@ -63,9 +75,12 @@ const SideMenu = () => {
           </ButtonWrapper>
           <ButtonWrapper>
             {location.pathname === '/accounts' && (
-              <SelectedButton onClick={() => history.push({
-                pathname: '/accounts',
-              })}
+              <SelectedButton onClick={() => {
+                window.scrollTo(0, 0);
+                history.push({
+                  pathname: '/accounts',
+                });
+              }}
               >
                 {(user.userInfo && user.userInfo.imageUrl)
                   ? <CustomAvater aria-label="recipe" src={user.userInfo.imageUrl} />
@@ -74,9 +89,12 @@ const SideMenu = () => {
               </SelectedButton>
             )}
             {location.pathname !== '/accounts' && (
-              <CustomButton onClick={() => history.push({
-                pathname: '/accounts',
-              })}
+              <CustomButton onClick={() => {
+                window.scrollTo(0, 0);
+                history.push({
+                  pathname: '/accounts',
+                });
+              }}
               >
                 {(user.userInfo && user.userInfo.imageUrl)
                   ? <CustomAvater aria-label="recipe" src={user.userInfo.imageUrl} />

@@ -13,6 +13,7 @@ const useNavigation = () => {
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: string) => {
     setValue(newValue);
+    window.scrollTo(0, 0);
     history.push({
       pathname: newValue,
     });

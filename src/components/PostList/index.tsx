@@ -1,19 +1,22 @@
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import ReactPlayer from 'react-player';
 // import {
 //   CardHeader, Avatar, IconButton, CardContent, Typography, CardActions,
 // } from '@material-ui/core';
 import {
-  CardHeader, CardContent, Typography, CircularProgress, Button, IconButton, Menu, MenuItem, Avatar,
+  CardHeader, CardContent, Typography, CircularProgress, Button, IconButton, Menu, MenuItem, Avatar, CardActions,
 } from '@material-ui/core';
 import styled from 'styled-components';
-// import FavoriteIcon from '@material-ui/icons/FavoriteBorderOutlined';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 // import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
 import { PostInterface } from 'interfaces/posts/PostInterface';
 import { CustomAvater } from 'pages/Account/styles';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import useEditPost from 'hooks/Post/useEditPost';
 import useMyInfo from 'hooks/User/useMyInfo';
+import useLike from 'hooks/Like/useLike';
+import SimpleSnackBar from 'components/SimpleSnackBar';
 
 interface PropInterface {
   posts: PostInterface[];
@@ -24,10 +27,11 @@ interface PropInterface {
   per: string;
   next: Function;
   prev: Function;
+  path: string;
 }
 
 const PostList = ({
-  posts, isLoading, hasNext, hasPrev, page, next, prev, per,
+  posts, isLoading, hasNext, hasPrev, page, next, prev, per, path,
 }: PropInterface) => {
   const refs: any[] = [React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null)];
   const [isPlaying, setIsPlaying] = React.useState<boolean[]>([false, false, false, false, false, false, false, false, false, false]);
@@ -36,7 +40,7 @@ const PostList = ({
   };
   const edit = useEditPost();
   const user = useMyInfo();
-
+  const like = useLike(posts, path);
   return (
     <Container>
       {(isLoading || edit.isLoading) ? <CircularProgress style={{ margin: '30vh auto' }} />
@@ -95,16 +99,21 @@ const PostList = ({
                   {p.detail}
                 </Typography>
               </CustomCardContent>
-              {/* <CardActionContainer>
+              <CardActionContainer>
                 <CustomCardAction>
-                  <CustomIconButton aria-label="add to favorites">
-                    <FavoriteIcon width="3px" fontSize="small" />
-                  </CustomIconButton>
-                  <CustomIconButton aria-label="add to favorites">
+                  <LikeContainer>
+                    <CustomIconButton aria-label="add to favorites" onClick={() => (user.loginStatus === 'success' ? (p.alreadyLiked ? like.delLike(p.id, index) : like.like(p.id, index)) : like.setIsNoLoginError(true))}>
+                      <FavoriteIcon color={p.alreadyLiked ? 'secondary' : 'disabled'} width="3px" fontSize="small" />
+                    </CustomIconButton>
+                    <LikeCount>
+                      {p.likeCount}
+                    </LikeCount>
+                  </LikeContainer>
+                  {/* <CustomIconButton aria-label="add to favorites">
                     <PlaylistAdd />
-                  </CustomIconButton>
+                  </CustomIconButton> */}
                 </CustomCardAction>
-              </CardActionContainer> */}
+              </CardActionContainer>
               <Hr />
             </div>
           )))
@@ -136,6 +145,12 @@ const PostList = ({
           </PageButtonContainer>
         )
       }
+      <SimpleSnackBar
+        isShow={like.isNoLoginError}
+        onClose={() => like.setIsNoLoginError(false)}
+        message="ログインしてください"
+        type="warning"
+      />
     </Container>
   );
 };
@@ -176,21 +191,21 @@ const PageButton = styled(Button)`
   }
 `;
 
-// const CardActionContainer = styled.div`
-//   display: flex;
-//   justify-content: center;
-// `;
+const CardActionContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
-// const CustomCardAction = styled(CardActions as React.SFC)`
-//   display: flex;
-//   justify-content: space-around;
-//   width: 400px;
-// `;
+const CustomCardAction = styled(CardActions as React.SFC)`
+  display: flex;
+  justify-content: space-around;
+  width: 400px;
+`;
 
-// const CustomIconButton = styled(IconButton)`
-//   padding: 0;
+const CustomIconButton = styled(IconButton)`
+  padding: 0;
 
-// `;
+`;
 
 const NoPost = styled.div`
   text-align: center;
@@ -199,4 +214,16 @@ const NoPost = styled.div`
 
 const CustomCardContent = styled(CardContent as React.SFC)`
   padding-bottom: 0;
+`;
+
+const LikeContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+const LikeCount = styled.p`
+  color: #a5a5a5;
+  margin-left: 10px;
+  font-size: 14px;
 `;
