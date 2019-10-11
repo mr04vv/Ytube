@@ -4,14 +4,17 @@ import { createLike, deleteLike } from 'reduxes/modules/likes/like';
 import { PostInterface } from 'interfaces/posts/PostInterface';
 import { fetchSuccess } from 'reduxes/modules/posts/fetchPost';
 import { fetchSuccess as fetchMySuccess } from 'reduxes/modules/posts/fetchMyPost';
+import { fetchSuccess as fetchLikedSuccess } from 'reduxes/modules/posts/fetchLikedPost';
 import { useState } from 'react';
 
 const useLike = (post: PostInterface[], path: string) => {
   const dispatch = useDispatch();
   const postSelector = (state: any) => state.fetchPost;
   const myPostSelector = (state: any) => state.fetchPostMe;
+  const likedPostSelector = (state: any) => state.likedPost;
   const postState = useSelector(postSelector);
   const myPostState = useSelector(myPostSelector);
+  const likedPostState = useSelector(likedPostSelector);
   const [isNoLoginError, setIsNoLoginError] = useState<boolean>(false);
 
   const like = async (postId: number, idx: number) => {
@@ -25,12 +28,18 @@ const useLike = (post: PostInterface[], path: string) => {
         posts: slice,
       };
       dispatch(fetchMySuccess(data));
-    } else {
+    } else if (path === 'home') {
       const data = {
         meta: postState.data.meta,
         posts: slice,
       };
       dispatch(fetchSuccess(data));
+    } else if (path === 'likes') {
+      const data = {
+        meta: likedPostState.data.meta,
+        likes: slice.map((s: any) => ({ post: s })),
+      };
+      dispatch(fetchLikedSuccess(data));
     }
   };
 
@@ -45,13 +54,25 @@ const useLike = (post: PostInterface[], path: string) => {
         posts: slice,
       };
       dispatch(fetchMySuccess(data));
-    } else {
-      console.debug('here');
+    } else if (path === 'home') {
       const data = {
         meta: postState.data.meta,
         posts: slice,
       };
       dispatch(fetchSuccess(data));
+    } else if (path === 'likes') {
+      const data = {
+        meta: likedPostState.data.meta,
+        likes: slice.map((s: any, i: number) => {
+          // const copy = s.slice();
+          console.debug(s.alreadyLiked);
+          if (i === idx) {
+            s.alreadyLiked = false;
+          }
+          return { post: s };
+        }),
+      };
+      dispatch(fetchLikedSuccess(data));
     }
   };
 

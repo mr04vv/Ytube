@@ -5,11 +5,12 @@ const Container = styled.div`
   margin: 80px auto 0;
   max-width: 500px;
   display: flex;
+  justify-content: center;
 `;
 
 const ProfileContainer = styled.div`
   align-items: center;
-  margin: 0 auto;
+  margin: 0 auto 20px;
   max-width: 250px;
   display: flex;
   justify-content: space-around;

@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 // import {
 //   CardHeader, Avatar, IconButton, CardContent, Typography, CardActions,
@@ -17,6 +17,8 @@ import useEditPost from 'hooks/Post/useEditPost';
 import useMyInfo from 'hooks/User/useMyInfo';
 import useLike from 'hooks/Like/useLike';
 import SimpleSnackBar from 'components/SimpleSnackBar';
+import useReactRouter from 'use-react-router';
+
 
 interface PropInterface {
   posts: PostInterface[];
@@ -33,8 +35,15 @@ interface PropInterface {
 const PostList = ({
   posts, isLoading, hasNext, hasPrev, page, next, prev, per, path,
 }: PropInterface) => {
-  const refs: any[] = [React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null)];
+  const [refs, setRefs] = useState<any[]>([React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null)]);
   const [isPlaying, setIsPlaying] = React.useState<boolean[]>([false, false, false, false, false, false, false, false, false, false]);
+  const { location } = useReactRouter();
+
+  useEffect(() => {
+    console.debug(location);
+    setRefs([null, null, null, null, null, null, null, null, null, null]);
+    setIsPlaying([false, false, false, false, false, false, false, false, false, false]);
+  }, [location]);
   const loop = (r: any, second: number) => {
     r.player.seekTo(second, 'seconds');
   };

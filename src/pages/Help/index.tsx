@@ -17,6 +17,15 @@ const Help = () => {
           更新情報
         </Title>
         <Explain>
+          2019.10.12
+        </Explain>
+        <Info>
+          いいね機能を追加しました（ログイン時）
+        </Info>
+        <Info>
+          いいねした投稿を一覧で見れるようになりました
+        </Info>
+        <Explain>
           2019.10.11
         </Explain>
         <Info>

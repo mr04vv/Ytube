@@ -7,18 +7,22 @@ import { fetchPosts } from 'reduxes/modules/posts/fetchPost';
 import { PostInterface } from 'interfaces/posts/PostInterface';
 import useReactRouter from 'use-react-router';
 import { fetchMyPosts } from 'reduxes/modules/posts/fetchMyPost';
+import { fetchLikedPost } from 'reduxes/modules/posts/fetchLikedPost';
 
 const useFetchPost = () => {
   const [posts, setPosts] = useState<PostInterface[]>([]);
   const [per] = useState<string>('10');
   const postSelector = (state: any) => state.fetchPost;
   const myPostSelector = (state: any) => state.fetchPostMe;
+  const likedPostSelector = (state: any) => state.likedPost;
   const postState = useSelector(postSelector);
   const myPostState = useSelector(myPostSelector);
+  const likedPostState = useSelector(likedPostSelector);
   const { history, location } = useReactRouter();
   const [hasNext, setHasNext] = useState<boolean>(false);
   const [hasPrev, setHasPrev] = useState<boolean>(false);
   const [myPosts, setMyPosts] = useState<PostInterface[]>([]);
+  const [likedPosts, setLikedPosts] = useState<PostInterface[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch = useDispatch();
   const params = new URLSearchParams(location.search);
@@ -34,6 +38,8 @@ const useFetchPost = () => {
       dispatch(fetchPosts(page, per));
     } else if (location.pathname === '/accounts') {
       dispatch(fetchMyPosts(page, per));
+    } else if (location.pathname === '/accounts/likes') {
+      dispatch(fetchLikedPost(page, per));
     }
   }, [page, dispatch, per, location.pathname]);
 
@@ -59,6 +65,24 @@ const useFetchPost = () => {
     }
   }, [myPostState]);
 
+  useEffect(() => {
+    if (likedPostState.data) {
+      if (likedPostState.data.meta) {
+        const likes = likedPostState.data.likes.map((p: any) => {
+          console.debug(p);
+          if (p.post.alreadyLiked === null) {
+            p.post.alreadyLiked = true;
+          }
+          return p.post;
+        });
+        setLikedPosts(likes);
+        setIsLoading(false);
+        setHasNext(!!likedPostState.data.meta.nextPage);
+        setHasPrev(!!likedPostState.data.meta.prevPage);
+      }
+    }
+  }, [likedPostState]);
+
   return {
     posts,
     isLoading,
@@ -67,6 +91,7 @@ const useFetchPost = () => {
     page,
     myPosts,
     per,
+    likedPosts,
     setPosts: (v: PostInterface[]) => setPosts(v),
     next: () => {
       setIsLoading(true);
