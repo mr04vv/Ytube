@@ -40,12 +40,12 @@ const Time = styled.p`
 
 const CustomButton = styled(Button)`
   text-transform: unset;
-  background-color: #ffe62b;
+  background-color: #e85c9c;
   border-radius: 0;
   color: black;
   box-shadow: unset;
   :hover {
-    background-color: #ffe62b;
+    background-color: #e85c9c;
     opacity: 0.7;
     color: black;
     box-shadow: unset;
@@ -54,7 +54,7 @@ const CustomButton = styled(Button)`
 
 const PostButton = styled(Button)`
   text-transform: unset;
-  background-color: #ffe62b;
+  background-color: #e85c9c;
   border-radius: 0;
   color: black;
   box-shadow: unset;
@@ -63,7 +63,7 @@ const PostButton = styled(Button)`
   font-size: 12px;
   margin-right: 10px;
   :hover {
-    background-color: #ffe62b;
+    background-color: #e85c9c;
     opacity: 0.7;
     color: black;
     box-shadow: unset;

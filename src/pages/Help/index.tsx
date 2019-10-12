@@ -20,6 +20,9 @@ const Help = () => {
           2019.10.12
         </Explain>
         <Info>
+          テーマカラー変更
+        </Info>
+        <Info>
           いいね機能追加
         </Info>
         <Info>

@@ -121,17 +121,17 @@ const ButtonWrapper = styled.div`
 const CustomButton = styled(Button)`
   border-radius: 20px;
   :hover {
-    color: #f1d400;
-    background-color: #ffe62b36
+    color: #e85c9c;
+    background-color: #e85c9c36
   }
 `;
 
 const SelectedButton = styled(Button)`
   border-radius: 20px;
-  color: #f1d400;
+  color: #e85c9c;
   :hover {
-    color: #f1d400;
-    background-color: #ffe62b36
+    color: #e85c9c;
+    background-color: #e85c9c36
   }
 `;
 

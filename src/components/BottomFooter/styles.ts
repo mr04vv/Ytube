@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
   icon: {
     '&$selected': {
-      color: '#ffe62b',
+      color: '#e85c9c',
     },
     // This is required for the '&$selected' selector to work
   },

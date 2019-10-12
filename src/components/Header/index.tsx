@@ -5,7 +5,7 @@ import {
   Container, YellowAppBar, Title, ImageContainer, BarContainer,
 } from './styles';
 
-const icon = require('images/ych.jpg');
+const icon = require('images/ych.png');
 
 const Header = () => {
   const { history } = useReactRouter();

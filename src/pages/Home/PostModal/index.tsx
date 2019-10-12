@@ -255,7 +255,7 @@ export default PostModal;
 const YellowCheckbox = withStyles({
   root: {
     '&$checked': {
-      color: '#ffe62b',
+      color: '#e85c9c',
     },
   },
   checked: {},

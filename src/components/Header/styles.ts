@@ -21,7 +21,7 @@ const Title = styled(Typography as React.SFC)`
 `;
 
 const YellowAppBar = styled(AppBar as React.SFC)`
-  background-color: #ffe62b;
+  background-color: #e85c9c;
   box-shadow: none;
   height: 50px;
 `;

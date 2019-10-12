@@ -6,7 +6,7 @@ const Container = styled.div`
 `;
 
 const CustomFab = styled(Fab)`
-  background-color: #ffe62b;
+  background-color: #e85c9c;
   position: fixed;
   bottom: 70px;
   right: 50%;
@@ -16,7 +16,7 @@ const CustomFab = styled(Fab)`
     right: 300px;
   }
   :hover {
-    background-color: #ffe62b;
+    background-color: #e85c9c;
     opacity: 0.8;
   }
 `;

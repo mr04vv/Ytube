@@ -12,12 +12,12 @@ const Container = styled.div`
 
 const CustomButton = styled(Button)`
   text-transform: unset;
-  background-color: #ffe62b;
+  background-color: #e85c9c;
   max-width: 400px;
   border-radius: 0;
   width: 70vw;
   :hover {
-    background-color: #ffe62b;
+    background-color: #e85c9c;
     opacity: 0.7;
   }
 `;
