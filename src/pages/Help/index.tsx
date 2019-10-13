@@ -17,6 +17,12 @@ const Help = () => {
           更新情報
         </Title>
         <Explain>
+          2019.10.13
+        </Explain>
+        <Info>
+          時折匿名で投稿できない不具合を修正
+        </Info>
+        <Explain>
           2019.10.12
         </Explain>
         <Info>
