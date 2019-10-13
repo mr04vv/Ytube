@@ -1,7 +1,7 @@
 import React from 'react';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import History from '@material-ui/icons/Home';
-// import SearchIcon from '@material-ui/icons/Search';
+import SearchIcon from '@material-ui/icons/Search';
 import NotificationsNone from '@material-ui/icons/HelpOutline';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import useNavigation from 'hooks/Footer/useNavigation';
@@ -44,6 +44,32 @@ const SideMenu = () => {
               >
                 <History />
                 <Title>ホーム</Title>
+              </CustomButton>
+            )}
+          </ButtonWrapper>
+          <ButtonWrapper>
+            {location.pathname === '/search' && (
+              <SelectedButton onClick={() => {
+                window.scrollTo(0, 0);
+                history.push({
+                  pathname: '/search',
+                });
+              }}
+              >
+                <SearchIcon />
+                <Title>検索</Title>
+              </SelectedButton>
+            )}
+            {location.pathname !== '/search' && (
+              <CustomButton onClick={() => {
+                window.scrollTo(0, 0);
+                history.push({
+                  pathname: '/search',
+                });
+              }}
+              >
+                <SearchIcon />
+                <Title>検索</Title>
               </CustomButton>
             )}
           </ButtonWrapper>

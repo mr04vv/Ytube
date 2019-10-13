@@ -20,6 +20,9 @@ const Help = () => {
           2019.10.13
         </Explain>
         <Info>
+          検索機能追加
+        </Info>
+        <Info>
           時折匿名で投稿できない不具合を修正
         </Info>
         <Explain>

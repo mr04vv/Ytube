@@ -17,6 +17,7 @@ import Account from 'pages/Account';
 import Home from 'pages/Home';
 import Help from 'pages/Help';
 import SideMenu from 'components/SideMenu';
+import Search from 'pages/Search';
 import * as serviceWorker from './serviceWorker';
 
 export const providerGoogle = new firebase.auth.GoogleAuthProvider();
@@ -49,6 +50,8 @@ const App = () => {
       <Route exact path="/accounts" component={Account} />
       <Route exact path="/accounts/likes" component={Account} />
       <Route exact path="/help" component={Help} />
+      <Route exact path="/search" component={Search} />
+
     </Switch>
   );
 };
