@@ -3,6 +3,7 @@ import BottomNavigation from '@material-ui/core/BottomNavigation';
 import History from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
 import NotificationsNone from '@material-ui/icons/HelpOutline';
+import Info from '@material-ui/icons/InfoOutlined';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import useNavigation from 'hooks/Footer/useNavigation';
 import { Button, Avatar } from '@material-ui/core';
@@ -96,6 +97,32 @@ const SideMenu = () => {
               >
                 <NotificationsNone />
                 <Title>ヘルプ</Title>
+              </CustomButton>
+            )}
+          </ButtonWrapper>
+          <ButtonWrapper>
+            {location.pathname === '/info' && (
+              <SelectedButton onClick={() => {
+                window.scrollTo(0, 0);
+                history.push({
+                  pathname: '/info',
+                });
+              }}
+              >
+                <Info />
+                <Title>お知らせ</Title>
+              </SelectedButton>
+            )}
+            {location.pathname !== '/info' && (
+              <CustomButton onClick={() => {
+                window.scrollTo(0, 0);
+                history.push({
+                  pathname: '/info',
+                });
+              }}
+              >
+                <Info />
+                <Title>お知らせ</Title>
               </CustomButton>
             )}
           </ButtonWrapper>

@@ -19,6 +19,7 @@ import Help from 'pages/Help';
 import SideMenu from 'components/SideMenu';
 import Search from 'pages/Search';
 import * as serviceWorker from './serviceWorker';
+import Information from 'pages/Info';
 
 export const providerGoogle = new firebase.auth.GoogleAuthProvider();
 export const providerTwitter = new firebase.auth.TwitterAuthProvider();
@@ -51,6 +52,7 @@ const App = () => {
       <Route exact path="/accounts/likes" component={Account} />
       <Route exact path="/help" component={Help} />
       <Route exact path="/search" component={Search} />
+      <Route exact path="/info" component={Information} />
 
     </Switch>
   );

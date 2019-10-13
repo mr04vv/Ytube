@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
   root: {
     top: '100px',
-    height: '200px',
+    height: '240px',
     position: 'fixed',
     left: '40px',
     zIndex: 1000,
