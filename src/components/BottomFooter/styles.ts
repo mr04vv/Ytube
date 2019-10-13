@@ -13,6 +13,7 @@ const useStyles = makeStyles({
     },
   },
   icon: {
+    minWidth: '50px',
     '&$selected': {
       color: '#e85c9c',
     },
