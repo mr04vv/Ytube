@@ -1,18 +1,17 @@
 import React from 'react';
 import useMyInfo from 'hooks/User/useMyInfo';
 import {
-  CircularProgress, ExpansionPanel, ExpansionPanelSummary, Typography, ExpansionPanelDetails, FormControl, InputLabel, Select, Input, MenuItem, Checkbox, ListItemText,
+  CircularProgress, ExpansionPanel, ExpansionPanelSummary, Typography, FormControl, InputLabel, Select, Input, MenuItem, Checkbox, ListItemText,
 } from '@material-ui/core';
 import useFetchPost, { OrderInterface } from 'hooks/Post/useFetchPost';
 import PostList from 'components/PostList';
-import useReactRouter from 'use-react-router';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { CategoryInterface } from 'interfaces/CategoryInterface';
 import usePost from 'hooks/Post/usePost';
+import { GameInterface } from 'interfaces/GameInterface';
 import {
   Container, SearchContainer, SearchButton,
 } from './styles';
-import { GameInterface } from 'interfaces/GameInterface';
 
 const Search = () => {
   const info = useMyInfo();
@@ -38,7 +37,7 @@ const Search = () => {
                 input={<Input />}
                 value={post.searchGameTitle}
                 renderValue={selected => (selected as string[]).join(', ')}
-                onChange={(e: any) => post.setSearchGame(e.target.value)}
+                onChange={(e: any) => post.setSearchGames(e.target.value)}
               >
                 {master.gameMaster.map((game: GameInterface) => (
                   <MenuItem value={game.title}>
@@ -55,7 +54,7 @@ const Search = () => {
                 input={<Input />}
                 value={post.searchCategoryName}
                 renderValue={selected => (selected as string[]).join(', ')}
-                onChange={(e: any) => post.setSearchCategory(e.target.value)}
+                onChange={(e: any) => post.setSearchCategories(e.target.value)}
               >
                 {master.categoryMaster.map((category: CategoryInterface) => (
                   <MenuItem value={category.name}>

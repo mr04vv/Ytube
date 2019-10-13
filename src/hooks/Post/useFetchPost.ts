@@ -8,7 +8,7 @@ import { PostInterface } from 'interfaces/posts/PostInterface';
 import useReactRouter from 'use-react-router';
 import { fetchMyPosts } from 'reduxes/modules/posts/fetchMyPost';
 import { fetchLikedPost } from 'reduxes/modules/posts/fetchLikedPost';
-import search, { searchPosts } from 'reduxes/modules/posts/searchPost';
+import { searchPosts } from 'reduxes/modules/posts/searchPost';
 import { GameInterface } from 'interfaces/GameInterface';
 import { CategoryInterface } from 'interfaces/CategoryInterface';
 
@@ -44,6 +44,9 @@ const useFetchPost = (categoryMaster?: CategoryInterface[], gameMaster?: GameInt
   const params = new URLSearchParams(location.search);
   const initPage = params.get('page') || '1';
   const [page, setPage] = useState<string>(initPage);
+  const currentGame = params.get('game');
+  const currentCategory = params.get('category');
+  const currentOrder = params.get('order');
   const [orderMaster] = useState<OrderInterface[]>([
     {
       id: 0,
@@ -57,7 +60,7 @@ const useFetchPost = (categoryMaster?: CategoryInterface[], gameMaster?: GameInt
       id: 2,
       name: 'いいねが多い',
     },
-  ])
+  ]);
   useEffect(() => {
     setPage(initPage);
   }, [initPage]);
@@ -75,9 +78,6 @@ const useFetchPost = (categoryMaster?: CategoryInterface[], gameMaster?: GameInt
   useEffect(() => {
     if (location.pathname === '/search') {
       if (gameMaster && gameMaster.length !== 0 && categoryMaster && categoryMaster.length !== 0) {
-        const currentGame = params.get('game');
-        const currentCategory = params.get('category');
-        const currentOrder = params.get('order');
         let currentOrderId = 0;
         let currentCategoryIds: number[] = [];
         let currentGameIds: number[] = [];
@@ -98,7 +98,7 @@ const useFetchPost = (categoryMaster?: CategoryInterface[], gameMaster?: GameInt
         dispatch(searchPosts(page, per, currentGameIds, currentCategoryIds, currentOrderId));
       }
     }
-  }, [page, dispatch, per, location.pathname, gameMaster, categoryMaster]);
+  }, [page, dispatch, per, location.pathname, gameMaster, categoryMaster, currentCategory, currentGame, currentOrder]);
 
   useEffect(() => {
     if (postState.data) {
@@ -199,7 +199,7 @@ const useFetchPost = (categoryMaster?: CategoryInterface[], gameMaster?: GameInt
         search: condition,
       });
     },
-    setSearchGame: (v: string[]) => {
+    setSearchGames: (v: string[]) => {
       if (gameMaster) {
         const list = gameMaster.filter((c: GameInterface) => v.includes(c.title));
         const idList = list.map((l: GameInterface) => l.id);
@@ -207,7 +207,7 @@ const useFetchPost = (categoryMaster?: CategoryInterface[], gameMaster?: GameInt
         setSearchGameTitle(v);
       }
     },
-    setSearchCategory: (v: string[]) => {
+    setSearchCategories: (v: string[]) => {
       if (categoryMaster) {
         const list = categoryMaster.filter((c: CategoryInterface) => v.includes(c.name));
         const idList = list.map((l: CategoryInterface) => l.id);
