@@ -17,6 +17,8 @@ import useEditPost from 'hooks/Post/useEditPost';
 import useMyInfo from 'hooks/User/useMyInfo';
 import useLike from 'hooks/Like/useLike';
 import SimpleSnackBar from 'components/SimpleSnackBar';
+import { Link } from 'react-router-dom';
+import { CategoryInterface } from 'interfaces/CategoryInterface';
 
 interface PropInterface {
   posts: PostInterface[];
@@ -99,6 +101,23 @@ const PostList = ({
                 <Typography variant="body2" color="textSecondary" component="p">
                   {p.detail}
                 </Typography>
+                <TypeContainer>
+                  <TypeName>
+                    ゲーム：
+                  </TypeName>
+                  <Link to={`search?game=${p.game.id}`} onClick={() => window.scrollTo(0, 0)}>{p.game.title}</Link>
+                </TypeContainer>
+                <TypeContainer>
+                  <TypeName>
+                    カテゴリ：
+                  </TypeName>
+                  {p.categories.map((c: CategoryInterface, idx: number) => (
+                    <TypeContainer>
+                      {idx !== 0 && ', '}
+                      <Link to={`search?category=${c.id}`} onClick={() => window.scrollTo(0, 0)}>{c.name}</Link>
+                    </TypeContainer>
+                  ))}
+                </TypeContainer>
               </CustomCardContent>
               <CardActionContainer>
                 <CustomCardAction>
@@ -227,4 +246,14 @@ const LikeCount = styled.p`
   color: #a5a5a5;
   margin-left: 10px;
   font-size: 14px;
+`;
+
+const TypeContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const TypeName = styled.p`
+  margin: 0;
 `;
