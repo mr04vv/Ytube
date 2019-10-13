@@ -43,6 +43,7 @@ const usePost = () => {
     setComment('');
     setUrl('');
     setStartTime('0');
+    setIsAnonymous(false);
     setEndTime('0');
   };
 
