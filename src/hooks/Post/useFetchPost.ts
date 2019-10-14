@@ -34,7 +34,7 @@ const useFetchPost = (categoryMaster?: CategoryInterface[], gameMaster?: GameInt
   const [myPosts, setMyPosts] = useState<PostInterface[]>([]);
   const [likedPosts, setLikedPosts] = useState<PostInterface[]>([]);
   const [searchPost, setSearchPost] = useState<PostInterface[]>([]);
-  const [searchOrder, setSearchOrder] = useState<number>(0);
+  const [searchOrder, setSearchOrder] = useState<number>(2);
   const [searchGame, setSearchGame] = useState<number[]>([]);
   const [searchGameTitle, setSearchGameTitle] = useState<string[]>([]);
   const [searchCategoryName, setSearchCategoryName] = useState<string[]>([]);
@@ -49,16 +49,16 @@ const useFetchPost = (categoryMaster?: CategoryInterface[], gameMaster?: GameInt
   const currentOrder = params.get('order');
   const [orderMaster] = useState<OrderInterface[]>([
     {
+      id: 2,
+      name: 'いいねが多い',
+    },
+    {
       id: 0,
       name: '投稿が新しい',
     },
     {
       id: 1,
       name: '投稿が古い',
-    },
-    {
-      id: 2,
-      name: 'いいねが多い',
     },
   ]);
   useEffect(() => {
@@ -78,7 +78,7 @@ const useFetchPost = (categoryMaster?: CategoryInterface[], gameMaster?: GameInt
   useEffect(() => {
     if (location.pathname === '/search') {
       if (gameMaster && gameMaster.length !== 0 && categoryMaster && categoryMaster.length !== 0) {
-        let currentOrderId = 0;
+        let currentOrderId = 2;
         let currentCategoryIds: number[] = [];
         let currentGameIds: number[] = [];
         if (currentOrder !== null) {
