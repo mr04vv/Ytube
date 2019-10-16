@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
 // import {
 //   CardHeader, Avatar, IconButton, CardContent, Typography, CardActions,
@@ -37,7 +37,9 @@ const PostList = ({
 }: PropInterface) => {
   const [refs] = useState<any[]>([React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null)]);
   const [isPlaying, setIsPlaying] = React.useState<boolean[]>([false, false, false, false, false, false, false, false, false, false]);
-
+  useEffect(() => {
+    setIsPlaying([false, false, false, false, false, false, false, false, false, false])
+  }, [posts]);
   const loop = (r: any, second: number) => {
     r.player.seekTo(second, 'seconds');
   };

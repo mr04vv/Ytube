@@ -83,7 +83,7 @@ const Search = () => {
         </ExpansionPanel>
         {info.isLoading && <CircularProgress style={{ margin: '30vh auto' }} />}
       </Container>
-      {!info.isLoading && info.loginStatus === 'success' && (
+      {!info.isLoading && (
         <PostList
           path="home"
           posts={post.searchPost}
