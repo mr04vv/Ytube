@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
@@ -5,7 +6,16 @@ import ReactPlayer from 'react-player';
 //   CardHeader, Avatar, IconButton, CardContent, Typography, CardActions,
 // } from '@material-ui/core';
 import {
-  CardHeader, CardContent, Typography, CircularProgress, Button, IconButton, Menu, MenuItem, Avatar, CardActions,
+  CardHeader,
+  CardContent,
+  Typography,
+  CircularProgress,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  Avatar,
+  CardActions,
 } from '@material-ui/core';
 import styled from 'styled-components';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -20,6 +30,8 @@ import SimpleSnackBar from 'components/SimpleSnackBar';
 import { Link } from 'react-router-dom';
 import { CategoryInterface } from 'interfaces/CategoryInterface';
 
+const { Twitter } = require('react-social-sharing');
+
 interface PropInterface {
   posts: PostInterface[];
   isLoading: boolean;
@@ -30,15 +42,47 @@ interface PropInterface {
   next: Function;
   prev: Function;
   path: string;
+  hasController: Boolean;
 }
 
 const PostList = ({
-  posts, isLoading, hasNext, hasPrev, page, next, prev, per, path,
+  posts,
+  isLoading,
+  hasNext,
+  hasPrev,
+  page,
+  next,
+  prev,
+  per,
+  path,
+  hasController,
 }: PropInterface) => {
-  const [refs] = useState<any[]>([React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null), React.useRef(null)]);
-  const [isPlaying, setIsPlaying] = React.useState<boolean[]>([false, false, false, false, false, false, false, false, false, false]);
+  const [refs] = useState<any[]>([
+    React.useRef(null),
+    React.useRef(null),
+    React.useRef(null),
+    React.useRef(null),
+    React.useRef(null),
+    React.useRef(null),
+    React.useRef(null),
+    React.useRef(null),
+    React.useRef(null),
+    React.useRef(null),
+  ]);
+  const [isPlaying, setIsPlaying] = React.useState<boolean[]>([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
   useEffect(() => {
-    setIsPlaying([false, false, false, false, false, false, false, false, false, false])
+    setIsPlaying([false, false, false, false, false, false, false, false, false, false]);
   }, [posts]);
   const loop = (r: any, second: number) => {
     r.player.seekTo(second, 'seconds');
@@ -48,125 +92,127 @@ const PostList = ({
   const like = useLike(posts, path);
   return (
     <Container>
-      {(isLoading || edit.isLoading) ? <CircularProgress style={{ margin: '30vh auto' }} />
-        : (
-          posts && posts.map((p: PostInterface, index: number) => (
-            <div key={p.id}>
-              <CardHeader
-                avatar={
-                  p.isAnonymous ? (
-                    <Avatar aria-label="recipe">匿</Avatar>
-                  )
-                    : (
-                      <CustomAvater aria-label="recipe" src={p.user.imageUrl} />
-                    )}
-                action={(
-                  <>
-                    {user.userInfo && user.userInfo.id === p.user.id && (
-                      <IconButton aria-label="settings" aria-controls="simple-menu" onClick={(e: React.MouseEvent<HTMLButtonElement>) => edit.handleClick(e, index + 1)}>
-                        <MoreVertIcon />
-                      </IconButton>
-                    )}
-                  </>
-                )}
-                title={p.isAnonymous ? '匿名ユーザー' : p.user.name}
-                subheader={new Date(p.createdAt).toLocaleString('ja')}
-              />
-              <Menu
-                id="simple-menu"
-                anchorEl={edit.anchorEl}
-                keepMounted
-                open={edit.isOpenNumber === index + 1}
-                onClose={edit.handleClose}
-              >
-                <MenuItem onClick={() => edit.del(p.id, page, per)}>削除</MenuItem>
-              </Menu>
-              <ReactPlayer
-                width="100%"
-                height={window.innerWidth < 420 ? '300px' : '500px'}
-                ref={refs[index]}
-                controls
-                onEnded={() => loop(refs[index].current, p.startTime)}
-                url={p.videoUrl}
-                youtubeConfig={{
-                  playerVars: {
-                    start: p.startTime, end: p.endTime,
-                  },
-                }}
-                onPlay={() => setIsPlaying(isPlaying.map((v: boolean, idx: number) => idx === index))}
-                playing={isPlaying[index]}
-              />
-              <CustomCardContent>
-                <Typography gutterBottom component="h4">
-                  {p.title}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  {p.detail}
-                </Typography>
-                <TypeContainer>
-                  <TypeName>
-                    ゲーム：
-                  </TypeName>
-                  <Link to={`search?game=${p.game.id}`} onClick={() => window.scrollTo(0, 0)}>{p.game.title}</Link>
-                </TypeContainer>
-                <TypeContainer>
-                  <TypeName>
-                    カテゴリ：
-                  </TypeName>
-                  {p.categories.map((c: CategoryInterface, idx: number) => (
-                    <TypeContainer>
-                      {idx !== 0 && ', '}
-                      <Link to={`search?category=${c.id}`} onClick={() => window.scrollTo(0, 0)}>{c.name}</Link>
-                    </TypeContainer>
-                  ))}
-                </TypeContainer>
-              </CustomCardContent>
-              <CardActionContainer>
-                <CustomCardAction>
-                  <LikeContainer>
-                    <CustomIconButton aria-label="add to favorites" onClick={() => (user.loginStatus === 'success' ? (p.alreadyLiked ? like.delLike(p.id, index) : like.like(p.id, index)) : like.setIsNoLoginError(true))}>
-                      <FavoriteIcon color={p.alreadyLiked ? 'secondary' : 'disabled'} width="3px" fontSize="small" />
-                    </CustomIconButton>
-                    <LikeCount>
-                      {p.likeCount}
-                    </LikeCount>
-                  </LikeContainer>
-                  {/* <CustomIconButton aria-label="add to favorites">
+      {isLoading || edit.isLoading ? (
+        <CircularProgress style={{ margin: '30vh auto' }} />
+      ) : (
+        posts
+        && posts.map((p: PostInterface, index: number) => (
+          <div key={p.id}>
+            <CardHeader
+              avatar={
+                p.isAnonymous ? (
+                  <Avatar aria-label="recipe">匿</Avatar>
+                ) : (
+                  <CustomAvater aria-label="recipe" src={p.user.imageUrl} />
+                )
+              }
+              action={(
+                <>
+                  {user.userInfo && user.userInfo.id === p.user.id && (
+                    <IconButton
+                      aria-label="settings"
+                      aria-controls="simple-menu"
+                      onClick={(e: React.MouseEvent<HTMLButtonElement>) => edit.handleClick(e, index + 1)}
+                    >
+                      <MoreVertIcon />
+                    </IconButton>
+                  )}
+                </>
+              )}
+              title={p.isAnonymous ? '匿名ユーザー' : p.user.name}
+              subheader={new Date(p.createdAt).toLocaleString('ja')}
+            />
+            <Menu
+              id="simple-menu"
+              anchorEl={edit.anchorEl}
+              keepMounted
+              open={edit.isOpenNumber === index + 1}
+              onClose={edit.handleClose}
+            >
+              <MenuItem onClick={() => edit.del(p.id, page, per)}>削除</MenuItem>
+            </Menu>
+            <ReactPlayer
+              width="100%"
+              height={window.innerWidth < 420 ? '300px' : '500px'}
+              ref={refs[index]}
+              controls
+              onEnded={() => loop(refs[index].current, p.startTime)}
+              url={p.videoUrl}
+              youtubeConfig={{
+                playerVars: {
+                  start: p.startTime,
+                  end: p.endTime,
+                },
+              }}
+              onPlay={() => setIsPlaying(isPlaying.map((v: boolean, idx: number) => idx === index))}
+              playing={isPlaying[index]}
+            />
+            <CustomCardContent>
+              <Typography gutterBottom component="h4">
+                {p.title}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {p.detail}
+              </Typography>
+              <TypeContainer>
+                <TypeName>ゲーム：</TypeName>
+                <Link to={`search?game=${p.game.id}`} onClick={() => window.scrollTo(0, 0)}>
+                  {p.game.title}
+                </Link>
+              </TypeContainer>
+              <TypeContainer>
+                <TypeName>カテゴリ：</TypeName>
+                {p.categories.map((c: CategoryInterface, idx: number) => (
+                  <TypeContainer>
+                    {idx !== 0 && ', '}
+                    <Link to={`search?category=${c.id}`} onClick={() => window.scrollTo(0, 0)}>
+                      {c.name}
+                    </Link>
+                  </TypeContainer>
+                ))}
+              </TypeContainer>
+            </CustomCardContent>
+            <CardActionContainer>
+              <CustomCardAction>
+                <LikeContainer>
+                  <CustomIconButton
+                    aria-label="add to favorites"
+                    onClick={() => {
+                      user.loginStatus === 'success'
+                        ? p.alreadyLiked
+                          ? like.delLike(p.id, index)
+                          : like.like(p.id, index)
+                        : like.setIsNoLoginError(true);
+                    }}
+                  >
+                    <FavoriteIcon color={p.alreadyLiked ? 'secondary' : 'disabled'} width="3px" fontSize="small" />
+                  </CustomIconButton>
+                  <LikeCount>{p.likeCount}</LikeCount>
+                </LikeContainer>
+                {/* <CustomIconButton aria-label="add to favorites">
                     <PlaylistAdd />
                   </CustomIconButton> */}
-                </CustomCardAction>
-              </CardActionContainer>
-              <Hr />
-            </div>
-          )))
-      }
-      {
-        posts && posts.length === 0 && (
-          <NoPost>投稿がありません</NoPost>
-        )
-      }
-      {
-        !isLoading && posts && posts.length !== 0 && (
-          <PageButtonContainer>
-            <PageButton
-              color="primary"
-              variant="contained"
-              disabled={!hasPrev}
-              onClick={() => prev()}
-            >
-              前へ
-            </PageButton>
-            <PageButton
-              color="primary"
-              variant="contained"
-              disabled={!hasNext}
-              onClick={() => next()}
-            >
-              次へ
-            </PageButton>
-          </PageButtonContainer>
-        )
-      }
+                <Twitter
+                  link={`https://ytube-938fd.firebaseapp.com/post/${p.id}`}
+                  message="YtubeでYYさんの好きなシーンを共有しよう！"
+                />
+              </CustomCardAction>
+            </CardActionContainer>
+            <Hr />
+          </div>
+        ))
+      )}
+      {posts && posts.length === 0 && <NoPost>投稿がありません</NoPost>}
+      {!isLoading && posts && posts.length !== 0 && hasController && (
+        <PageButtonContainer>
+          <PageButton color="primary" variant="contained" disabled={!hasPrev} onClick={() => prev()}>
+            前へ
+          </PageButton>
+          <PageButton color="primary" variant="contained" disabled={!hasNext} onClick={() => next()}>
+            次へ
+          </PageButton>
+        </PageButtonContainer>
+      )}
       <SimpleSnackBar
         isShow={like.isNoLoginError}
         onClose={() => like.setIsNoLoginError(false)}
@@ -226,7 +272,6 @@ const CustomCardAction = styled(CardActions as React.SFC)`
 
 const CustomIconButton = styled(IconButton)`
   padding: 0;
-
 `;
 
 const NoPost = styled.div`

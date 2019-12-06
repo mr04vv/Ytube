@@ -24,6 +24,7 @@ const Home = () => {
         next={post.next}
         prev={post.prev}
         per={post.per}
+        hasController
       />
       {info.loginStatus === 'success' && (
         <Container>

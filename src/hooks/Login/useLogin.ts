@@ -1,13 +1,10 @@
 /* eslint-disable no-console */
 import firebase from 'firebase';
 import { providerTwitter, providerGoogle } from 'index';
-import {
-  useState, useEffect,
-} from 'react';
+import { useState, useEffect } from 'react';
 import useReactRouter from 'use-react-router';
 import { signIn } from 'reduxes/modules/accounts/login';
 import { useDispatch } from 'react-redux';
-
 
 const useLogin = () => {
   const [isLoaggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -17,11 +14,12 @@ const useLogin = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     (async () => {
-      firebase.auth().onAuthStateChanged(async (user) => {
+      firebase.auth().onAuthStateChanged(async (user: any) => {
         if (user) {
           try {
             const firebaseToken = await user.getIdToken();
             await dispatch(signIn(firebaseToken));
+            console.debug(user);
             setUid(user.uid);
             setIsLoading(false);
             history.push({

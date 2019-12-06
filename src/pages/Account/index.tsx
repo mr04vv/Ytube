@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import AccountCircle from '@material-ui/icons/PermIdentityTwoTone';
 import useMyInfo from 'hooks/User/useMyInfo';
 import {
-  Button, CircularProgress, Tabs, Tab,
+ Button, CircularProgress, Tabs, Tab 
 } from '@material-ui/core';
 import styled from 'styled-components';
 import useFetchPost from 'hooks/Post/useFetchPost';
@@ -10,7 +10,7 @@ import PostList from 'components/PostList';
 import Login from 'pages/Login';
 import useReactRouter from 'use-react-router';
 import {
-  Container, CustomAvater, ProfileContainer, UserInfoContainer, UserName,
+ Container, CustomAvater, ProfileContainer, UserInfoContainer, UserName 
 } from './styles';
 
 const Account = () => {
@@ -45,19 +45,13 @@ const Account = () => {
                 <AccountCircle fontSize="large" />
               </CustomAvater>
               <UserInfoContainer>
-                <UserName>
-                  {info.userInfo && info.userInfo.name}
-                </UserName>
-                <CustomButton size="small" variant="contained" color="primary" onClick={() => info.logout()}>ログアウト</CustomButton>
+                <UserName>{info.userInfo && info.userInfo.name}</UserName>
+                <CustomButton size="small" variant="contained" color="primary" onClick={() => info.logout()}>
+                  ログアウト
+                </CustomButton>
               </UserInfoContainer>
             </ProfileContainer>
-            <Tabs
-              value={value}
-              onChange={handleChange}
-              indicatorColor="secondary"
-              textColor="secondary"
-              centered
-            >
+            <Tabs value={value} onChange={handleChange} indicatorColor="secondary" textColor="secondary" centered>
               <Tab label="投稿" value="accounts" />
               <Tab label="いいね" value="accounts/likes" />
             </Tabs>
@@ -75,6 +69,7 @@ const Account = () => {
           next={post.next}
           prev={post.prev}
           per={post.per}
+          hasController
         />
       )}
       {!info.isLoading && info.loginStatus !== 'success' && (

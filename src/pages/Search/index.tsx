@@ -1,7 +1,17 @@
 import React from 'react';
 import useMyInfo from 'hooks/User/useMyInfo';
 import {
-  CircularProgress, ExpansionPanel, ExpansionPanelSummary, Typography, FormControl, InputLabel, Select, Input, MenuItem, Checkbox, ListItemText,
+  CircularProgress,
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  Input,
+  MenuItem,
+  Checkbox,
+  ListItemText,
 } from '@material-ui/core';
 import useFetchPost, { OrderInterface } from 'hooks/Post/useFetchPost';
 import PostList from 'components/PostList';
@@ -9,9 +19,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { CategoryInterface } from 'interfaces/CategoryInterface';
 import usePost from 'hooks/Post/usePost';
 import { GameInterface } from 'interfaces/GameInterface';
-import {
-  Container, SearchContainer, SearchButton,
-} from './styles';
+import { Container, SearchContainer, SearchButton } from './styles';
 
 const Search = () => {
   const info = useMyInfo();
@@ -22,11 +30,7 @@ const Search = () => {
     <>
       <Container>
         <ExpansionPanel>
-          <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
             <Typography>条件を指定して検索する</Typography>
           </ExpansionPanelSummary>
           <SearchContainer>
@@ -94,6 +98,7 @@ const Search = () => {
           next={post.next}
           prev={post.prev}
           per={post.per}
+          hasController
         />
       )}
     </>
