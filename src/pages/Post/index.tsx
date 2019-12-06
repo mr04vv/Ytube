@@ -19,7 +19,7 @@ const Post = () => {
             { name: 'twitter:image', content: post.tumbnailUrl },
             { property: 'og:title', content: post.title },
             { property: 'og:type', content: 'website' },
-            { property: 'og:url', content: `https://ytube-yy.netlify.com/post/${post.id}` },
+            { property: 'og:url', content: `https://ytube-938fd.firebaseapp.com/post/${post.id}` },
             { property: 'og:image', content: post.tumbnailUrl },
             { property: 'og:description', content: post.detail },
           ]}

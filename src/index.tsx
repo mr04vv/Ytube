@@ -54,7 +54,7 @@ const App = () => {
       <Route exact path="/help" component={Help} />
       <Route exact path="/search" component={Search} />
       <Route exact path="/info" component={Information} />
-      <Route exact path="/post/:id" component={Post} />
+      <Route exact path="/post" component={Post} />
     </Switch>
   );
 };
@@ -77,7 +77,7 @@ reactDom.render(
   <>
     <Ytube />
   </>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );
 serviceWorker.unregister();
 serviceWorker.register();

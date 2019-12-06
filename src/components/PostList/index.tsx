@@ -95,8 +95,8 @@ const PostList = ({
       {isLoading || edit.isLoading ? (
         <CircularProgress style={{ margin: '30vh auto' }} />
       ) : (
-        posts
-        && posts.map((p: PostInterface, index: number) => (
+        posts &&
+        posts.map((p: PostInterface, index: number) => (
           <div key={p.id}>
             <CardHeader
               avatar={
@@ -106,7 +106,7 @@ const PostList = ({
                   <CustomAvater aria-label="recipe" src={p.user.imageUrl} />
                 )
               }
-              action={(
+              action={
                 <>
                   {user.userInfo && user.userInfo.id === p.user.id && (
                     <IconButton
@@ -118,7 +118,7 @@ const PostList = ({
                     </IconButton>
                   )}
                 </>
-              )}
+              }
               title={p.isAnonymous ? '匿名ユーザー' : p.user.name}
               subheader={new Date(p.createdAt).toLocaleString('ja')}
             />
@@ -193,7 +193,7 @@ const PostList = ({
                     <PlaylistAdd />
                   </CustomIconButton> */}
                 <Twitter
-                  link={`https://ytube-938fd.firebaseapp.com/post/${p.id}`}
+                  link={`https://ytube-938fd.firebaseapp.com/post?id=${p.id}`}
                   message="YtubeでYYさんの好きなシーンを共有しよう！"
                 />
               </CustomCardAction>

@@ -9,18 +9,40 @@ exports.post = functions.https.onRequest(async (req, res) => {
     headers: { 'X-Requested-With': 'XMLHttpRequest', Accept: 'application/json' },
   });
   // eslint-disable-next-line arrow-parens
-  const ress = client.get(`/api/post_by_id/${req.params.id}`);
-  // const TITLE = '〇〇〇〇〇';
-  // const DESCRIPTION = '〇〇〇〇〇';
-  // const IMAGE = 'https://i.ytimg.com/vi/LYEgBWjXlEg/default.jpg';
+  try {
+    const response = await client.get(`/api/post_by_id/${req.query.id}`);
+    const { post } = response.data;
+    const URL = 'https://ytube-938fd.firebaseapp.com';
 
-  res.status(200).send(`<!doctype html>
+    res.status(200).send(`<!doctype html>
     <head>
-      <title>Time</title>
+      <title>Ytube</title>
+      <meta property="og:title" content="${post.title}">
+      <meta property="og:image" content="${post.thumbnailUrl}">
+      <meta property="og:description" content="${post.detail}">
+      <meta property="og:url" content="${URL}">
+      <meta property="og:type" content="website">
+      <meta property="og:site_name" content="${post.title}">
+      <meta name="twitter:site" content="${URL}">
+      <meta name="twitter:card" content="summary">
+      <meta name="twitter:title" content="${post.title}">
+      <meta name="twitter:image" content="${post.thumbnailUrl}">
+      <meta name="twitter:description" content="${post.detail}">
+      <meta property="fb:app_id" content="542260986317684" />
+    </head>
+    <body>
+    <script type="text/javascript">window.location="/post/${req.query.id}";</script>
+    </body>
+  </html>`);
+  } catch (err) {
+    res.status(200).send(`<!doctype html>
+    <head>
+      <title>Ytube</title>
 
     </head>
     <body>
-    <script type="text/javascript">window.location="/post/${req.params.id}";</script>
+    ${err}
     </body>
   </html>`);
+  }
 });
