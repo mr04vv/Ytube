@@ -193,7 +193,7 @@ const PostList = ({
                     <PlaylistAdd />
                   </CustomIconButton> */}
                 <Twitter
-                  link={`https://ytube-938fd.firebaseapp.com/post?id=${p.id}`}
+                  link={`https://ytube-938fd.firebaseapp.com/post/${p.id}`}
                   message="YtubeでYYさんの好きなシーンを共有しよう！"
                 />
               </CustomCardAction>

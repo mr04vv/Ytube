@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 import * as React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import configureStore from 'reduxes';
 import reactDom from 'react-dom';
 import * as firebase from 'firebase';
@@ -54,7 +54,8 @@ const App = () => {
       <Route exact path="/help" component={Help} />
       <Route exact path="/search" component={Search} />
       <Route exact path="/info" component={Information} />
-      <Route exact path="/post" component={Post} />
+      <Redirect from="/_post/:id" to="/post/:id" />
+      <Route exact path="/post/:id" component={Post} />
     </Switch>
   );
 };

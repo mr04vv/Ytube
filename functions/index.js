@@ -10,9 +10,11 @@ exports.post = functions.https.onRequest(async (req, res) => {
   });
   // eslint-disable-next-line arrow-parens
   try {
-    const response = await client.get(`/api/post_by_id/${req.query.id}`);
+    const [, , postId] = req.path.split('/');
+    const response = await client.get(`/api/post_by_id/${postId}`);
     const { post } = response.data;
     const URL = 'https://ytube-938fd.firebaseapp.com';
+    res.set('Cache-Control', 'public, max-age=600, s-maxage=600');
 
     res.status(200).send(`<!doctype html>
     <head>
@@ -31,7 +33,7 @@ exports.post = functions.https.onRequest(async (req, res) => {
       <meta property="fb:app_id" content="542260986317684" />
     </head>
     <body>
-    <script type="text/javascript">window.location="/post/${req.query.id}";</script>
+    <script type="text/javascript">window.location="/_post/${postId}";</script>
     </body>
   </html>`);
   } catch (err) {
