@@ -73,4 +73,5 @@ reactDom.render(
   </Provider>,
   document.getElementById('root'),
 );
+serviceWorker.unregister();
 serviceWorker.register();
