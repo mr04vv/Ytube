@@ -59,8 +59,7 @@ const App = () => {
   );
 };
 
-// React entry point.
-reactDom.render(
+export const Ytube = () => (
   <Provider store={store}>
     <Router>
       <StylesProvider injectFirst>
@@ -70,7 +69,14 @@ reactDom.render(
         <SideMenu />
       </StylesProvider>
     </Router>
-  </Provider>,
+  </Provider>
+);
+
+// React entry point.
+reactDom.render(
+  <>
+    <Ytube />
+  </>,
   document.getElementById('root'),
 );
 serviceWorker.unregister();

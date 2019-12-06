@@ -18,7 +18,7 @@ const useFetchPost = () => {
       const post = await fetchPost(params.id);
       setPosts([post as any]);
     })();
-  });
+  }, []);
 
   return {
     posts,
