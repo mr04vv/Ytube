@@ -16,4 +16,5 @@ export interface PostInterface {
   isAnonymous: boolean;
   alreadyLiked: boolean;
   likeCount: number;
+  tumbnailUrl: string;
 }
