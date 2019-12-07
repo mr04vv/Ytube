@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useMyInfo from 'hooks/User/useMyInfo';
 import {
   CircularProgress,
@@ -25,12 +25,18 @@ const Search = () => {
   const info = useMyInfo();
   const master = usePost();
   const post = useFetchPost(master.categoryMaster, master.gameMaster);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   return (
     <>
       <Container>
-        <ExpansionPanel>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+        <ExpansionPanel expanded={isExpanded}>
+          <ExpansionPanelSummary
+            onClick={() => setIsExpanded(!isExpanded)}
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
             <Typography>条件を指定して検索する</Typography>
           </ExpansionPanelSummary>
           <SearchContainer>
@@ -83,7 +89,14 @@ const Search = () => {
                 ))}
               </Select>
             </FormControl>
-            <SearchButton onClick={() => post.doSearch()}>検索</SearchButton>
+            <SearchButton
+              onClick={() => {
+                setIsExpanded(false);
+                post.doSearch();
+              }}
+            >
+              検索
+            </SearchButton>
           </SearchContainer>
         </ExpansionPanel>
         {info.isLoading && <CircularProgress style={{ margin: '30vh auto' }} />}
