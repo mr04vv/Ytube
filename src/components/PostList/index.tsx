@@ -192,10 +192,7 @@ const PostList = ({
                 {/* <CustomIconButton aria-label="add to favorites">
                     <PlaylistAdd />
                   </CustomIconButton> */}
-                <Twitter
-                  link={`https://ytube-938fd.firebaseapp.com/post/${p.id}`}
-                  message="YtubeでYYさんの好きなシーンを共有しよう！"
-                />
+                <Twitter link={`https://ytube-938fd.firebaseapp.com/post/${p.id}`} />
               </CustomCardAction>
             </CardActionContainer>
             <Hr />
