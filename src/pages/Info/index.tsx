@@ -9,6 +9,8 @@ const Information = () => (
     <Container>
       <Title>更新情報</Title>
       <Explain>2019.12.7</Explain>
+      <Info>フリーワード検索機能追加</Info>
+      <Info>クリップボードにコピーボタン追加</Info>
       <Info>Twitter共有ボタン追加</Info>
       <Info>個別投稿の共有機能追加</Info>
       <Explain>2019.10.13</Explain>
