@@ -16,6 +16,7 @@ import {
   MenuItem,
   Avatar,
   CardActions,
+  SvgIcon,
 } from '@material-ui/core';
 import styled from 'styled-components';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -29,6 +30,7 @@ import useLike from 'hooks/Like/useLike';
 import SimpleSnackBar from 'components/SimpleSnackBar';
 import { Link } from 'react-router-dom';
 import { CategoryInterface } from 'interfaces/CategoryInterface';
+import CopyToClipboard from 'react-copy-to-clipboard';
 
 const { Twitter } = require('react-social-sharing');
 
@@ -81,6 +83,13 @@ const PostList = ({
     false,
     false,
   ]);
+  const [isCopied, setIsCopied] = React.useState<boolean>(false);
+  const setCopy = () => {
+    setIsCopied(true);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 1000);
+  };
   useEffect(() => {
     setIsPlaying([false, false, false, false, false, false, false, false, false, false]);
   }, [posts]);
@@ -192,6 +201,13 @@ const PostList = ({
                 {/* <CustomIconButton aria-label="add to favorites">
                     <PlaylistAdd />
                   </CustomIconButton> */}
+                <CopyToClipboard text={`https://ytube-938fd.firebaseapp.com/post/${p.id}`}>
+                  <IconWrapper>
+                    <SvgIcon color="action" onClick={() => setCopy()}>
+                      <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+                    </SvgIcon>
+                  </IconWrapper>
+                </CopyToClipboard>
                 <Twitter link={`https://ytube-938fd.firebaseapp.com/post/${p.id}`} />
               </CustomCardAction>
             </CardActionContainer>
@@ -216,6 +232,7 @@ const PostList = ({
         message="ログインしてください"
         type="warning"
       />
+      <SimpleSnackBar isShow={isCopied} onClose={() => {}} message="クリップボードにコピーしました" type="success" />
     </Container>
   );
 };
@@ -300,4 +317,11 @@ const TypeContainer = styled.div`
 
 const TypeName = styled.p`
   margin: 0;
+`;
+
+const IconWrapper = styled.div`
+  :hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
 `;
