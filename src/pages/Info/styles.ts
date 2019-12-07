@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const Info = styled.p`
   margin: 4px;
   width: 80%;
+  font-size: 14px;
   text-align: center;
 `;
 
@@ -18,7 +19,7 @@ const FooterContainer = styled.div`
 `;
 
 const Container = styled.div`
-  margin: 80px auto 80px;
+  margin: 80px auto 30px;
   max-width: 500px;
   display: flex;
   flex-direction: column;
@@ -28,7 +29,8 @@ const Container = styled.div`
 
 const Explain = styled.p`
   width: 80%;
-  margin: 20px auto;
+  margin: 30px auto 5px;
+  font-size: 20px;
   text-align: center;
   font-weight: bold;
 `;
@@ -59,5 +61,5 @@ const Share = styled.div`
 `;
 
 export {
-  Title, Container, Explain, Info, FooterContainer, SNSLink, Attention, Share, Text,
+ Title, Container, Explain, Info, FooterContainer, SNSLink, Attention, Share, Text 
 };
