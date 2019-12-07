@@ -89,12 +89,12 @@ const PostModal = ({ isOpen, closeModal }: PropsInterface) => {
             variant="contained"
             onClick={() => post.post(() => closeModal())}
             disabled={
-              post.isLoading ||
-              post.title.length === 0 ||
-              post.title.length > 30 ||
-              post.comment.length > 200 ||
-              post.category.length === 0 ||
-              post.game === undefined
+              post.isLoading
+              || post.title.length === 0
+              || post.title.length > 30
+              || post.comment.length > 200
+              || post.category.length === 0
+              || post.game === undefined
             }
           >
             投稿
@@ -238,14 +238,14 @@ const PostModal = ({ isOpen, closeModal }: PropsInterface) => {
           </NewPostContainer>
           <NewPostContainer>
             <FormControlLabel
-              control={
+              control={(
                 <YellowCheckbox
                   // checked={state.checkedB}
                   onChange={() => post.setIsAnonymous(!post.isAnonymous)}
                   value={post.isAnonymous}
                   color="primary"
                 />
-              }
+              )}
               label="匿名で投稿する"
             />
           </NewPostContainer>

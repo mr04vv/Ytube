@@ -27,10 +27,21 @@ export default search;
 
 // GET Data
 
-export const searchPosts = (page: string, per: string, game: number[], category: number[], order: number) => async (dispatch: Dispatch) => {
-  const res = await client.get(`/api/search?page=${page}&per=${per}&order=${order}&game=[${game.toString()}]&category=[${category.toString()}]`).catch((err) => {
-    throw err;
-  });
+export const searchPosts = (
+  page: string,
+  per: string,
+  game: number[],
+  category: number[],
+  order: number,
+  word: string,
+) => async (dispatch: Dispatch) => {
+  const res = await client
+    .get(
+      `/api/search?page=${page}&per=${per}&order=${order}&game=[${game.toString()}]&category=[${category.toString()}]&word=${word}`,
+    )
+    .catch((err) => {
+      throw err;
+    });
   dispatch(searchSuccess(res.data));
   return res.data;
 };

@@ -10,8 +10,8 @@ import {
   Select,
   Input,
   MenuItem,
-  Checkbox,
   ListItemText,
+  TextField,
 } from '@material-ui/core';
 import useFetchPost, { OrderInterface } from 'hooks/Post/useFetchPost';
 import PostList from 'components/PostList';
@@ -34,18 +34,22 @@ const Search = () => {
             <Typography>条件を指定して検索する</Typography>
           </ExpansionPanelSummary>
           <SearchContainer>
+            <FormControl fullWidth style={{ minWidth: '100%', marginBottom: '10px' }}>
+              <TextField
+                label="フリーワード検索"
+                onChange={(e: any) => post.setSearchWord(e.target.value)}
+                value={post.searchWord}
+              />
+            </FormControl>
             <FormControl fullWidth style={{ minWidth: '100%' }}>
               <InputLabel>ゲームタイトル</InputLabel>
               <Select
-                multiple
                 input={<Input />}
                 value={post.searchGameTitle}
-                renderValue={selected => (selected as string[]).join(', ')}
                 onChange={(e: any) => post.setSearchGames(e.target.value)}
               >
                 {master.gameMaster.map((game: GameInterface) => (
-                  <MenuItem value={game.title}>
-                    <Checkbox checked={post.searchGame.indexOf(game.id) > -1} />
+                  <MenuItem key={game.title} value={game.title}>
                     <ListItemText primary={game.title} />
                   </MenuItem>
                 ))}
@@ -54,15 +58,12 @@ const Search = () => {
             <FormControl fullWidth style={{ minWidth: '100%', marginTop: '10px' }}>
               <InputLabel>カテゴリ</InputLabel>
               <Select
-                multiple
                 input={<Input />}
                 value={post.searchCategoryName}
-                renderValue={selected => (selected as string[]).join(', ')}
                 onChange={(e: any) => post.setSearchCategories(e.target.value)}
               >
                 {master.categoryMaster.map((category: CategoryInterface) => (
-                  <MenuItem value={category.name}>
-                    <Checkbox checked={post.searchCategory.indexOf(category.id) > -1} />
+                  <MenuItem key={category.name} value={category.name}>
                     <ListItemText primary={category.name} />
                   </MenuItem>
                 ))}
@@ -76,7 +77,7 @@ const Search = () => {
                 onChange={(e: any) => post.setSearchOrder(parseInt(e.target.value, 10))}
               >
                 {post.orderMaster.map((order: OrderInterface) => (
-                  <MenuItem value={order.id}>
+                  <MenuItem key={order.name} value={order.id}>
                     <ListItemText primary={order.name} />
                   </MenuItem>
                 ))}

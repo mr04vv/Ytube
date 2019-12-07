@@ -1,7 +1,5 @@
 /* eslint-disable no-console */
-import {
-  useState, useEffect,
-} from 'react';
+import { useState, useEffect } from 'react';
 import { CategoryInterface } from 'interfaces/CategoryInterface';
 import { GameInterface } from 'interfaces/GameInterface';
 import { useSelector, useDispatch } from 'react-redux';
@@ -54,12 +52,20 @@ const usePost = () => {
 
   useEffect(() => {
     if (categoryState.data.length > 0) {
+      categoryState.data.unshift({
+        id: -1,
+        name: '選択しない',
+      });
       setCategoryMaster(categoryState.data);
     }
   }, [categoryState.data]);
 
   useEffect(() => {
     if (gameState.data.length > 0) {
+      gameState.data.unshift({
+        id: -1,
+        title: '選択しない',
+      });
       setGameMaster(gameState.data);
     }
   }, [gameState.data]);
@@ -108,7 +114,6 @@ const usePost = () => {
     dispatch(fetchPosts('1', '10'));
     setIsLoading(false);
   };
-
 
   return {
     startTime,

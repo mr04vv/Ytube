@@ -104,8 +104,8 @@ const PostList = ({
       {isLoading || edit.isLoading ? (
         <CircularProgress style={{ margin: '30vh auto' }} />
       ) : (
-        posts &&
-        posts.map((p: PostInterface, index: number) => (
+        posts
+        && posts.map((p: PostInterface, index: number) => (
           <div key={p.id}>
             <CardHeader
               avatar={
@@ -115,7 +115,7 @@ const PostList = ({
                   <CustomAvater aria-label="recipe" src={p.user.imageUrl} />
                 )
               }
-              action={
+              action={(
                 <>
                   {user.userInfo && user.userInfo.id === p.user.id && (
                     <IconButton
@@ -127,7 +127,7 @@ const PostList = ({
                     </IconButton>
                   )}
                 </>
-              }
+              )}
               title={p.isAnonymous ? '匿名ユーザー' : p.user.name}
               subheader={new Date(p.createdAt).toLocaleString('ja')}
             />
@@ -172,7 +172,7 @@ const PostList = ({
               <TypeContainer>
                 <TypeName>カテゴリ：</TypeName>
                 {p.categories.map((c: CategoryInterface, idx: number) => (
-                  <TypeContainer>
+                  <TypeContainer key={c.name}>
                     {idx !== 0 && ', '}
                     <Link to={`search?category=${c.id}`} onClick={() => window.scrollTo(0, 0)}>
                       {c.name}

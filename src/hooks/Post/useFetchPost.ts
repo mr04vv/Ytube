@@ -1,7 +1,5 @@
 /* eslint-disable no-console */
-import {
-  useState, useEffect,
-} from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPosts } from 'reduxes/modules/posts/fetchPost';
 import { PostInterface } from 'interfaces/posts/PostInterface';
@@ -39,6 +37,7 @@ const useFetchPost = (categoryMaster?: CategoryInterface[], gameMaster?: GameInt
   const [searchGameTitle, setSearchGameTitle] = useState<string[]>([]);
   const [searchCategoryName, setSearchCategoryName] = useState<string[]>([]);
   const [searchCategory, setSearchCategory] = useState<number[]>([]);
+  const [searchWord, setSearchWord] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch = useDispatch();
   const params = new URLSearchParams(location.search);
@@ -47,6 +46,7 @@ const useFetchPost = (categoryMaster?: CategoryInterface[], gameMaster?: GameInt
   const currentGame = params.get('game');
   const currentCategory = params.get('category');
   const currentOrder = params.get('order');
+  const currentWord = params.get('word');
   const [orderMaster] = useState<OrderInterface[]>([
     {
       id: 2,
@@ -81,6 +81,7 @@ const useFetchPost = (categoryMaster?: CategoryInterface[], gameMaster?: GameInt
         let currentOrderId = 2;
         let currentCategoryIds: number[] = [];
         let currentGameIds: number[] = [];
+        let currentWords: string = '';
         if (currentOrder !== null) {
           currentOrderId = parseInt(currentOrder, 10);
           setSearchOrder(currentOrderId);
@@ -88,17 +89,44 @@ const useFetchPost = (categoryMaster?: CategoryInterface[], gameMaster?: GameInt
         if (currentGame !== null) {
           currentGameIds = currentGame.split(',').map(Number);
           setSearchGame(currentGameIds);
-          setSearchGameTitle(gameMaster.filter((g: GameInterface) => currentGameIds.includes(g.id)).map((g: GameInterface) => g.title));
+          setSearchGameTitle(
+            gameMaster.filter((g: GameInterface) => currentGameIds.includes(g.id)).map((g: GameInterface) => g.title)
+          );
+        } else {
+          setSearchGame([]);
+          setSearchGameTitle(['選択しない']);
         }
         if (currentCategory !== null) {
           currentCategoryIds = currentCategory.split(',').map(Number);
           setSearchCategory(currentCategory.split(',').map(Number));
-          setSearchCategoryName(categoryMaster.filter((c: CategoryInterface) => currentCategoryIds.includes(c.id)).map((c: CategoryInterface) => c.name));
+          setSearchCategoryName(
+            categoryMaster
+              .filter((c: CategoryInterface) => currentCategoryIds.includes(c.id))
+              .map((c: CategoryInterface) => c.name)
+          );
+        } else {
+          setSearchCategory([]);
+          setSearchCategoryName(['選択しない']);
         }
-        dispatch(searchPosts(page, per, currentGameIds, currentCategoryIds, currentOrderId));
+        if (currentWord !== null) {
+          currentWords = currentWord;
+          setSearchWord(currentWord);
+        }
+        dispatch(searchPosts(page, per, currentGameIds, currentCategoryIds, currentOrderId, currentWords));
       }
     }
-  }, [page, dispatch, per, location.pathname, gameMaster, categoryMaster, currentCategory, currentGame, currentOrder]);
+  }, [
+    page,
+    dispatch,
+    per,
+    location.pathname,
+    gameMaster,
+    categoryMaster,
+    currentCategory,
+    currentGame,
+    currentOrder,
+    currentWord,
+  ]);
 
   useEffect(() => {
     if (postState.data) {
@@ -152,10 +180,11 @@ const useFetchPost = (categoryMaster?: CategoryInterface[], gameMaster?: GameInt
   }, [likedPostState]);
 
   const doSearch = () => {
-    dispatch(searchPosts(page, per, searchGame, searchCategory, searchOrder));
+    dispatch(searchPosts(page, per, searchGame, searchCategory, searchOrder, searchWord));
     let searchCondition = `order=${searchOrder}`;
     if (searchCategory.length !== 0) searchCondition += `&category=${searchCategory.toString()}`;
     if (searchGame.length !== 0) searchCondition += `&game=${searchGame.toString()}`;
+    searchCondition += `&word=${searchWord}`;
 
     history.push({
       search: `?${searchCondition}`,
@@ -199,22 +228,33 @@ const useFetchPost = (categoryMaster?: CategoryInterface[], gameMaster?: GameInt
         search: condition,
       });
     },
-    setSearchGames: (v: string[]) => {
+    setSearchGames: (v: string) => {
       if (gameMaster) {
-        const list = gameMaster.filter((c: GameInterface) => v.includes(c.title));
-        const idList = list.map((l: GameInterface) => l.id);
-        setSearchGame(idList);
-        setSearchGameTitle(v);
+        if (v !== '選択しない') {
+          const list = gameMaster.filter((c: GameInterface) => v.includes(c.title));
+          const idList = list.map((l: GameInterface) => l.id);
+          setSearchGame(idList);
+          setSearchGameTitle([v]);
+        } else {
+          setSearchGame([]);
+          setSearchGameTitle([v]);
+        }
       }
     },
-    setSearchCategories: (v: string[]) => {
+    setSearchCategories: (v: string) => {
       if (categoryMaster) {
-        const list = categoryMaster.filter((c: CategoryInterface) => v.includes(c.name));
-        const idList = list.map((l: CategoryInterface) => l.id);
-        setSearchCategory(idList);
-        setSearchCategoryName(v);
+        if (v !== '選択しない') {
+          const list = categoryMaster.filter((c: CategoryInterface) => v.includes(c.name));
+          const idList = list.map((l: CategoryInterface) => l.id);
+          setSearchCategory(idList);
+          setSearchCategoryName([v]);
+        } else {
+          setSearchCategory([]);
+          setSearchCategoryName([v]);
+        }
       }
     },
+    setSearchWord: (v: string) => setSearchWord(v),
     searchGame,
     searchGameTitle,
     searchCategory,
@@ -223,6 +263,7 @@ const useFetchPost = (categoryMaster?: CategoryInterface[], gameMaster?: GameInt
     setSearchOrder,
     orderMaster,
     doSearch,
+    searchWord,
   };
 };
 
