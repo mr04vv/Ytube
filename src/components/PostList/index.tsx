@@ -146,11 +146,12 @@ const PostList = ({
               height={window.innerWidth < 420 ? '300px' : '500px'}
               ref={refs[index]}
               controls
+              onStart={async () => {
+                updatePlayCount(p.id);
+              }}
               onEnded={async () => {
                 loop(refs[index].current, p.startTime);
-                try {
-                  updatePlayCount(p.id);
-                } catch {}
+                updatePlayCount(p.id);
               }}
               url={p.videoUrl}
               youtubeConfig={{
@@ -219,7 +220,7 @@ const PostList = ({
                     </SvgIcon>
                   </IconWrapper>
                 </CopyToClipboard>
-                <Twitter link={`https://ytube-938fd.firebaseapp.com/post/${p.id}`} />
+                <Twitter message="#わいちゅーぶ #わいわい #ガヤ民" link={`https://ytube-938fd.firebaseapp.com/post/${p.id}`} />
               </CustomCardAction>
             </CardActionContainer>
             <Hr />
