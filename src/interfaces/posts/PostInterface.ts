@@ -17,4 +17,5 @@ export interface PostInterface {
   alreadyLiked: boolean;
   likeCount: number;
   tumbnailUrl: string;
+  playCount: number;
 }

@@ -51,5 +51,7 @@ module.exports = {
     'max-len': ['off'],
     'object-curly-newline': 'off',
     'implicit-arrow-linebreak': 'off',
+    'react/jsx-wrap-multilines': 'off',
+    'operator-linebreak': 'off',
   },
 };

@@ -31,6 +31,7 @@ import SimpleSnackBar from 'components/SimpleSnackBar';
 import { Link } from 'react-router-dom';
 import { CategoryInterface } from 'interfaces/CategoryInterface';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import updatePlayCount from 'api/posts/updatePlayCount';
 
 const { Twitter } = require('react-social-sharing');
 
@@ -104,8 +105,8 @@ const PostList = ({
       {isLoading || edit.isLoading ? (
         <CircularProgress style={{ margin: '30vh auto' }} />
       ) : (
-        posts
-        && posts.map((p: PostInterface, index: number) => (
+        posts &&
+        posts.map((p: PostInterface, index: number) => (
           <div key={p.id}>
             <CardHeader
               avatar={
@@ -115,7 +116,7 @@ const PostList = ({
                   <CustomAvater aria-label="recipe" src={p.user.imageUrl} />
                 )
               }
-              action={(
+              action={
                 <>
                   {user.userInfo && user.userInfo.id === p.user.id && (
                     <IconButton
@@ -127,7 +128,7 @@ const PostList = ({
                     </IconButton>
                   )}
                 </>
-              )}
+              }
               title={p.isAnonymous ? '匿名ユーザー' : p.user.name}
               subheader={new Date(p.createdAt).toLocaleString('ja')}
             />
@@ -145,7 +146,12 @@ const PostList = ({
               height={window.innerWidth < 420 ? '300px' : '500px'}
               ref={refs[index]}
               controls
-              onEnded={() => loop(refs[index].current, p.startTime)}
+              onEnded={async () => {
+                loop(refs[index].current, p.startTime);
+                try {
+                  updatePlayCount(p.id);
+                } catch {}
+              }}
               url={p.videoUrl}
               youtubeConfig={{
                 playerVars: {
@@ -163,6 +169,11 @@ const PostList = ({
               <Typography variant="body2" color="textSecondary" component="p">
                 {p.detail}
               </Typography>
+              <InfoWrapper>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  {`長さ：${p.endTime - p.startTime}秒 / 再生回数：${p.playCount ? p.playCount : 0}回`}
+                </Typography>
+              </InfoWrapper>
               <TypeContainer>
                 <TypeName>ゲーム：</TypeName>
                 <Link to={`search?game=${p.game.id}`} onClick={() => window.scrollTo(0, 0)}>
@@ -324,4 +335,8 @@ const IconWrapper = styled.div`
     cursor: pointer;
     opacity: 0.8;
   }
+`;
+
+const InfoWrapper = styled.div`
+  margin: 8px 0;
 `;
