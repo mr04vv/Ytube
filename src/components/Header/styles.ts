@@ -12,10 +12,10 @@ const RightIconButton = styled(IconButton)`
 const Title = styled.h1`
   color: black;
   font-weight: 100;
-  font-size: 26px;
+  font-size: 28px;
   margin-left: 4px;
   /* font-family: 'Nova Flat', cursive; */
-  font-family: 'Nico Moji', cursive;
+  font-family: 'Nico Moji', 'Meiryo';
 `;
 
 const YellowAppBar = styled(AppBar as React.SFC)`

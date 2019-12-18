@@ -1,8 +1,6 @@
 import React from 'react';
 import { TwitterShareButton, TwitterIcon } from 'react-share';
-import {
- Container, Title, Explain, Info, SNSLink, Share, FooterContainer, Attention, Text 
-} from './styles';
+import { Container, Title, Explain, Info, SNSLink, Share, FooterContainer, Attention, Text } from './styles';
 
 const Information = () => (
   <>
@@ -64,8 +62,7 @@ const Information = () => (
         <TwitterIcon size={32} round />
       </TwitterShareButton>
       <Attention>
-        Created by
-{' '}
+        Created by{' '}
         <a target="_brank" href="https://mooriii.com/">
           Takuto Mori
         </a>

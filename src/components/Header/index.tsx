@@ -19,7 +19,7 @@ const Header = () => {
             }
           >
             <ImageContainer>
-              <img height="50px" src={icon} alt="" />
+              <img height="50px" style={{ paddingTop: '4px' }} src={icon} alt="" />
             </ImageContainer>
             <Title>わいちゅーぶ</Title>
           </TopLink>
