@@ -60,6 +60,10 @@ const useFetchPost = (categoryMaster?: CategoryInterface[], gameMaster?: GameInt
       id: 1,
       name: '投稿が古い',
     },
+    {
+      id: 3,
+      name: '再生回数が多い',
+    },
   ]);
   useEffect(() => {
     setPage(initPage);
