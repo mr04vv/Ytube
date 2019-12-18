@@ -6,6 +6,9 @@ const Information = () => (
   <>
     <Container>
       <Title>更新情報</Title>
+      <Explain>2019.12.18</Explain>
+      <Info>シーンの長さと再生回数を表示</Info>
+      <Info>再生回数によるソート機能を追加</Info>
       <Explain>2019.12.7</Explain>
       <Info>フリーワード検索機能追加</Info>
       <Info>クリップボードにコピーボタン追加</Info>
@@ -15,11 +18,6 @@ const Information = () => (
       <Info>検索機能追加</Info>
       <Info>タイトルの上限を30文字に変更</Info>
       <Info>時折匿名で投稿できない不具合を修正</Info>
-      <Explain>2019.10.12</Explain>
-      <Info>テーマカラー変更</Info>
-      <Info>いいね機能追加</Info>
-      <Info>いいね数表示機能追加</Info>
-      <Info>いいねした投稿の閲覧機能追加</Info>
     </Container>
     <FooterContainer>
       <Title>わいわいさんリンク</Title>
