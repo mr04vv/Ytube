@@ -18,7 +18,7 @@ exports.post = functions.https.onRequest(async (req, res) => {
 
     res.status(200).send(`<!doctype html>
     <head>
-      <title>Ytube</title>
+      <title>わいちゅーぶ | わいわいの動画共有SNS</title>
       <meta property="og:title" content="${post.title}">
       <meta property="og:image" content="${post.thumbnailUrl}">
       <meta property="og:description" content="${post.detail}">
