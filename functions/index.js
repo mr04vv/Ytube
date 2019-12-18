@@ -39,7 +39,7 @@ exports.post = functions.https.onRequest(async (req, res) => {
   } catch (err) {
     res.status(200).send(`<!doctype html>
     <head>
-      <title>Ytube</title>
+      <title>わいちゅーぶ | わいわいの動画共有SNS</title>
 
     </head>
     <body>
