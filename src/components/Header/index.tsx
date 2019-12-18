@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import useReactRouter from 'use-react-router';
-import {
-  Container, YellowAppBar, Title, ImageContainer, BarContainer,
-} from './styles';
+import { Container, YellowAppBar, Title, ImageContainer, BarContainer } from './styles';
 
 const icon = require('images/ych.png');
 
@@ -13,16 +11,17 @@ const Header = () => {
     <Container>
       <YellowAppBar>
         <BarContainer>
-          <TopLink onClick={() => history.push({
-            pathname: '/home',
-          })}
+          <TopLink
+            onClick={() =>
+              history.push({
+                pathname: '/home',
+              })
+            }
           >
             <ImageContainer>
               <img height="50px" src={icon} alt="" />
             </ImageContainer>
-            <Title>
-              YTube
-            </Title>
+            <Title>わいちゅーぶ</Title>
           </TopLink>
         </BarContainer>
       </YellowAppBar>
