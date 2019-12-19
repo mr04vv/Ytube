@@ -1,17 +1,13 @@
 import React, { useEffect } from 'react';
 import AccountCircle from '@material-ui/icons/PermIdentityTwoTone';
 import useMyInfo from 'hooks/User/useMyInfo';
-import {
- Button, CircularProgress, Tabs, Tab 
-} from '@material-ui/core';
+import { Button, CircularProgress, Tabs, Tab } from '@material-ui/core';
 import styled from 'styled-components';
 import useFetchPost from 'hooks/Post/useFetchPost';
 import PostList from 'components/PostList';
 import Login from 'pages/Login';
 import useReactRouter from 'use-react-router';
-import {
- Container, CustomAvater, ProfileContainer, UserInfoContainer, UserName 
-} from './styles';
+import { Container, CustomAvater, ProfileContainer, UserInfoContainer, UserName } from './styles';
 
 const Account = () => {
   const info = useMyInfo();
