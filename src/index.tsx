@@ -43,6 +43,11 @@ const store = configureStore();
 
 const App = () => {
   useFetch();
+  React.useEffect(() => {
+    if (document.domain !== 'yy-tube.com' && document.domain !== 'localhost') {
+      window.location.href = 'https://yy-tube.com';
+    }
+  }, []);
   return (
     <Switch>
       {/* <Route exact path="/" component={Top} /> */}
