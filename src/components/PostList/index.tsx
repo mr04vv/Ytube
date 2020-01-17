@@ -213,14 +213,14 @@ const PostList = ({
                 {/* <CustomIconButton aria-label="add to favorites">
                     <PlaylistAdd />
                   </CustomIconButton> */}
-                <CopyToClipboard text={`https://ytube-938fd.firebaseapp.com/post/${p.id}`}>
+                <CopyToClipboard text={`https://yy-tube.com/post/${p.id}`}>
                   <IconWrapper>
                     <SvgIcon color="action" onClick={() => setCopy()}>
                       <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
                     </SvgIcon>
                   </IconWrapper>
                 </CopyToClipboard>
-                <Twitter message="#わいちゅーぶ #わいわい #ガヤ民" link={`https://ytube-938fd.firebaseapp.com/post/${p.id}`} />
+                <Twitter message="#わいちゅーぶ #わいわい #ガヤ民" link={`https://yy-tube.com/post/${p.id}`} />
               </CustomCardAction>
             </CardActionContainer>
             <Hr />

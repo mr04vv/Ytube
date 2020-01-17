@@ -13,7 +13,7 @@ exports.post = functions.https.onRequest(async (req, res) => {
     const [, , postId] = req.path.split('/');
     const response = await client.get(`/api/post_by_id/${postId}`);
     const { post } = response.data;
-    const URL = 'https://ytube-938fd.firebaseapp.com';
+    const URL = 'https://yy-tube.com';
     res.set('Cache-Control', 'public, max-age=600, s-maxage=600');
 
     res.status(200).send(`<!doctype html>

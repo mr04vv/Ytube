@@ -54,7 +54,7 @@ const Information = () => (
       <Share>ツイッターでこのサイトを共有する</Share>
       <Share>↓↓↓↓↓↓</Share>
       <TwitterShareButton
-        url="https://ytube-938fd.firebaseapp.com/home"
+        url="https://yy-tube.com/home"
         title="YtubeでYYさんの好きなシーンを共有しよう！"
       >
         <TwitterIcon size={32} round />
