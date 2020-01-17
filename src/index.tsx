@@ -45,8 +45,7 @@ const App = () => {
   useFetch();
   React.useEffect(() => {
     if (document.domain !== 'yy-tube.com' && document.domain !== 'localhost') {
-        window.location.href = `https://yy-tube.com${window.location.pathname}`;
-      }
+      window.location.href = `https://yy-tube.com${window.location.pathname}`;
     }
   }, []);
   return (
