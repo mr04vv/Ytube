@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const spHelp = require('images/helpSP.jpg');
 const urlHelp = require('images/url.jpg');
-const setHelp = require('images/setting.jpg');
 const content = require('images/content.jpg');
 
 const Help = () => {
@@ -12,39 +11,38 @@ const Help = () => {
   return (
     <>
       <Container>
-        <Title>
-          使い方
-        </Title>
+        <Title>使い方</Title>
         <PromptContainer>
           <div>投稿機能の利用にはログインが必要です</div>
         </PromptContainer>
-        <Explain>
-          中央下部の＋ボタンを押します
-        </Explain>
-        <ImageContainer width="80%" src={spHelp} alt="" />
-
-        <Explain>
-          投稿したい動画のURLを貼り付けます
-        </Explain>
-        <ImageContainer width="80%" src={urlHelp} alt="" />
-
-        <ExplainContent>
-          動画を再生し、お好みの場所で開始時間と終了時間をセットし右上の次へボタンを押します
-        </ExplainContent>
-        <ImageContainer width="80%" src={setHelp} alt="" />
-
-        <ExplainContent>
-          1. タイトルを入力します
-          <br />
-          2. 内容を入力します
-          <br />
-          3. ゲームとカテゴリを選択します
-          <br />
-          4. ゲーム、カテゴリは自由に追加できます
-          <br />
-          5. 右上の投稿ボタンを押して投稿
-        </ExplainContent>
-        <ImageContainer width="80%" src={content} alt="" />
+        <ExplainContainer>
+          <Explain>①中央下部の＋ボタンを押す</Explain>
+          <ImageContainer src={spHelp} alt="" />
+        </ExplainContainer>
+        <ExplainContainer>
+          <Explain>
+            ②投稿する動画のURLを貼り付ける
+            <br />
+            ③シーンの開始時間をセット
+            <br />
+            ④シーンの終了時間をセット
+          </Explain>
+          <ImageContainer src={urlHelp} alt="" />
+        </ExplainContainer>
+        <ExplainContainer>
+          <Explain>
+            ⑤タイトルを入力する
+            <br />
+            ⑥詳細やコメントを入力する
+            <br />
+            ⑦ゲームとカテゴリを選択する
+            <br />
+            ⑧ゲーム、カテゴリは自由に追加可能
+            <br />
+            ⑨右上の投稿ボタンを押して投稿
+          </Explain>
+          <ImageContainer src={content} alt="" />
+        </ExplainContainer>
       </Container>
     </>
   );
@@ -54,35 +52,51 @@ export default Help;
 
 const Container = styled.div`
   margin: 80px auto 80px;
-  max-width: 500px;
+  width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
 
-
 const ImageContainer = styled.img`
+  width: 50%;
   margin-top: 10px;
+  height: 100%;
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 const Explain = styled.p`
-  width: 80%;
+  display: flex;
+  align-items: center;
+  width: 40%;
   margin: 20px auto;
-  text-align: center;
-  font-weight: bold;
+  text-align: left;
+  line-height: 2.8;
+  font-size: 18px;
+  @media (min-width: 1261px) {
+    padding-left: 180px;
+  }
+  @media (max-width: 1024px) {
+    width: 90%;
+  }
 `;
 
-const ExplainContent = styled.p`
-  line-height: 1.8;
-  width: 80%;
-  margin: 30px auto;
-  font-weight: bold;
+const ExplainContainer = styled.div`
+  display: flex;
+  margin: 20px 0;
+  justify-content: space-between;
+  align-items: center;
+  @media (max-width: 1024px) {
+    flex-direction: column-reverse;
+  }
 `;
 
 const Title = styled.p`
   margin: 30px 0 0;
-  font-size: 20px;
+  font-size: 26px;
 `;
 
 const PromptContainer = styled.div`
@@ -91,5 +105,5 @@ const PromptContainer = styled.div`
   flex-direction: column;
   text-align: center;
   color: red;
-  font-weight: bold;
+  font-size: 20px;
 `;
