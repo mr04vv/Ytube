@@ -74,13 +74,14 @@ const Explain = styled.p`
   width: 40%;
   margin: 20px auto;
   text-align: left;
-  line-height: 2.8;
+  line-height: 2;
   font-size: 18px;
   @media (min-width: 1261px) {
     padding-left: 180px;
   }
   @media (max-width: 1024px) {
-    width: 90%;
+    width: 96%;
+    line-height: 1.2;
   }
 `;
 
@@ -105,5 +106,5 @@ const PromptContainer = styled.div`
   flex-direction: column;
   text-align: center;
   color: red;
-  font-size: 20px;
+  font-size: 18px;
 `;

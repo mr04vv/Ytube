@@ -1,16 +1,23 @@
 /* eslint-disable no-console */
 import { useState, useEffect } from 'react';
 import { CategoryInterface } from 'interfaces/CategoryInterface';
-import { GameInterface } from 'interfaces/GameInterface';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchGames } from 'reduxes/modules/games/gameList';
-
-import { fetchCategories } from 'reduxes/modules/categories/categoryList';
+import { useDispatch } from 'react-redux';
 import { createPost } from 'reduxes/modules/posts/post';
-import { CreatePostInterface } from 'interfaces/posts/CreatePostInterface';
+import { CreatePostInterface, UpdatePostInterface } from 'interfaces/posts/CreatePostInterface';
 import { fetchPosts } from 'reduxes/modules/posts/fetchPost';
+import { fetchLikedPost } from 'reduxes/modules/posts/fetchLikedPost';
+import { PostInterface } from 'interfaces/posts/PostInterface';
+import updatePost from 'api/posts/updatePost';
+import { Place } from 'components/PostList';
+import { fetchMyPosts } from 'reduxes/modules/posts/fetchMyPost';
 
-const usePost = () => {
+const usePost = (
+  categoryMaster: CategoryInterface[],
+  content?: PostInterface,
+  page?: string,
+  per?: string,
+  place?: Place
+) => {
   const [startTime, setStartTime] = useState<string>('0');
   const [endTime, setEndTime] = useState<string>('0');
   const [url, setUrl] = useState<string>('');
@@ -22,13 +29,7 @@ const usePost = () => {
   const [commentError] = useState<string>('');
   const [game, setGame] = useState<number | undefined>();
   const [category, setCategory] = useState<number[]>([]);
-  const [categoryMaster, setCategoryMaster] = useState<CategoryInterface[]>([]);
-  const [gameMaster, setGameMaster] = useState<GameInterface[]>([]);
   const [categoryName, setCategoryName] = useState<string[]>([]);
-  const gameSelector = (state: any) => state.gameList;
-  const gameState = useSelector(gameSelector);
-  const categorySelector = (state: any) => state.categoryList;
-  const categoryState = useSelector(categorySelector);
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isAnonymous, setIsAnonymous] = useState<boolean>(false);
@@ -46,29 +47,16 @@ const usePost = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchCategories());
-    dispatch(fetchGames());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (categoryState.data.length > 0) {
-      categoryState.data.unshift({
-        id: -1,
-        name: '選択しない',
-      });
-      setCategoryMaster(categoryState.data);
-    }
-  }, [categoryState.data]);
-
-  useEffect(() => {
-    if (gameState.data.length > 0) {
-      gameState.data.unshift({
-        id: -1,
-        title: '選択しない',
-      });
-      setGameMaster(gameState.data);
-    }
-  }, [gameState.data]);
+    setTitle(content ? content.title : '');
+    setCategory(content ? content.categories.map((c: CategoryInterface) => c.id) : []);
+    setCategoryName(content ? content.categories.map((c: CategoryInterface) => c.name) : []);
+    setGame(content ? content.game.id : undefined);
+    setComment(content ? content.detail : '');
+    setUrl(content ? content.videoUrl : '');
+    setStartTime(content ? content.startTime.toString() : '0');
+    setIsAnonymous(content ? content.isAnonymous : false);
+    setEndTime(content ? content.endTime.toString() : '0');
+  }, [content]);
 
   const setStart = (r: any) => {
     if (r.player) {
@@ -115,6 +103,46 @@ const usePost = () => {
     setIsLoading(false);
   };
 
+  const editPost = async (id: number, closeModal: () => void) => {
+    setIsLoading(true);
+    const body: UpdatePostInterface = {
+      title,
+      detail: comment,
+      start_time: parseInt(startTime, 10),
+      end_time: parseInt(endTime, 10),
+      video_url: url,
+      game_id: game!,
+      category_ids: category,
+      is_anonymous: isAnonymous,
+    };
+
+    await updatePost(id, body).catch((err: any) => {
+      if (err.response.status === 400) {
+        setError('YYの動画のみ投稿可能です');
+      } else {
+        setError('投稿に失敗しました');
+      }
+      setIsLoading(false);
+      throw err;
+    });
+
+    init();
+    setTabIndex(0);
+    closeModal();
+    if (page && per) {
+      if (place === 'like') {
+        dispatch(fetchLikedPost(page, per));
+      }
+      if (place === 'accounts') {
+        dispatch(fetchMyPosts(page, per));
+      }
+      if (place === 'home') {
+        dispatch(fetchPosts(page, per));
+      }
+    }
+    setIsLoading(false);
+  };
+
   return {
     startTime,
     endTime,
@@ -141,8 +169,6 @@ const usePost = () => {
     setGame: (v: string) => {
       setGame(parseInt(v, 10));
     },
-    gameMaster,
-    categoryMaster,
     category,
     setCategory: (v: string[]) => {
       const list = categoryMaster.filter((c: CategoryInterface) => v.includes(c.name));
@@ -155,6 +181,7 @@ const usePost = () => {
     isLoading,
     isAnonymous,
     setIsAnonymous,
+    editPost,
   };
 };
 

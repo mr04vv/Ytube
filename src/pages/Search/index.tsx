@@ -17,13 +17,13 @@ import useFetchPost, { OrderInterface } from 'hooks/Post/useFetchPost';
 import PostList from 'components/PostList';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { CategoryInterface } from 'interfaces/CategoryInterface';
-import usePost from 'hooks/Post/usePost';
 import { GameInterface } from 'interfaces/GameInterface';
+import useMasterData from 'hooks/Post/useMasterData';
 import { Container, SearchContainer, SearchButton } from './styles';
 
 const Search = () => {
   const info = useMyInfo();
-  const master = usePost();
+  const master = useMasterData();
   const post = useFetchPost(master.categoryMaster, master.gameMaster);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
@@ -54,7 +54,7 @@ const Search = () => {
                 value={post.searchGameTitle}
                 onChange={(e: any) => post.setSearchGames(e.target.value)}
               >
-                {master.gameMaster.map((game: GameInterface) => (
+                {master.searchGameMaster.map((game: GameInterface) => (
                   <MenuItem key={game.title} value={game.title}>
                     <ListItemText primary={game.title} />
                   </MenuItem>
@@ -68,7 +68,7 @@ const Search = () => {
                 value={post.searchCategoryName}
                 onChange={(e: any) => post.setSearchCategories(e.target.value)}
               >
-                {master.categoryMaster.map((category: CategoryInterface) => (
+                {master.searchCategoryMaster.map((category: CategoryInterface) => (
                   <MenuItem key={category.name} value={category.name}>
                     <ListItemText primary={category.name} />
                   </MenuItem>
@@ -113,6 +113,8 @@ const Search = () => {
           prev={post.prev}
           per={post.per}
           hasController
+          master={master}
+          place="search"
         />
       )}
     </>

@@ -7,6 +7,13 @@ import { fetchSuccess as fetchMySuccess } from 'reduxes/modules/posts/fetchMyPos
 import { fetchSuccess as fetchLikedSuccess } from 'reduxes/modules/posts/fetchLikedPost';
 import { useState } from 'react';
 
+export interface UseLikeInterface {
+  like: (postId: number, idx: number) => void;
+  delLike: (postId: number, idx: number) => void;
+  isNoLoginError: boolean;
+  setIsNoLoginError: (v: boolean) => void;
+}
+
 const useLike = (post: PostInterface[], path: string) => {
   const dispatch = useDispatch();
   const postSelector = (state: any) => state.fetchPost;

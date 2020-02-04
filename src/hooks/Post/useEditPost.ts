@@ -4,6 +4,16 @@ import { useDispatch } from 'react-redux';
 import { deleteById } from 'reduxes/modules/posts/delete';
 import { fetchPosts } from 'reduxes/modules/posts/fetchPost';
 
+export interface UseEditPostInterface {
+  isOpenNumber: number | undefined;
+  setIsOpenNumber: (v: number) => void;
+  handleClick: (event: React.MouseEvent<HTMLButtonElement>, num: number) => void;
+  handleClose: () => void;
+  anchorEl: null | HTMLElement;
+  del: (id: number, page: string, per: string) => void;
+  isLoading: boolean;
+}
+
 const useEditPost = () => {
   const [isOpenNumber, setIsOpenNumber] = useState<number>();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

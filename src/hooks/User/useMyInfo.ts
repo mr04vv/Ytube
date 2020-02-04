@@ -1,11 +1,16 @@
 /* eslint-disable no-console */
-import {
-  useState, useEffect,
-} from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { User } from 'interfaces/UserInterface';
 import { signOut } from 'reduxes/modules/accounts/login';
 import firebase from 'firebase';
+
+export interface UseMyInfoInterface {
+  userInfo: User | undefined;
+  isLoading: boolean;
+  logout: () => void;
+  loginStatus: string | undefined;
+}
 
 const useMyInfo = () => {
   const [userInfo, setUserInfo] = useState<User | undefined>();

@@ -22,6 +22,9 @@ import { GameInterface } from 'interfaces/GameInterface';
 import { CategoryInterface } from 'interfaces/CategoryInterface';
 import usePostColumn from 'hooks/Post/usePostColumn';
 import { CheckboxProps } from '@material-ui/core/Checkbox';
+import { PostInterface } from 'interfaces/posts/PostInterface';
+import { UseMasterData } from 'hooks/Post/useMasterData';
+import { Place } from 'components/PostList';
 import {
   CustomModal,
   PostContainer,
@@ -42,11 +45,17 @@ Modal.setAppElement('#root');
 interface PropsInterface {
   isOpen: boolean;
   closeModal: () => void;
+  content?: PostInterface;
+  master: UseMasterData;
+  isEdit?: boolean;
+  page?: string;
+  per?: string;
+  place?: Place;
 }
 
-const PostModal = ({ isOpen, closeModal }: PropsInterface) => {
+const PostModal = ({ isOpen, closeModal, content, master, isEdit, page, per, place }: PropsInterface) => {
   const refs = React.useRef(null);
-  const post = usePost();
+  const post = usePost(master.categoryMaster, content, page, per, place);
   const add = usePostColumn();
   const ConvertTime = (time: string) => {
     const second = parseInt(time, 10);
@@ -87,17 +96,21 @@ const PostModal = ({ isOpen, closeModal }: PropsInterface) => {
           <PostButton
             color="primary"
             variant="contained"
-            onClick={() => post.post(() => closeModal())}
+            onClick={
+              isEdit && isEdit === true && content
+                ? () => post.editPost(content.id, () => closeModal())
+                : () => post.post(() => closeModal())
+            }
             disabled={
-              post.isLoading
-              || post.title.length === 0
-              || post.title.length > 30
-              || post.comment.length > 200
-              || post.category.length === 0
-              || post.game === undefined
+              post.isLoading ||
+              post.title.length === 0 ||
+              post.title.length > 30 ||
+              post.comment.length > 200 ||
+              post.category.length === 0 ||
+              post.game === undefined
             }
           >
-            投稿
+            {isEdit && isEdit === true ? '編集' : '投稿'}
           </PostButton>
         )}
       </PostHeader>
@@ -183,7 +196,7 @@ const PostModal = ({ isOpen, closeModal }: PropsInterface) => {
             <FormControl fullWidth style={{ minWidth: '50%' }}>
               <InputLabel>ゲームタイトル</InputLabel>
               <Select fullWidth value={post.game} onChange={(e: any) => post.setGame(e.target.value)}>
-                {post.gameMaster.map((game: GameInterface) => (
+                {master.gameMaster.map((game: GameInterface) => (
                   <MenuItem value={game.id}>{game.title}</MenuItem>
                 ))}
               </Select>
@@ -197,7 +210,7 @@ const PostModal = ({ isOpen, closeModal }: PropsInterface) => {
                 renderValue={selected => (selected as string[]).join(', ')}
                 onChange={(e: any) => post.setCategory(e.target.value)}
               >
-                {post.categoryMaster.map((category: CategoryInterface) => (
+                {master.categoryMaster.map((category: CategoryInterface) => (
                   <MenuItem value={category.name}>
                     <Checkbox checked={post.category.indexOf(category.id) > -1} />
                     <ListItemText primary={category.name} />
@@ -238,14 +251,14 @@ const PostModal = ({ isOpen, closeModal }: PropsInterface) => {
           </NewPostContainer>
           <NewPostContainer>
             <FormControlLabel
-              control={(
+              control={
                 <YellowCheckbox
-                  // checked={state.checkedB}
+                  checked={post.isAnonymous}
                   onChange={() => post.setIsAnonymous(!post.isAnonymous)}
                   value={post.isAnonymous}
                   color="primary"
                 />
-              )}
+              }
               label="匿名で投稿する"
             />
           </NewPostContainer>

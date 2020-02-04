@@ -1,21 +1,19 @@
 import styled from 'styled-components';
 import Modal from 'react-modal';
-import {
-  Button,
-} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 const CustomModal = styled(Modal)`
-    height: 100%;
-    width: 100%;
-    left: unset;
-    right: unset;
-    bottom: unset;
-    background-color: white;
-    max-width: 800px;
-    margin: 0 auto;
-    :focus {
-      outline: none;
-    }
+  height: 100%;
+  width: 100%;
+  left: unset;
+  right: unset;
+  bottom: unset;
+  background-color: white;
+  max-width: 800px;
+  margin: 0 auto;
+  :focus {
+    outline: none;
+  }
 `;
 
 const PostContainer = styled.div`
@@ -46,6 +44,20 @@ const CustomButton = styled(Button)`
   box-shadow: unset;
   :hover {
     background-color: #e85c9c;
+    opacity: 0.7;
+    color: black;
+    box-shadow: unset;
+  }
+`;
+
+const CancelButton = styled(Button)`
+  text-transform: unset;
+  background-color: #e0e0e0;
+  border-radius: 0;
+  color: black;
+  box-shadow: unset;
+  :hover {
+    background-color: #e0e0e0;
     opacity: 0.7;
     color: black;
     box-shadow: unset;
@@ -117,5 +129,18 @@ const AddButton = styled(CustomButton)`
 `;
 
 export {
-  CustomModal, PostContainer, TimeContainer, Time, CustomButton, PostButtonContainer, PostHeader, PostButton, LengthCount, LengthCountError, ColumnContainer, NewPostContainer, AddButton,
+  CustomModal,
+  PostContainer,
+  TimeContainer,
+  Time,
+  CustomButton,
+  PostButtonContainer,
+  PostHeader,
+  PostButton,
+  LengthCount,
+  LengthCountError,
+  ColumnContainer,
+  NewPostContainer,
+  AddButton,
+  CancelButton,
 };

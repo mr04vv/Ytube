@@ -53,5 +53,6 @@ module.exports = {
     'implicit-arrow-linebreak': 'off',
     'react/jsx-wrap-multilines': 'off',
     'operator-linebreak': 'off',
+    'comma-dangle': 'off',
   },
 };

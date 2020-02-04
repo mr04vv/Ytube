@@ -7,6 +7,7 @@ import useFetchPost from 'hooks/Post/useFetchPost';
 import PostList from 'components/PostList';
 import Login from 'pages/Login';
 import useReactRouter from 'use-react-router';
+import useMasterData from 'hooks/Post/useMasterData';
 import { Container, CustomAvater, ProfileContainer, UserInfoContainer, UserName } from './styles';
 
 const Account = () => {
@@ -14,6 +15,7 @@ const Account = () => {
   const post = useFetchPost();
   const { location, history } = useReactRouter();
   const [value, setValue] = React.useState('accounts');
+  const master = useMasterData();
 
   function handleChange(event: React.ChangeEvent<{}>, newValue: string) {
     setValue(newValue);
@@ -66,6 +68,8 @@ const Account = () => {
           prev={post.prev}
           per={post.per}
           hasController
+          master={master}
+          place="accounts"
         />
       )}
       {!info.isLoading && info.loginStatus !== 'success' && (

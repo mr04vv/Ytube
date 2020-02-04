@@ -9,3 +9,5 @@ export interface CreatePostInterface {
   category_ids: number[];
   is_anonymous: boolean;
 }
+
+export interface UpdatePostInterface extends CreatePostInterface {}

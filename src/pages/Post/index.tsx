@@ -1,11 +1,13 @@
 import * as React from 'react';
 import PostList from 'components/PostList';
 import Helmet from 'react-helmet';
+import useMasterData from 'hooks/Post/useMasterData';
 import useFetchPost from './enhancer';
 
 const Post = () => {
   const postList = useFetchPost();
   const post = postList.posts[0];
+  const master = useMasterData();
 
   return (
     <>
@@ -36,6 +38,8 @@ const Post = () => {
         prev={() => {}}
         per="1"
         hasController={false}
+        master={master}
+        place="post"
       />
     </>
   );
