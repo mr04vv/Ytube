@@ -30,7 +30,7 @@ const Post = () => {
       <PostList
         path="home"
         posts={postList.posts}
-        isLoading={false}
+        isLoading={postList.isLoading}
         hasNext={false}
         hasPrev={false}
         page="0"

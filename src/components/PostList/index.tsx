@@ -85,37 +85,44 @@ const PostList = ({
       {isLoading || edit.isLoading || !posts ? (
         <CircularProgress style={{ margin: '30vh auto' }} />
       ) : (
-        posts &&
-        posts.map((p: PostInterface, index: number) => (
-          <Post
-            place={place}
-            post={p}
-            index={index}
-            like={like}
-            edit={edit}
-            isPlaying={isPlaying}
-            setIsPlaying={setIsPlaying}
-            setCopy={setCopy}
-            page={page}
-            per={per}
-            loop={loop}
-            refs={refs}
-            user={user}
-            master={master}
-          />
-        ))
+        posts && (
+          <>
+            {posts.map((p: PostInterface, index: number) => (
+              <Post
+                place={place}
+                post={p}
+                index={index}
+                like={like}
+                edit={edit}
+                isPlaying={isPlaying}
+                setIsPlaying={setIsPlaying}
+                setCopy={setCopy}
+                page={page}
+                per={per}
+                loop={loop}
+                refs={refs}
+                user={user}
+                master={master}
+              />
+            ))}
+            )
+            <>
+              {posts.length === 0 && <NoPost>投稿がありません</NoPost>}
+              {posts.length !== 0 && hasController && (
+                <PageButtonContainer>
+                  <PageButton color="primary" variant="contained" disabled={!hasPrev} onClick={() => prev()}>
+                    前へ
+                  </PageButton>
+                  <PageButton color="primary" variant="contained" disabled={!hasNext} onClick={() => next()}>
+                    次へ
+                  </PageButton>
+                </PageButtonContainer>
+              )}
+            </>
+          </>
+        )
       )}
-      {posts && posts.length === 0 && <NoPost>投稿がありません</NoPost>}
-      {!isLoading && posts && posts.length !== 0 && hasController && (
-        <PageButtonContainer>
-          <PageButton color="primary" variant="contained" disabled={!hasPrev} onClick={() => prev()}>
-            前へ
-          </PageButton>
-          <PageButton color="primary" variant="contained" disabled={!hasNext} onClick={() => next()}>
-            次へ
-          </PageButton>
-        </PageButtonContainer>
-      )}
+
       <SimpleSnackBar
         isShow={like.isNoLoginError}
         onClose={() => like.setIsNoLoginError(false)}

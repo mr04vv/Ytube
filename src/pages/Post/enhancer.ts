@@ -11,17 +11,20 @@ export interface OrderInterface {
 
 const useFetchPost = () => {
   const [posts, setPosts] = useState<PostInterface[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { match } = useReactRouter();
   const { params }: any = match;
   useEffect(() => {
     (async () => {
       const post = await fetchPost(params.id);
       setPosts([post as any]);
+      setIsLoading(false);
     })();
   }, [params.id]);
 
   return {
     posts,
+    isLoading,
   };
 };
 
