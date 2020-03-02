@@ -82,7 +82,7 @@ const PostList = ({
   const like = useLike(posts, path);
   return (
     <Container>
-      {isLoading || edit.isLoading ? (
+      {isLoading || edit.isLoading || !posts ? (
         <CircularProgress style={{ margin: '30vh auto' }} />
       ) : (
         posts &&
