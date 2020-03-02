@@ -14,7 +14,7 @@ export interface UseLikeInterface {
   setIsNoLoginError: (v: boolean) => void;
 }
 
-const useLike = (post: PostInterface[], path: string) => {
+const useLike = (post: PostInterface[] | undefined, path: string) => {
   const dispatch = useDispatch();
   const postSelector = (state: any) => state.fetchPost;
   const myPostSelector = (state: any) => state.fetchPostMe;
@@ -27,6 +27,7 @@ const useLike = (post: PostInterface[], path: string) => {
   const like = async (postId: number, idx: number) => {
     await dispatch(createLike(postId));
     const slice = post;
+    if (!slice) return;
     slice[idx].likeCount += 1;
     slice[idx].alreadyLiked = true;
     if (path === 'accounts') {
@@ -53,6 +54,7 @@ const useLike = (post: PostInterface[], path: string) => {
   const delLike = async (postId: number, idx: number) => {
     await dispatch(deleteLike(postId));
     const slice = post;
+    if (!slice) return;
     slice[idx].likeCount -= 1;
     slice[idx].alreadyLiked = false;
     if (path === 'accounts') {

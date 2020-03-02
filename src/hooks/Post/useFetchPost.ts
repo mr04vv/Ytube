@@ -16,7 +16,7 @@ export interface OrderInterface {
 }
 
 const useFetchPost = (categoryMaster?: CategoryInterface[], gameMaster?: GameInterface[]) => {
-  const [posts, setPosts] = useState<PostInterface[]>([]);
+  const [posts, setPosts] = useState<PostInterface[] | undefined>(undefined);
   const [per] = useState<string>('10');
   const postSelector = (state: any) => state.fetchPost;
   const myPostSelector = (state: any) => state.fetchPostMe;

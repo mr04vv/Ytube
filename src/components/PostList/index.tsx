@@ -12,7 +12,7 @@ import { UseMasterData } from 'hooks/Post/useMasterData';
 export type Place = 'accounts' | 'home' | 'like' | 'search' | 'post';
 
 interface PropInterface {
-  posts: PostInterface[];
+  posts: PostInterface[] | undefined;
   isLoading: boolean;
   hasNext: boolean;
   hasPrev: boolean;
@@ -105,20 +105,17 @@ const PostList = ({
                 master={master}
               />
             ))}
-            )
-            <>
-              {posts.length === 0 && <NoPost>投稿がありません</NoPost>}
-              {posts.length !== 0 && hasController && (
-                <PageButtonContainer>
-                  <PageButton color="primary" variant="contained" disabled={!hasPrev} onClick={() => prev()}>
-                    前へ
-                  </PageButton>
-                  <PageButton color="primary" variant="contained" disabled={!hasNext} onClick={() => next()}>
-                    次へ
-                  </PageButton>
-                </PageButtonContainer>
-              )}
-            </>
+            {posts.length === 0 && <NoPost>投稿がありません</NoPost>}
+            {posts.length !== 0 && hasController && (
+              <PageButtonContainer>
+                <PageButton color="primary" variant="contained" disabled={!hasPrev} onClick={() => prev()}>
+                  前へ
+                </PageButton>
+                <PageButton color="primary" variant="contained" disabled={!hasNext} onClick={() => next()}>
+                  次へ
+                </PageButton>
+              </PageButtonContainer>
+            )}
           </>
         )
       )}
