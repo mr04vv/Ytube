@@ -89,7 +89,7 @@ const usePost = (
 
     await dispatch<any>(createPost(body)).catch((err: any) => {
       if (err.response.status === 400) {
-        setError('YYの動画のみ投稿可能です');
+        setError('そのチャンネルの動画は投稿できません');
       } else {
         setError('投稿に失敗しました');
       }
@@ -118,7 +118,7 @@ const usePost = (
 
     await updatePost(id, body).catch((err: any) => {
       if (err.response.status === 400) {
-        setError('YYの動画のみ投稿可能です');
+        setError('そのチャンネルの動画は投稿できません');
       } else {
         setError('投稿に失敗しました');
       }

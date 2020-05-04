@@ -2,7 +2,7 @@ const functions = require('firebase-functions');
 const axios = require('axios');
 
 exports.post = functions.https.onRequest(async (req, res) => {
-  const API_BASE_URL = 'https://www.mooriii.com';
+  const API_BASE_URL = 'https://yy-tube.herokuapp.com';
   const client = axios.create({
     baseURL: API_BASE_URL,
     timeout: 10000,
