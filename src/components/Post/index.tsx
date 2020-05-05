@@ -168,7 +168,7 @@ const Post: React.SFC<PostProps> = ({
         </InfoWrapper>
         <TypeContainer>
           <TypeName>ゲーム：</TypeName>
-          <Link to={`search?game=${post.game.id}`} onClick={() => window.scrollTo(0, 0)}>
+          <Link to={`/search?game=${post.game.id}`} onClick={() => window.scrollTo(0, 0)}>
             {post.game.title}
           </Link>
         </TypeContainer>
@@ -177,7 +177,7 @@ const Post: React.SFC<PostProps> = ({
           {post.categories.map((c: CategoryInterface, idx: number) => (
             <TypeContainer key={c.name}>
               {idx !== 0 && ', '}
-              <Link to={`search?category=${c.id}`} onClick={() => window.scrollTo(0, 0)}>
+              <Link to={`/search?category=${c.id}`} onClick={() => window.scrollTo(0, 0)}>
                 {c.name}
               </Link>
             </TypeContainer>
