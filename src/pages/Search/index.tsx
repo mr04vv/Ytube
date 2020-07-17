@@ -50,6 +50,7 @@ const Search = () => {
             onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
               if (e.keyCode === 13) {
                 post.doSearch({});
+                setIsExpanded(false);
               }
             }}
             label="フリーワード検索"
@@ -59,6 +60,7 @@ const Search = () => {
           <SearchButton
             onClick={() => {
               post.doSearch({});
+              setIsExpanded(false);
             }}
           >
             <SearchOutlined />
