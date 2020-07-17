@@ -71,7 +71,7 @@ const Search = () => {
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography style={{ marginLeft: 'auto', marginRight: '0px', fontSize: '12px' }}>
+            <Typography style={{ marginLeft: 'auto', marginRight: '0px', fontSize: '14px' }}>
               条件を絞って検索
             </Typography>
           </ExpansionPanelSummary>
