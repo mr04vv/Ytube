@@ -27,6 +27,7 @@ const Post = () => {
           ]}
         />
       )}
+      <div style={{ marginTop: '50px' }} />
       <PostList
         path="home"
         posts={postList.posts}

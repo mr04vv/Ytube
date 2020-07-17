@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { CircularProgress, Button } from '@material-ui/core';
 import styled from 'styled-components';
 import { PostInterface } from 'interfaces/posts/PostInterface';
@@ -8,6 +8,7 @@ import useLike from 'hooks/Like/useLike';
 import SimpleSnackBar from 'components/SimpleSnackBar';
 import Post from 'components/Post';
 import { UseMasterData } from 'hooks/Post/useMasterData';
+import { Twemb } from './tw';
 
 export type Place = 'accounts' | 'home' | 'like' | 'search' | 'post';
 
@@ -80,6 +81,7 @@ const PostList = ({
   const edit = useEditPost();
   const user = useMyInfo();
   const like = useLike(posts, path);
+
   return (
     <Container>
       {isLoading || edit.isLoading || !posts ? (
@@ -136,7 +138,7 @@ export default PostList;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 50px auto 100px;
+  margin: 0px auto 100px;
   max-width: 800px;
 `;
 

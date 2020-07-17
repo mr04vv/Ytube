@@ -1,8 +1,6 @@
 import * as React from 'react';
 import ReactPlayer from 'react-player';
-import {
-  CardHeader, Avatar, IconButton, CardContent, Typography, CardActions,
-} from '@material-ui/core';
+import { CardHeader, Avatar, IconButton, CardContent, Typography, CardActions } from '@material-ui/core';
 import styled from 'styled-components';
 import FavoriteIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import PlaylistAdd from '@material-ui/icons/PlaylistAdd';
@@ -17,11 +15,7 @@ const Top = () => {
     <Container>
       <div>
         <CardHeader
-          avatar={(
-            <Avatar aria-label="recipe">
-              R
-            </Avatar>
-          )}
+          avatar={<Avatar aria-label="recipe">R</Avatar>}
           title="あっくん@ガヤ民"
           subheader="2019/10/03 10:02"
         />
@@ -34,7 +28,8 @@ const Top = () => {
           url="https://www.youtube.com/watch?v=b8M2TwcHqfs&t=300s"
           youtubeConfig={{
             playerVars: {
-              start: 986, end: 992,
+              start: 986,
+              end: 992,
             },
           }}
           onPlay={() => setIsPlaying([true, false, false])}
@@ -62,11 +57,7 @@ const Top = () => {
       </div>
       <div>
         <CardHeader
-          avatar={(
-            <Avatar aria-label="recipe">
-              R
-            </Avatar>
-          )}
+          avatar={<Avatar aria-label="recipe">R</Avatar>}
           title="あっくん@ガヤ民"
           subheader="2019/10/03 10:02"
         />
@@ -103,11 +94,7 @@ const Top = () => {
       </div>
       <div>
         <CardHeader
-          avatar={(
-            <Avatar aria-label="recipe">
-              R
-            </Avatar>
-          )}
+          avatar={<Avatar aria-label="recipe">R</Avatar>}
           title="あっくん@ガヤ民"
           subheader="2019/10/03 10:02"
         />
@@ -156,7 +143,7 @@ const Hr = styled.hr`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 50px auto 100px;
+  margin: 0px auto 100px;
   max-width: 800px;
 `;
 
@@ -173,7 +160,6 @@ const CustomCardAction = styled(CardActions as React.SFC)`
 
 const CustomIconButton = styled(IconButton)`
   padding: 0;
-
 `;
 
 const CustomCardContent = styled(CardContent as React.SFC)`
