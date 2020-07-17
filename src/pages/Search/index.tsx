@@ -2,24 +2,30 @@ import React, { useState } from 'react';
 import useMyInfo from 'hooks/User/useMyInfo';
 import {
   CircularProgress,
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  Typography,
   FormControl,
   InputLabel,
   Select,
   Input,
   MenuItem,
   ListItemText,
-  TextField,
+  ExpansionPanelSummary,
+  Typography,
 } from '@material-ui/core';
+import SearchOutlined from '@material-ui/icons/SearchOutlined';
+import TuneOutlined from '@material-ui/icons/TuneOutlined';
 import useFetchPost, { OrderInterface } from 'hooks/Post/useFetchPost';
 import PostList from 'components/PostList';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { CategoryInterface } from 'interfaces/CategoryInterface';
 import { GameInterface } from 'interfaces/GameInterface';
 import useMasterData from 'hooks/Post/useMasterData';
-import { Container, SearchContainer, SearchButton } from './styles';
+import {
+  Container,
+  CustomExpantionPanel,
+  CustomSearchButton,
+  SearchButton,
+  SearchContainer,
+  SearchTextField,
+} from './styles';
 
 const Search = () => {
   const info = useMyInfo();
@@ -30,29 +36,59 @@ const Search = () => {
   return (
     <>
       <Container>
-        <ExpansionPanel expanded={isExpanded}>
+        <FormControl
+          fullWidth
+          style={{
+            minWidth: '100%',
+            marginBottom: '10px',
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'flex-end',
+          }}
+        >
+          <SearchTextField
+            onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
+              if (e.keyCode === 13) {
+                post.doSearch({});
+              }
+            }}
+            label="フリーワード検索"
+            onChange={(e: any) => post.setSearchWord(e.target.value)}
+            value={post.searchWord}
+          />
+          <SearchButton
+            onClick={() => {
+              post.doSearch({});
+            }}
+          >
+            <SearchOutlined />
+          </SearchButton>
+        </FormControl>
+        <CustomExpantionPanel expanded={isExpanded}>
           <ExpansionPanelSummary
             onClick={() => setIsExpanded(!isExpanded)}
-            expandIcon={<ExpandMoreIcon />}
+            expandIcon={<TuneOutlined />}
             aria-controls="panel1a-content"
             id="panel1a-header"
           >
-            <Typography>条件を指定して検索する</Typography>
+            <Typography style={{ marginLeft: 'auto', marginRight: '0px', fontSize: '12px' }}>
+              条件を絞って検索
+            </Typography>
           </ExpansionPanelSummary>
           <SearchContainer>
-            <FormControl fullWidth style={{ minWidth: '100%', marginBottom: '10px' }}>
-              <TextField
-                label="フリーワード検索"
-                onChange={(e: any) => post.setSearchWord(e.target.value)}
-                value={post.searchWord}
-              />
-            </FormControl>
-            <FormControl fullWidth style={{ minWidth: '100%' }}>
+            <FormControl fullWidth style={{ width: '100%' }}>
               <InputLabel>ゲームタイトル</InputLabel>
               <Select
-                input={<Input />}
+                input={<Input style={{ height: '34px' }} />}
                 value={post.searchGameTitle}
-                onChange={(e: any) => post.setSearchGames(e.target.value)}
+                onChange={(e: any) => {
+                  post.setSearchGames(e.target.value);
+                }}
+                MenuProps={{
+                  style: {
+                    height: '500px',
+                  },
+                }}
               >
                 {master.searchGameMaster.map((game: GameInterface) => (
                   <MenuItem key={game.title} value={game.title}>
@@ -61,12 +97,19 @@ const Search = () => {
                 ))}
               </Select>
             </FormControl>
-            <FormControl fullWidth style={{ minWidth: '100%', marginTop: '10px' }}>
+            <FormControl fullWidth style={{ width: '100%', marginTop: '10px' }}>
               <InputLabel>カテゴリ</InputLabel>
               <Select
-                input={<Input />}
+                input={<Input style={{ height: '34px' }} />}
                 value={post.searchCategoryName}
-                onChange={(e: any) => post.setSearchCategories(e.target.value)}
+                onChange={(e: any) => {
+                  post.setSearchCategories(e.target.value);
+                }}
+                MenuProps={{
+                  style: {
+                    height: '500px',
+                  },
+                }}
               >
                 {master.searchCategoryMaster.map((category: CategoryInterface) => (
                   <MenuItem key={category.name} value={category.name}>
@@ -75,12 +118,19 @@ const Search = () => {
                 ))}
               </Select>
             </FormControl>
-            <FormControl fullWidth style={{ minWidth: '30%', margin: '10px auto' }}>
+            <FormControl fullWidth style={{ width: '100%', margin: '10px auto' }}>
               <InputLabel>並び替え</InputLabel>
               <Select
-                input={<Input />}
+                input={<Input style={{ height: '34px' }} />}
                 value={post.searchOrder}
-                onChange={(e: any) => post.setSearchOrder(parseInt(e.target.value, 10))}
+                onChange={(e: any) => {
+                  post.setSearchOrder(parseInt(e.target.value, 10));
+                }}
+                MenuProps={{
+                  style: {
+                    height: '500px',
+                  },
+                }}
               >
                 {post.orderMaster.map((order: OrderInterface) => (
                   <MenuItem key={order.name} value={order.id}>
@@ -89,17 +139,17 @@ const Search = () => {
                 ))}
               </Select>
             </FormControl>
-            <SearchButton
+            <CustomSearchButton
               onClick={() => {
+                post.doSearch({});
                 setIsExpanded(false);
-                post.doSearch();
               }}
             >
               検索
-            </SearchButton>
+            </CustomSearchButton>
           </SearchContainer>
-        </ExpansionPanel>
-        {info.isLoading && <CircularProgress style={{ margin: '30vh auto' }} />}
+        </CustomExpantionPanel>
+        {info.isLoading && <CircularProgress style={{ margin: '30vh auto', display: 'block' }} />}
       </Container>
       {!info.isLoading && (
         <PostList

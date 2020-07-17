@@ -10,7 +10,6 @@ import {
   Typography,
   CardContent,
   CardActions,
-  SvgIcon,
 } from '@material-ui/core';
 import { PostInterface } from 'interfaces/posts/PostInterface';
 import { CustomAvater } from 'pages/Account/styles';
@@ -28,6 +27,8 @@ import { UseLikeInterface } from 'hooks/Like/useLike';
 import PostModal from 'pages/Home/PostModal';
 import { UseMasterData } from 'hooks/Post/useMasterData';
 import { Place } from 'components/PostList';
+import { ShareOutlined } from '@material-ui/icons';
+import { Twemb } from 'components/PostList/tw';
 import DeleteModal from './DeleteModal';
 
 const { Twitter } = require('react-social-sharing');
@@ -206,15 +207,14 @@ const Post: React.SFC<PostProps> = ({
                   </CustomIconButton> */}
           <CopyToClipboard text={`https://yy-tube.com/post/${post.id}`}>
             <IconWrapper>
-              <SvgIcon color="action" onClick={() => setCopy()}>
-                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
-              </SvgIcon>
+              <ShareOutlined color="action" onClick={() => setCopy()} />
             </IconWrapper>
           </CopyToClipboard>
           <Twitter message="#わいちゅーぶ #わいわい #ガヤ民" link={`https://yy-tube.com/post/${post.id}`} />
         </CustomCardAction>
       </CardActionContainer>
       <Hr />
+      <Twemb />
     </div>
   );
 };

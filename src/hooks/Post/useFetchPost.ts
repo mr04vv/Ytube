@@ -14,6 +14,12 @@ export interface OrderInterface {
   id: number;
   name: string;
 }
+export interface DoSearchParam {
+  game?: string;
+  category?: string;
+  order?: string;
+  word?: string;
+}
 
 const useFetchPost = (categoryMaster?: CategoryInterface[], gameMaster?: GameInterface[]) => {
   const [posts, setPosts] = useState<PostInterface[] | undefined>(undefined);
@@ -80,44 +86,42 @@ const useFetchPost = (categoryMaster?: CategoryInterface[], gameMaster?: GameInt
   }, [page, dispatch, per, location.pathname]);
 
   useEffect(() => {
-    if (location.pathname === '/search') {
-      if (gameMaster && gameMaster.length !== 0 && categoryMaster && categoryMaster.length !== 0) {
-        let currentOrderId = 2;
-        let currentCategoryIds: number[] = [];
-        let currentGameIds: number[] = [];
-        let currentWords: string = '';
-        if (currentOrder !== null) {
-          currentOrderId = parseInt(currentOrder, 10);
-          setSearchOrder(currentOrderId);
-        }
-        if (currentGame !== null) {
-          currentGameIds = currentGame.split(',').map(Number);
-          setSearchGame(currentGameIds);
-          setSearchGameTitle(
-            gameMaster.filter((g: GameInterface) => currentGameIds.includes(g.id)).map((g: GameInterface) => g.title)
-          );
-        } else {
-          setSearchGame([]);
-          setSearchGameTitle(['選択しない']);
-        }
-        if (currentCategory !== null) {
-          currentCategoryIds = currentCategory.split(',').map(Number);
-          setSearchCategory(currentCategory.split(',').map(Number));
-          setSearchCategoryName(
-            categoryMaster
-              .filter((c: CategoryInterface) => currentCategoryIds.includes(c.id))
-              .map((c: CategoryInterface) => c.name)
-          );
-        } else {
-          setSearchCategory([]);
-          setSearchCategoryName(['選択しない']);
-        }
-        if (currentWord !== null) {
-          currentWords = currentWord;
-          setSearchWord(currentWord);
-        }
-        dispatch(searchPosts(page, per, currentGameIds, currentCategoryIds, currentOrderId, currentWords));
+    if (gameMaster && gameMaster.length !== 0 && categoryMaster && categoryMaster.length !== 0) {
+      let currentOrderId = 2;
+      let currentCategoryIds: number[] = [];
+      let currentGameIds: number[] = [];
+      let currentWords: string = '';
+      if (currentOrder !== null) {
+        currentOrderId = parseInt(currentOrder, 10);
+        setSearchOrder(currentOrderId);
       }
+      if (currentGame !== null) {
+        currentGameIds = currentGame.split(',').map(Number);
+        setSearchGame(currentGameIds);
+        setSearchGameTitle(
+          gameMaster.filter((g: GameInterface) => currentGameIds.includes(g.id)).map((g: GameInterface) => g.title)
+        );
+      } else {
+        setSearchGame([]);
+        setSearchGameTitle(['選択しない']);
+      }
+      if (currentCategory !== null) {
+        currentCategoryIds = currentCategory.split(',').map(Number);
+        setSearchCategory(currentCategory.split(',').map(Number));
+        setSearchCategoryName(
+          categoryMaster
+            .filter((c: CategoryInterface) => currentCategoryIds.includes(c.id))
+            .map((c: CategoryInterface) => c.name)
+        );
+      } else {
+        setSearchCategory([]);
+        setSearchCategoryName(['選択しない']);
+      }
+      if (currentWord !== null) {
+        currentWords = currentWord;
+        setSearchWord(currentWord);
+      }
+      dispatch(searchPosts(page, per, currentGameIds, currentCategoryIds, currentOrderId, currentWords));
     }
   }, [
     page,
@@ -183,16 +187,51 @@ const useFetchPost = (categoryMaster?: CategoryInterface[], gameMaster?: GameInt
     }
   }, [likedPostState]);
 
-  const doSearch = () => {
-    dispatch(searchPosts(page, per, searchGame, searchCategory, searchOrder, searchWord));
-    let searchCondition = `order=${searchOrder}`;
-    if (searchCategory.length !== 0) searchCondition += `&category=${searchCategory.toString()}`;
-    if (searchGame.length !== 0) searchCondition += `&game=${searchGame.toString()}`;
-    searchCondition += `&word=${searchWord}`;
+  const getGameNumber = (v: string) => {
+    if (gameMaster) {
+      if (v !== '選択しない') {
+        const list = gameMaster.filter((c: GameInterface) => v.includes(c.title));
+        const idList = list.map((l: GameInterface) => l.id);
+        return idList;
+      }
+    }
+    return [];
+  };
 
-    history.push({
-      search: `?${searchCondition}`,
-    });
+  const getCategoryNumber = (v: string) => {
+    if (categoryMaster) {
+      if (v !== '選択しない') {
+        const list = categoryMaster.filter((c: CategoryInterface) => v.includes(c.name));
+        const idList = list.map((l: CategoryInterface) => l.id);
+        return idList;
+      }
+    }
+    return [];
+  };
+
+  const doSearch = ({ game, category, order, word }: DoSearchParam) => {
+    const selectedGame: number[] = game ? getGameNumber(game) : searchGame;
+    const selectedCategory: number[] = category ? getCategoryNumber(category) : searchCategory;
+    const selectedOrder: number = order ? parseInt(order, 10) : searchOrder;
+    const text: string = word || searchWord;
+    setIsLoading(true);
+    dispatch(searchPosts(page, per, selectedGame, selectedCategory, selectedOrder, text));
+    let searchCondition = `order=${selectedOrder}`;
+    if (selectedCategory.length !== 0) searchCondition += `&category=${selectedCategory.toString()}`;
+    if (selectedGame.length !== 0) searchCondition += `&game=${selectedGame.toString()}`;
+    searchCondition += `&word=${text}`;
+
+    // console.debug(location.pathname);
+    if (location.pathname === '/home') {
+      history.push({
+        pathname: 'search',
+        search: `?${searchCondition}`,
+      });
+    } else {
+      history.push({
+        search: `?${searchCondition}`,
+      });
+    }
   };
 
   return {
