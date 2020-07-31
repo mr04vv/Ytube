@@ -210,7 +210,7 @@ const Post: React.SFC<PostProps> = ({
               <ShareOutlined color="action" onClick={() => setCopy()} />
             </IconWrapper>
           </CopyToClipboard>
-          <Twitter message="#わいちゅーぶ #わいわい #ガヤ民" link={`https://yy-tube.com/post/${post.id}`} />
+          <Twitter message="#わいコレ #わいわい #ガヤ民" link={`https://yy-tube.com/post/${post.id}`} />
         </CustomCardAction>
       </CardActionContainer>
       <Hr />

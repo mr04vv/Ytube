@@ -15,7 +15,7 @@ export const Twemb = () => (
       >
         <FontAwesomeIcon size="lg" icon={faTwitter} color="white" />
         {'\t'}
-        わいちゅーぶ公式アカウントをフォロー
+        わいコレ公式アカウントをフォロー
       </TwitterFollowA>
     </TwitterButton>
   </TwContainer>
