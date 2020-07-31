@@ -10,7 +10,7 @@ export const Twemb = () => (
     <TwitterButton>
       <TwitterFollowA
         target="_blank"
-        href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Flocalhost%3A3300%2Fhome&ref_src=twsrc%5Etfw&region=follow_link&screen_name=ytube_newpost&tw_p=followbutton"
+        href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Flocalhost%3A3300%2Fhome&ref_src=twsrc%5Etfw&region=follow_link&screen_name=yy_collection&tw_p=followbutton"
         data-show-count="false"
       >
         <FontAwesomeIcon size="lg" icon={faTwitter} color="white" />
