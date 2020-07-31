@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import useReactRouter from 'use-react-router';
-import { Container, YellowAppBar, Title, ImageContainer, BarContainer } from './styles';
+import { Container, YellowAppBar, ImageContainer, BarContainer } from './styles';
 
-const icon = require('images/ych.png');
+const icon = require('images/icon.png');
 
 const Header = () => {
   const { history } = useReactRouter();
@@ -19,9 +19,8 @@ const Header = () => {
             }
           >
             <ImageContainer>
-              <img height="50px" style={{ paddingTop: '4px' }} src={icon} alt="" />
+              <img height="50px" src={icon} alt="" />
             </ImageContainer>
-            <Title>わいちゅーぶ</Title>
           </TopLink>
         </BarContainer>
       </YellowAppBar>

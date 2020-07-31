@@ -24,24 +24,26 @@ const SideMenu = () => {
         <BottomNavigation showLabels value={nav.value} onChange={nav.handleChange} className={classes.root}>
           <ButtonWrapper>
             {location.pathname === '/home' && (
-              <SelectedButton onClick={() => {
-                window.scrollTo(0, 0);
-                history.push({
-                  pathname: '/home',
-                });
-              }}
+              <SelectedButton
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  history.push({
+                    pathname: '/home',
+                  });
+                }}
               >
                 <History />
                 <Title>ホーム</Title>
               </SelectedButton>
             )}
             {location.pathname !== '/home' && (
-              <CustomButton onClick={() => {
-                window.scrollTo(0, 0);
-                history.push({
-                  pathname: '/home',
-                });
-              }}
+              <CustomButton
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  history.push({
+                    pathname: '/home',
+                  });
+                }}
               >
                 <History />
                 <Title>ホーム</Title>
@@ -50,24 +52,26 @@ const SideMenu = () => {
           </ButtonWrapper>
           <ButtonWrapper>
             {location.pathname === '/search' && (
-              <SelectedButton onClick={() => {
-                window.scrollTo(0, 0);
-                history.push({
-                  pathname: '/search',
-                });
-              }}
+              <SelectedButton
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  history.push({
+                    pathname: '/search',
+                  });
+                }}
               >
                 <SearchIcon />
                 <Title>検索</Title>
               </SelectedButton>
             )}
             {location.pathname !== '/search' && (
-              <CustomButton onClick={() => {
-                window.scrollTo(0, 0);
-                history.push({
-                  pathname: '/search',
-                });
-              }}
+              <CustomButton
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  history.push({
+                    pathname: '/search',
+                  });
+                }}
               >
                 <SearchIcon />
                 <Title>検索</Title>
@@ -76,24 +80,26 @@ const SideMenu = () => {
           </ButtonWrapper>
           <ButtonWrapper>
             {location.pathname === '/help' && (
-              <SelectedButton onClick={() => {
-                window.scrollTo(0, 0);
-                history.push({
-                  pathname: '/help',
-                });
-              }}
+              <SelectedButton
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  history.push({
+                    pathname: '/help',
+                  });
+                }}
               >
                 <NotificationsNone />
                 <Title>ヘルプ</Title>
               </SelectedButton>
             )}
             {location.pathname !== '/help' && (
-              <CustomButton onClick={() => {
-                window.scrollTo(0, 0);
-                history.push({
-                  pathname: '/help',
-                });
-              }}
+              <CustomButton
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  history.push({
+                    pathname: '/help',
+                  });
+                }}
               >
                 <NotificationsNone />
                 <Title>ヘルプ</Title>
@@ -102,24 +108,26 @@ const SideMenu = () => {
           </ButtonWrapper>
           <ButtonWrapper>
             {location.pathname === '/info' && (
-              <SelectedButton onClick={() => {
-                window.scrollTo(0, 0);
-                history.push({
-                  pathname: '/info',
-                });
-              }}
+              <SelectedButton
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  history.push({
+                    pathname: '/info',
+                  });
+                }}
               >
                 <Info />
                 <Title>お知らせ</Title>
               </SelectedButton>
             )}
             {location.pathname !== '/info' && (
-              <CustomButton onClick={() => {
-                window.scrollTo(0, 0);
-                history.push({
-                  pathname: '/info',
-                });
-              }}
+              <CustomButton
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  history.push({
+                    pathname: '/info',
+                  });
+                }}
               >
                 <Info />
                 <Title>お知らせ</Title>
@@ -128,30 +136,36 @@ const SideMenu = () => {
           </ButtonWrapper>
           <ButtonWrapper>
             {location.pathname === '/accounts' && (
-              <SelectedButton onClick={() => {
-                window.scrollTo(0, 0);
-                history.push({
-                  pathname: '/accounts',
-                });
-              }}
+              <SelectedButton
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  history.push({
+                    pathname: '/accounts',
+                  });
+                }}
               >
-                {(user.userInfo && user.userInfo.imageUrl)
-                  ? <CustomAvater aria-label="recipe" src={user.userInfo.imageUrl} />
-                  : <AccountCircle />}
+                {user.userInfo && user.userInfo.imageUrl ? (
+                  <CustomAvater aria-label="recipe" src={user.userInfo.imageUrl} />
+                ) : (
+                  <AccountCircle />
+                )}
                 <Title>マイページ</Title>
               </SelectedButton>
             )}
             {location.pathname !== '/accounts' && (
-              <CustomButton onClick={() => {
-                window.scrollTo(0, 0);
-                history.push({
-                  pathname: '/accounts',
-                });
-              }}
+              <CustomButton
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  history.push({
+                    pathname: '/accounts',
+                  });
+                }}
               >
-                {(user.userInfo && user.userInfo.imageUrl)
-                  ? <CustomAvater aria-label="recipe" src={user.userInfo.imageUrl} />
-                  : <AccountCircle />}
+                {user.userInfo && user.userInfo.imageUrl ? (
+                  <CustomAvater aria-label="recipe" src={user.userInfo.imageUrl} />
+                ) : (
+                  <AccountCircle />
+                )}
                 <Title>マイページ</Title>
               </CustomButton>
             )}
@@ -174,17 +188,17 @@ const ButtonWrapper = styled.div`
 const CustomButton = styled(Button)`
   border-radius: 20px;
   :hover {
-    color: #e85c9c;
-    background-color: #e85c9c36
+    color: #ffbd14;
+    background-color: #ffbd1436;
   }
 `;
 
 const SelectedButton = styled(Button)`
   border-radius: 20px;
-  color: #e85c9c;
+  color: #ffbd14;
   :hover {
-    color: #e85c9c;
-    background-color: #e85c9c36
+    color: #ffbd14;
+    background-color: #ffbd1436;
   }
 `;
 

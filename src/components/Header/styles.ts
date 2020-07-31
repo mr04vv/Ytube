@@ -19,7 +19,7 @@ const Title = styled.h1`
 `;
 
 const YellowAppBar = styled(AppBar as React.SFC)`
-  background-color: #e85c9c;
+  background-color: #ffbd14;
   box-shadow: none;
   height: 50px;
 `;

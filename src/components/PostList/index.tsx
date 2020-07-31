@@ -151,13 +151,13 @@ const PageButtonContainer = styled.div`
 
 const PageButton = styled(Button)`
   text-transform: unset;
-  background-color: #e85c9c;
+  background-color: #ffbd14;
   border-radius: 0;
   color: black;
   box-shadow: unset;
   width: 100px;
   :hover {
-    background-color: #e85c9c;
+    background-color: #ffbd14;
     opacity: 0.7;
     color: black;
     box-shadow: unset;

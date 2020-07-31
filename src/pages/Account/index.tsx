@@ -86,13 +86,13 @@ export default Account;
 
 const CustomButton = styled(Button)`
   text-transform: unset;
-  background-color: #e85c9c;
+  background-color: #ffbd14;
   border-radius: 0;
   color: black;
   width: 120px;
   box-shadow: unset;
   :hover {
-    background-color: #e85c9c;
+    background-color: #ffbd14;
     opacity: 0.7;
     color: black;
     box-shadow: unset;

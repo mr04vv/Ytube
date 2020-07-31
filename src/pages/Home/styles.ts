@@ -17,7 +17,7 @@ const Container = styled.div`
 `;
 
 const CustomFab = styled(Fab)`
-  background-color: #e85c9c;
+  background-color: #ffbd14;
   position: fixed;
   bottom: 70px;
   right: 50%;
@@ -27,19 +27,19 @@ const CustomFab = styled(Fab)`
     right: 300px;
   }
   :hover {
-    background-color: #e85c9c;
+    background-color: #ffbd14;
     opacity: 0.8;
   }
 `;
 
 export const SearchButton = styled(Button)`
   text-transform: unset;
-  background-color: #e85c9c;
+  background-color: #ffbd14;
   border-radius: 0;
   color: black;
   box-shadow: unset;
   :hover {
-    background-color: #e85c9c;
+    background-color: #ffbd14;
     opacity: 0.7;
     color: black;
     box-shadow: unset;
@@ -48,13 +48,13 @@ export const SearchButton = styled(Button)`
 
 export const CustomSearchButton = styled(Button)`
   text-transform: unset;
-  background-color: #e85c9c;
+  background-color: #ffbd14;
   border-radius: 0;
   color: black;
   box-shadow: unset;
   width: 100%;
   :hover {
-    background-color: #e85c9c;
+    background-color: #ffbd14;
     opacity: 0.7;
     color: black;
     box-shadow: unset;
