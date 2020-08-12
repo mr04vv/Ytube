@@ -1,5 +1,3 @@
-/* eslint-disable no-alert */
-/* eslint-disable no-console */
 import * as React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
@@ -8,10 +6,10 @@ import reactDom from 'react-dom';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 import BottomFooter from 'components/BottomFooter';
-// import Top from 'pages/Top';
+import Top from 'pages/Top';
 import Header from 'components/Header';
 import { StylesProvider } from '@material-ui/styles';
-// import Login from 'pages/Login';
+import Login from 'pages/Login';
 import useFetch from 'hooks/Login/useFetchMe';
 import Account from 'pages/Account';
 import Home from 'pages/Home';
@@ -50,10 +48,9 @@ const App = () => {
   }, []);
   return (
     <Switch>
-      {/* <Route exact path="/" component={Top} /> */}
-      {/* <Route exact path="/home" component={Home} /> */}
+      <Route exact path="/" component={Top} />
       <Route exact path="/home" component={Home} />
-      {/* <Route exact path="/login" component={Login} /> */}
+      <Route exact path="/login" component={Login} />
       <Route exact path="/accounts" component={Account} />
       <Route exact path="/accounts/likes" component={Account} />
       <Route exact path="/help" component={Help} />
