@@ -54,7 +54,7 @@ export const signIn = (firebaseToken: string) => async (dispatch: Dispatch) => {
   const body = {
     fb_custom_token: firebaseToken,
   };
-  const res = await client.post('/api/users', body).catch((err) => {
+  const res = await client.post('/api/users_for_pc', body).catch((err: string) => {
     dispatch(loginFail(err));
     throw err;
   });
@@ -64,14 +64,13 @@ export const signIn = (firebaseToken: string) => async (dispatch: Dispatch) => {
 
 // GET Data
 export const fetchMe = () => async (dispatch: Dispatch) => {
-  const res = await client.get('/api/me').catch((err) => {
+  const res = await client.get('/api/me').catch((err: string) => {
     dispatch(loginFail(err));
     throw err;
   });
   dispatch(fetchSuccess(res.data.user));
   return res.data.user;
 };
-
 
 export const signOut = () => async (dispatch: Dispatch) => {
   dispatch(logout());

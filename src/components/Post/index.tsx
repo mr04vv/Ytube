@@ -95,15 +95,15 @@ const Post: React.SFC<PostProps> = ({
         }
         action={
           <>
-            {user.userInfo && user.userInfo.id === post.user.id && place !== 'search' && (
-              <IconButton
-                aria-label="settings"
-                aria-controls="simple-menu"
-                onClick={(e: React.MouseEvent<HTMLButtonElement>) => edit.handleClick(e, index + 1)}
-              >
-                <MoreVertIcon />
-              </IconButton>
-            )}
+            {/* {user.userInfo && user.userInfo.id === post.user.id && place !== 'search' && ( */}
+            <IconButton
+              aria-label="settings"
+              aria-controls="simple-menu"
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => edit.handleClick(e, index + 1)}
+            >
+              <MoreVertIcon />
+            </IconButton>
+            {/* )} */}
           </>
         }
         title={post.isAnonymous ? '匿名ユーザー' : post.user.name}
