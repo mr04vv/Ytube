@@ -1,15 +1,17 @@
+import { AccountCircle, HistoryRounded, HomeRounded } from '@material-ui/icons';
 import React from 'react';
-import styled from 'styled-components';
 import useReactRouter from 'use-react-router';
-import { Container, YellowAppBar, ImageContainer, BarContainer } from './styles';
+import { useEnhancer } from './enhancer';
+import { CustomAvatar, Container, WhiteAppBar, ImageContainer, BarContainer, AppBarLeftItem, AppBarRightItem, CustomIconLabel, CustomIconButton, CreatePostButton, CreatePostButtonLabel, VideoCallIcon, AvatarContainer, SearchContainer, SearchField, SearchButton, SearchIcon, TopLink } from './styles';
 
-const icon = require('images/icon.png');
+const icon = require('assets/logo.png');
 
 const Header = () => {
   const { history } = useReactRouter();
+  const { userInfo } = useEnhancer();
   return (
     <Container>
-      <YellowAppBar>
+      <WhiteAppBar>
         <BarContainer>
           <TopLink
             onClick={() =>
@@ -19,22 +21,42 @@ const Header = () => {
             }
           >
             <ImageContainer>
-              <img height="50px" src={icon} alt="" />
+              <img height="40px" src={icon} alt="" />
             </ImageContainer>
           </TopLink>
+          <AppBarLeftItem>
+            <CustomIconButton>
+              <HomeRounded />
+              <CustomIconLabel>ホーム</CustomIconLabel>
+            </CustomIconButton>
+            <CustomIconButton>
+              <HistoryRounded />
+              <CustomIconLabel>履歴</CustomIconLabel>
+            </CustomIconButton>
+          </AppBarLeftItem>
+          <SearchContainer>
+            <SearchField placeholder="検索" />
+            <SearchButton>
+              <SearchIcon />
+            </SearchButton>
+          </SearchContainer>
+          <AppBarRightItem>
+            <CreatePostButton>
+              <VideoCallIcon />
+              <CreatePostButtonLabel>新規投稿</CreatePostButtonLabel>
+            </CreatePostButton>
+            <AvatarContainer>
+              {userInfo && userInfo.imageUrl ? (
+                <CustomAvatar aria-label="recipe" src={userInfo.imageUrl} />
+              ) : (
+                <AccountCircle color="action" />
+              )}
+            </AvatarContainer>
+          </AppBarRightItem>
         </BarContainer>
-      </YellowAppBar>
+      </WhiteAppBar>
     </Container>
   );
 };
 
 export default Header;
-
-const TopLink = styled.div`
-  display: flex;
-  height: 100%;
-  align-items: center;
-  :hover {
-    cursor: pointer;
-  }
-`;
