@@ -54,5 +54,6 @@ module.exports = {
     'react/jsx-wrap-multilines': 'off',
     'operator-linebreak': 'off',
     'comma-dangle': 'off',
+    'import/prefer-default-export': 'off'
   },
 };
