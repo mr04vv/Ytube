@@ -94,6 +94,7 @@ export const AvatarContainer = styled(IconButton)`
 export const SearchContainer = styled.div`
   margin: 0 0 0 auto;
   width: 54%;
+  max-width: 500px;
   height: 44%;
   border: thin solid ${COLOR_MAIN_TEXT};
   border-radius: 4px;
