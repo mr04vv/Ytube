@@ -16,6 +16,6 @@ export interface Post {
   isAnonymous: boolean;
   alreadyLiked: boolean;
   likeCount: number;
-  tumbnailUrl: string;
+  thumbnailUrl: string;
   playCount: number;
 }
