@@ -1,9 +1,9 @@
 import { Category } from 'entity/entity/category';
-import { Game } from 'entity/entity/game';
 import { Post } from 'entity/entity/post';
 import React from 'react';
+import { calculatePostDate } from 'utilities/calcuatePostDate';
 import { convertPlayTime } from 'utilities/convertPlayTime';
-import { CategoryGameContainer, ThumbnailImageContainer, GameTitle, CategoryName, Container, Title, TimeContainer, ThumbnailImage, Time } from './style';
+import { CategoryGameContainer, ThumbnailImageContainer, GameTitle, CategoryName, Container, Title, TimeContainer, ThumbnailImage, Time, MetaContainer, PlayCountAndDate } from './style';
 
 interface Props {
   post: Post
@@ -23,5 +23,12 @@ export const PostListItem = ({ post }: Props) => {
 
       </CategoryGameContainer>
       <Title>{post.title}</Title>
+      <MetaContainer>
+        <PlayCountAndDate>
+          { post.playCount}
+          回再生・
+          {calculatePostDate(post.createdAt)}
+        </PlayCountAndDate>
+      </MetaContainer>
     </Container>);
 };

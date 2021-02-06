@@ -62,8 +62,21 @@ export const Container = styled.div`
 
 export const Title = styled.p`
   font-size: 14px;
-  font-weight: bold;
   color: ${COLOR_MAIN_TEXT};
   margin: 0;
   letter-spacing: 1.6px;
+  height: calc( 1.3em * 2 );
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+`;
+
+export const MetaContainer = styled.div`
+  display: flex;
+`;
+
+export const PlayCountAndDate = styled.div`
+  font-size: 12px;
+  color: ${COLOR_MAIN_TEXT};
 `;
