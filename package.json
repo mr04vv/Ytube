@@ -45,6 +45,7 @@
     "material-ui": "^0.20.2",
     "material-ui-chip-input": "^1.0.0-beta.17",
     "material-ui-icons": "^1.0.0-beta.36",
+    "moment": "^2.29.1",
     "qrcode-reader": "^1.0.4",
     "qrcode.react": "^0.9.3",
     "query-string": "^6.8.2",
@@ -78,7 +79,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && cp _redirects build/",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject",
     "prettier-check": "tslint-config-prettier-check ./tslint.json",
     "lint": "eslint -c ./.eslintrc.js 'src/**/*.{ts,tsx}'",
@@ -112,7 +113,8 @@
     "eslint-plugin-react-hooks": "^1.6.1",
     "lint-staged": "^9.2.1",
     "prettier": "^1.18.2",
-    "react-snapshot": "^1.3.0"
+    "react-snapshot": "^1.3.0",
+    "ts-jest": "^26.5.0"
   },
   "prettier": {
     "semi": true,
