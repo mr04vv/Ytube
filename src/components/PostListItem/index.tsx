@@ -3,7 +3,7 @@ import { Post } from 'entity/entity/post';
 import React from 'react';
 import { calculatePostDate } from 'utilities/calcuatePostDate';
 import { convertPlayTime } from 'utilities/convertPlayTime';
-import { CategoryGameContainer, ThumbnailImageContainer, GameTitle, CategoryName, Container, Title, TimeContainer, ThumbnailImage, Time, MetaContainer, PlayCountAndDate } from './style';
+import { CategoryGameContainer, ThumbnailImageContainer, GameTitle, CategoryName, Container, Title, TimeContainer, ThumbnailImage, Time, MetaContainer, PlayCountAndDate, LikeContainer, LikeIcon } from './style';
 
 interface Props {
   post: Post
@@ -29,6 +29,10 @@ export const PostListItem = ({ post }: Props) => {
           回再生・
           {calculatePostDate(post.createdAt)}
         </PlayCountAndDate>
+        <LikeContainer>
+          <LikeIcon />
+          {post.likeCount}
+        </LikeContainer>
       </MetaContainer>
     </Container>);
 };

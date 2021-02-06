@@ -1,4 +1,5 @@
-import { COLOR_LIGHT_GRAY, COLOR_MAIN, COLOR_MAIN_TEXT, COLOR_WHITE } from 'constants/colors';
+import { Favorite } from '@material-ui/icons';
+import { COLOR_GRAY, COLOR_LIGHT_GRAY, COLOR_MAIN, COLOR_MAIN_TEXT, COLOR_WHITE } from 'constants/colors';
 import styled, { css } from 'styled-components';
 
 export const ThumbnailImageContainer = styled.div`
@@ -74,6 +75,21 @@ export const Title = styled.p`
 
 export const MetaContainer = styled.div`
   display: flex;
+  margin-top: 10px;
+  justify-content: space-between;
+`;
+
+export const LikeContainer = styled.div`
+  font-size: 12px;
+  color: ${COLOR_MAIN_TEXT};
+  display: flex;
+  align-items: center;
+`;
+
+export const LikeIcon = styled(Favorite)`
+  font-size: 16px;
+  color: ${COLOR_GRAY};
+  margin-right: 3px;
 `;
 
 export const PlayCountAndDate = styled.div`
