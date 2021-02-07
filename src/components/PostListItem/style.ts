@@ -10,7 +10,7 @@ export const ThumbnailImageContainer = styled.div`
 export const ThumbnailImage = styled.img`
   width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: 4px;
 `;
 
 export const TimeContainer = styled.div`
@@ -66,7 +66,6 @@ export const Title = styled.p`
   color: ${COLOR_MAIN_TEXT};
   margin: 0;
   letter-spacing: 1.6px;
-  height: calc( 1.3em * 2 );
   line-height: 1.3;
   display: -webkit-box;
   -webkit-box-orient: vertical;
