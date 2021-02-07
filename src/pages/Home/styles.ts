@@ -81,3 +81,14 @@ export const CustomExpantionPanel = styled(ExpansionPanel as React.FC<ExpansionP
 `;
 
 export { CustomFab, Container };
+
+interface Props {
+  width: number;
+  splitSize: number;
+  }
+
+export const A = styled.div<Props>`
+  width: calc(${props => props.width}px / ${props => props.splitSize} + 25px);
+  min-width: calc(${props => props.width}px / 5);
+  margin: 18px 0;
+`;
