@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import React from 'react';
 import { ExpansionPanel, ExpansionPanelSummary } from '@material-ui/core';
 import { ExpansionPanelProps } from '@material-ui/core/ExpansionPanel';
 import { COLOR_LIGHT_GRAY, COLOR_MAIN_TEXT } from 'constants/colors';
@@ -70,4 +71,11 @@ export const OrderItem = styled.div<OrderItemProps>`
   color: ${props => (props.selected ? COLOR_MAIN_TEXT : COLOR_LIGHT_GRAY)};
   margin-right: 20px;
   cursor: pointer;
+`;
+
+export const LoaderContainer = styled.div`
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
 `;

@@ -8,6 +8,7 @@ import { SmallSizePostListItem } from 'components/SmallSizePostListItem';
 import { useWindowDimensions } from 'usecase/useWindowDimensions';
 import { Category } from 'entity/entity/category';
 import { calculatePostDate } from 'utilities/calcuatePostDate';
+import { SMALL_POST_LIST_CONTAINER_MAX_WIDTH } from 'constants/maxWidth';
 import useFetchPost from './enhancer';
 import { CategoryGameContainer, CategoryName, Container, Detail, DetailContainer, Devider, GameTitle, LikeContainer, LikeIcon, MainContentContainer, MetaContainer, OpenAppButton, OpenAppButtonContainer, PlayCountAndDate, PostInfoContainer, RandomPostContainer, RandomPostListContainer, ShareAndLikeContainer, ShareContainer, ShareIcon, Title, YouTubePlayer, } from './style';
 
@@ -46,13 +47,13 @@ const Post = () => {
           ]}
         />
       )}
-      <Container>
-        <MainContentContainer width={`${window.windowDimensions.width - 380 - 56}px`}>
+      <Container width={window.windowDimensions.width}>
+        <MainContentContainer width={`${window.windowDimensions.width - SMALL_POST_LIST_CONTAINER_MAX_WIDTH - 56}px`}>
           <YouTubePlayer
             ref={ref}
             controls
             width="100%"
-            height={`${(window.windowDimensions.width - 380) * 0.5625}px`}
+            height={window.windowDimensions.width > 1700 ? `${(1700 - SMALL_POST_LIST_CONTAINER_MAX_WIDTH) * 0.5625}px` : `${(window.windowDimensions.width - SMALL_POST_LIST_CONTAINER_MAX_WIDTH) * 0.5625}px`}
             onStart={async () => {
             }}
             onEnded={async () => {
@@ -79,7 +80,7 @@ const Post = () => {
           <MetaContainer>
             <PlayCountAndDate>
               { post.playCount}
-          回再生・
+              回再生・
               {calculatePostDate(post.createdAt)}
             </PlayCountAndDate>
             <ShareAndLikeContainer>
@@ -89,7 +90,7 @@ const Post = () => {
               </LikeContainer>
               <ShareContainer>
                 <ShareIcon />
-              共有
+                共有
               </ShareContainer>
             </ShareAndLikeContainer>
           </MetaContainer>

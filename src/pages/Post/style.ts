@@ -1,6 +1,7 @@
 import { Button } from '@material-ui/core';
 import { FavoriteBorder, FavoriteOutlined, Share } from '@material-ui/icons';
 import { COLOR_GRAY, COLOR_LIGHT_GRAY, COLOR_MAIN, COLOR_MAIN_TEXT, COLOR_WHITE } from 'constants/colors';
+import { SMALL_POST_LIST_CONTAINER_MAX_WIDTH } from 'constants/maxWidth';
 import ReactPlayer from 'react-player';
 import styled, { css } from 'styled-components';
 
@@ -58,9 +59,14 @@ export const GameTitle = styled.div`
   ${CategoryStyle};
 `;
 
-export const Container = styled.div`
+interface ContainerProps {
+  width: number;
+}
+
+export const Container = styled.div<ContainerProps>`
   display: flex;
-  margin: 80px 20px 0 20px;
+  margin: ${props => (props.width < 1700 ? '80px 20px 0 20px' : '80px auto 0 auto')};
+  max-width: 1700px;
 `;
 
 export const PostInfoContainer = styled.div`
@@ -145,8 +151,8 @@ export const RandomPostContainer = styled.div`
 
 export const RandomPostListContainer = styled.div`
   margin: 0 16px 20px 16px;
-  max-width: 380px;
-  min-width: 380px;
+  max-width: ${SMALL_POST_LIST_CONTAINER_MAX_WIDTH}px;
+  min-width: ${SMALL_POST_LIST_CONTAINER_MAX_WIDTH}px;
   display: flex;
   flex-direction: column;
 `;

@@ -2,15 +2,35 @@ import { Favorite } from '@material-ui/icons';
 import { COLOR_GRAY, COLOR_LIGHT_GRAY, COLOR_MAIN, COLOR_MAIN_TEXT, COLOR_WHITE } from 'constants/colors';
 import styled, { css } from 'styled-components';
 
+interface ThumbnailImageProps {
+  loaded: boolean;
+}
+
+interface PlaceHolderProps {
+  loaded: boolean;
+  width: number;
+  splitSize: number;
+}
+
 export const ThumbnailImageContainer = styled.div`
   position: relative;
   width: 100%;
 `;
 
-export const ThumbnailImage = styled.img`
+export const ThumbnailImage = styled.img<ThumbnailImageProps>`
   width: 100%;
   height: auto;
   border-radius: 4px;
+  display: ${props => (props.loaded ? 'block' : 'none')};
+`;
+
+export const PlaceHolder = styled.div<PlaceHolderProps>`
+  width: 100%;
+  height: calc((${props => props.width}px / ${props => props.splitSize} + 25px) * 0.776514749);
+  min-height: calc((${props => props.width}px / 5) * 0.776514749);
+  background-color: ${COLOR_LIGHT_GRAY};
+  border-radius: 4px;
+  display: ${props => (props.loaded ? 'none' : 'block')};
 `;
 
 export const TimeContainer = styled.div`

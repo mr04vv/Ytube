@@ -1,9 +1,11 @@
 import { Category } from 'entity/entity/category';
 import { Post } from 'entity/entity/post';
 import React from 'react';
+import { useWindowDimensions } from 'usecase/useWindowDimensions';
 import { calculatePostDate } from 'utilities/calcuatePostDate';
 import { convertPlayTime } from 'utilities/convertPlayTime';
-import { CategoryGameContainer, ThumbnailImageContainer, GameTitle, CategoryName, Container, Title, TimeContainer, ThumbnailImage, Time, MetaContainer, PlayCountAndDate, LikeContainer, LikeIcon } from './style';
+import { useEnhancer } from './enhancer';
+import { CategoryGameContainer, ThumbnailImageContainer, GameTitle, CategoryName, Container, Title, TimeContainer, ThumbnailImage, Time, MetaContainer, PlayCountAndDate, LikeContainer, LikeIcon, PlaceHolder } from './style';
 
 interface Props {
   post: Post
@@ -11,10 +13,13 @@ interface Props {
 
 export const PostListItem = ({ post }: Props) => {
   const playTime = convertPlayTime(post.endTime - post.startTime);
+  const enhancer = useEnhancer();
+  const window = useWindowDimensions();
   return (
     <Container>
       <ThumbnailImageContainer>
-        <ThumbnailImage src={post.thumbnailUrl} />
+        <ThumbnailImage src={post.thumbnailUrl} onLoad={() => enhancer.setLoaded(true)} loaded={enhancer.loaded} />
+        <PlaceHolder loaded={enhancer.loaded} width={window.windowDimensions.width} splitSize={window.splitSize} />
         <TimeContainer><Time>{playTime}</Time></TimeContainer>
       </ThumbnailImageContainer>
       <CategoryGameContainer>
