@@ -1,73 +1,18 @@
 import styled from 'styled-components';
-import { Button, ExpansionPanel, ExpansionPanelDetails, Fab, TextField } from '@material-ui/core';
+import { ExpansionPanel, ExpansionPanelSummary } from '@material-ui/core';
 import { ExpansionPanelProps } from '@material-ui/core/ExpansionPanel';
-import { StandardTextFieldProps } from '@material-ui/core/TextField';
+import { COLOR_LIGHT_GRAY, COLOR_MAIN_TEXT } from 'constants/colors';
 
-export const SearchContainer = styled.div`
-  max-width: 800px;
-  margin: 80px auto 20px;
-  @media screen and (max-width: 480px) {
-    width: 95%;
-    margin: 64px auto 20px;
-  }
-`;
-
-const Container = styled.div`
-  max-width: 800px;
-`;
-
-const CustomFab = styled(Fab)`
-  background-color: #ffbd14;
-  position: fixed;
-  bottom: 70px;
-  right: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  @media screen and (min-width: 420px) {
-    right: 300px;
-  }
-  :hover {
-    background-color: #ffbd14;
-    opacity: 0.8;
-  }
-`;
-
-export const SearchButton = styled(Button)`
-  text-transform: unset;
-  background-color: #ffbd14;
-  border-radius: 0;
-  color: black;
-  box-shadow: unset;
-  :hover {
-    background-color: #ffbd14;
-    opacity: 0.7;
-    color: black;
-    box-shadow: unset;
-  }
-`;
-
-export const CustomSearchButton = styled(Button)`
-  text-transform: unset;
-  background-color: #ffbd14;
-  border-radius: 0;
-  color: black;
-  box-shadow: unset;
-  width: 100%;
-  :hover {
-    background-color: #ffbd14;
-    opacity: 0.7;
-    color: black;
-    box-shadow: unset;
-  }
-`;
-
-export const CustomSearchContainer = styled(ExpansionPanelDetails as React.FC)`
+export const Container = styled.div`
+  margin: 80px 16px;
+  display: flex;
   flex-direction: column;
-  align-items: center;
 `;
 
-export const SearchTextField = styled(TextField as React.FC<StandardTextFieldProps>)`
-  width: 100%;
+export const PostContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 `;
 
 export const CustomExpantionPanel = styled(ExpansionPanel as React.FC<ExpansionPanelProps>)`
@@ -80,15 +25,49 @@ export const CustomExpantionPanel = styled(ExpansionPanel as React.FC<ExpansionP
   text-align: 'right';
 `;
 
-export { CustomFab, Container };
 
 interface Props {
   width: number;
   splitSize: number;
   }
 
-export const A = styled.div<Props>`
+export const PostListItemContainer = styled.div<Props>`
   width: calc(${props => props.width}px / ${props => props.splitSize} + 25px);
   min-width: calc(${props => props.width}px / 5);
   margin: 18px 0;
+`;
+
+export const SmallPostListItemContainer = styled.div`
+  min-width: 230px;
+  margin: 2px 0;
+`;
+
+export const CustomExpansionPanelSummary = styled(ExpansionPanelSummary)`
+  .MuiExpansionPanelSummary-expandIcon {
+    order: -1;
+    margin-right: 2px;
+  }
+  color: ${COLOR_MAIN_TEXT};
+  font-size: 14px;
+`;
+
+export const Devider = styled.div`
+  border-bottom: thin solid ${COLOR_LIGHT_GRAY};
+  margin: 4px 14px 0 14px;
+`;
+
+export const OrderContainer = styled.div`
+  margin: 0 30px;
+  display: flex;
+`;
+
+interface OrderItemProps {
+  selected: boolean;
+}
+
+export const OrderItem = styled.div<OrderItemProps>`
+  font-size: 13px;
+  color: ${props => (props.selected ? COLOR_MAIN_TEXT : COLOR_LIGHT_GRAY)};
+  margin-right: 20px;
+  cursor: pointer;
 `;
