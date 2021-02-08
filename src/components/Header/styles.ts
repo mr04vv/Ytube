@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import { IconButton, AppBar, Toolbar, Button, InputBase, Avatar } from '@material-ui/core';
 import { COLOR_MAIN, COLOR_MAIN_TEXT, COLOR_WHITE } from 'constants/colors';

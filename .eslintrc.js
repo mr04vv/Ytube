@@ -10,6 +10,9 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'react-hooks'],
   parserOptions: {
+    parserOptions: {
+      parser: '@typescript-eslint/parser',
+    },
     sourceType: 'module',
     project: './tsconfig.json',
   },
@@ -28,6 +31,7 @@ module.exports = {
   },
   rules: {
     'react/prop-types': [0],
+    "no-use-before-define": "off",
     'react-hooks/rules-of-hooks': 'error',
     'react/jsx-filename-extension': [
       'error',

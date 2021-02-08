@@ -83,7 +83,7 @@ const Post: React.SFC<PostProps> = ({
       <DeleteModal
         isOpen={isOpenDeleteModal}
         closeModal={() => setIsOpenDeleteModal(false)}
-        del={() => edit.del(post.id, page, per)}
+        del={() => edit.del(post.id, 1, 20)}
       />
       <CardHeader
         avatar={

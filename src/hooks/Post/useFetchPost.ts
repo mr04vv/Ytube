@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPosts } from 'reduxes/modules/posts/fetchPost';
+import { getPosts } from 'reduxes/modules/posts/fetchPost';
 import { PostInterface } from 'interfaces/posts/PostInterface';
 import useReactRouter from 'use-react-router';
 import { fetchMyPosts } from 'reduxes/modules/posts/fetchMyPost';
@@ -77,7 +77,7 @@ const useFetchPost = (categoryMaster?: CategoryInterface[], gameMaster?: GameInt
 
   useEffect(() => {
     if (location.pathname === '/home') {
-      dispatch(fetchPosts(page, per));
+      dispatch(getPosts(0, 20));
     } else if (location.pathname === '/accounts') {
       dispatch(fetchMyPosts(page, per));
     } else if (location.pathname === '/accounts/likes') {
