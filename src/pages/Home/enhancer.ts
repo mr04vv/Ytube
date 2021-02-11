@@ -27,9 +27,7 @@ export const useEnhancer = () => {
   useEffect(() => {
     if (postState.data.posts) {
       setPosts(postState.data.posts);
-      setTimeout(() => {
-        setIsLoading(false);
-      }, [1000]);
+      setIsLoading(false);
     }
   }, [postState]);
 
