@@ -20,19 +20,47 @@ export const useEnhancer = () => {
   const postSelector = (state: any) => state.fetchPost;
   const postState: FetchPostsState = useSelector(postSelector);
   const dispatch = useDispatch();
+  const [page, setPage] = useState<number>(1);
+  const [isLastPage, setIsLastPage] = useState<boolean>(false);
+  const [isMoreLoading, setIsMoreLoading] = useState<boolean>(false);
+  const PER = 20;
+  const [postLength, setPostLength] = useState<number>(0);
+
   useEffect(() => {
-    dispatch(getPosts(0, 20));
+    dispatch(getPosts(1, PER));
   }, []);
 
   useEffect(() => {
     if (postState.data.posts) {
-      setPosts(postState.data.posts);
-      setIsLoading(false);
+      if (postState.status === 'success') {
+        const fetchedPosts = postState.data.posts;
+        setPostLength(l => l + fetchedPosts.length);
+        setPosts([...posts, ...fetchedPosts]);
+        setIsLoading(false);
+        setPage(p => p + 1);
+        checkLastPage(fetchedPosts);
+        setIsMoreLoading(false);
+      }
     }
   }, [postState]);
+
+  const checkLastPage = (postList: Post[]) => {
+    if (postList.length < PER) {
+      setIsLastPage(true);
+    }
+  };
+
+  const loadMore = async () => {
+    setIsMoreLoading(true);
+    await dispatch(getPosts(page, PER));
+  };
 
   return {
     posts,
     isLoading,
+    loadMore,
+    isLastPage,
+    isMoreLoading,
+    postLength
   };
 };
