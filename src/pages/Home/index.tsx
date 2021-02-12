@@ -5,16 +5,15 @@ import { SmallSizePostListItem } from 'components/SmallSizePostListItem';
 import { TuneOutlined } from '@material-ui/icons';
 import { Loader } from 'components/Loader';
 import InfiniteScroll from 'react-infinite-scroller';
-import ProgressCircle from 'components/ProgressCircle';
 import { CircularProgress } from '@material-ui/core';
+import Sort from 'components/Sort';
+import { SortTypes } from 'entity/union/sortType';
 import {
   Container,
   CustomExpansionPanelSummary,
   CustomExpantionPanel,
   Devider,
   LoaderContainer,
-  OrderContainer,
-  OrderItem,
   PostContainer,
   PostListItemContainer,
   ProgressContainer,
@@ -47,13 +46,7 @@ const Home = () => {
           >
             並べ替え
           </CustomExpansionPanelSummary>
-          <OrderContainer>
-            <OrderItem selected>投稿が新しい順</OrderItem>
-            <OrderItem selected={false}>いいねが多い順</OrderItem>
-            <OrderItem selected={false}>投稿が古い順</OrderItem>
-            <OrderItem selected={false}>再生回数が多い順</OrderItem>
-
-          </OrderContainer>
+          <Sort sortType={SortTypes.NEWEST} onClick={() => { }} />
         </CustomExpantionPanel>
         <Devider />
         <InfiniteScroll

@@ -1,7 +1,5 @@
 /* eslint-disable no-console */
 import { useState, useEffect } from 'react';
-import fetchPost from 'api/posts/fetchPost';
-import useReactRouter from 'use-react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from 'reduxes/modules/posts/fetchPost';
 import { FetchPostsState } from 'entity/reduxState/fetchPostsState';
@@ -15,8 +13,6 @@ export interface OrderInterface {
 export const useEnhancer = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const { match } = useReactRouter();
-  const { params }: any = match;
   const postSelector = (state: any) => state.fetchPost;
   const postState: FetchPostsState = useSelector(postSelector);
   const dispatch = useDispatch();

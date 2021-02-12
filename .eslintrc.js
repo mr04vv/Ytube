@@ -50,7 +50,7 @@ module.exports = {
       },
     ],
     '@typescript-eslint/no-unused-vars': 'error',
-    'no-unused-var': 0,
+    'no-unused-vars': 0,
     'no-undef': 'off',
     'max-len': ['off'],
     'object-curly-newline': 'off',

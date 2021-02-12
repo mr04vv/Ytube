@@ -31,7 +31,7 @@ export const calculatePostDate = (strTime: string, nowDate: Date = new Date()) =
   const secDiff = secondsDiff(dateTime, nowTime);
 
   if (secDiff >= 60 * 60 * 24 * 365) {
-    return `${nowDate.getFullYear() - date.getFullYear()}年前`;
+    return `${Math.floor(daysDiff(dateTime, nowTime) / 365)}年前`;
   } if (secDiff >= 60 * 60 * 24 * 7) {
     const formatted = moment(date).format('MM月DD日');
     return formatted;
