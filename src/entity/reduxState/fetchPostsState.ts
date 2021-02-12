@@ -1,5 +1,5 @@
 import { Post } from 'entity/entity/post';
-import { ReduxStatus } from './reduxStatus';
+import { ReduxStatus } from '../union/reduxStatus';
 
 export interface FetchPostsState {
   data: {
