@@ -57,22 +57,6 @@ export const Devider = styled.div`
   margin: 4px 14px 0 14px;
 `;
 
-export const OrderContainer = styled.div`
-  margin: 0 30px;
-  display: flex;
-`;
-
-interface OrderItemProps {
-  selected: boolean;
-}
-
-export const OrderItem = styled.div<OrderItemProps>`
-  font-size: 13px;
-  color: ${props => (props.selected ? COLOR_MAIN_TEXT : COLOR_LIGHT_GRAY)};
-  margin-right: 20px;
-  cursor: pointer;
-`;
-
 export const LoaderContainer = styled.div`
   display: flex;
   height: 100vh;
