@@ -6,8 +6,8 @@ import { TuneOutlined } from '@material-ui/icons';
 import { Loader } from 'components/Loader';
 import InfiniteScroll from 'react-infinite-scroller';
 import { CircularProgress } from '@material-ui/core';
-import Sort from 'components/Sort';
 import { SortTypes } from 'entity/union/sortType';
+import { Sort } from 'components/Sort';
 import {
   Container,
   CustomExpansionPanelSummary,
@@ -46,7 +46,7 @@ const Home = () => {
           >
             並べ替え
           </CustomExpansionPanelSummary>
-          <Sort sortType={SortTypes.NEWEST} onClick={() => { }} />
+          <Sort sortType={SortTypes.NEWEST} onClick={enhancer.onClickOrder} />
         </CustomExpantionPanel>
         <Devider />
         <InfiniteScroll
