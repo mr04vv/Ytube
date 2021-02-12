@@ -4,7 +4,7 @@ import { OrderContainer, OrderItem } from './style';
 
 interface Props {
   sortType: SortType;
-  onClick: (e: any) => void;
+  onClick: (s: SortType) => void;
 }
 
 const Sort = ({ sortType, onClick }:Props) => (
