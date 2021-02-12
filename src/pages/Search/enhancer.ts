@@ -54,7 +54,7 @@ export const useEnhancer = () => {
       console.debug(res.posts);
       setPosts(res.posts);
       setPostLength(res.posts.length);
-      setPage(p => p + 1);
+      setPage(2);
     } catch (e) {
       console.debug(e);
     }
