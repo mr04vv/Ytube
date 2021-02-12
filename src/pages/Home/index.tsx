@@ -5,7 +5,6 @@ import { SmallSizePostListItem } from 'components/SmallSizePostListItem';
 import { TuneOutlined } from '@material-ui/icons';
 import { Loader } from 'components/Loader';
 import InfiniteScroll from 'react-infinite-scroller';
-import ProgressCircle from 'components/ProgressCircle';
 import { CircularProgress } from '@material-ui/core';
 import Sort from 'components/Sort';
 import { SortTypes } from 'entity/union/sortType';

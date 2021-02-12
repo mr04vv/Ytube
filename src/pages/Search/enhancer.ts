@@ -1,14 +1,8 @@
 /* eslint-disable no-console */
 import { useState, useEffect } from 'react';
-import fetchPost from 'api/posts/fetchPost';
-import useReactRouter from 'use-react-router';
-import { useDispatch, useSelector } from 'react-redux';
-import { getPosts } from 'reduxes/modules/posts/fetchPost';
-import { FetchPostsState } from 'entity/reduxState/fetchPostsState';
+// import useReactRouter from 'use-react-router';
 import { Post } from 'entity/entity/post';
 import { SortType, SortTypes } from 'entity/union/sortType';
-import client from 'utilities/apiClient';
-import { PostListResponseDto } from 'entity/responseDto/postListResponseDto';
 import { searchPostList } from 'api/posts/searchPostList';
 
 export interface OrderInterface {
@@ -20,11 +14,8 @@ export const useEnhancer = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isSorting, setIsSorting] = useState<boolean>(false);
-  const { match } = useReactRouter();
-  const { params }: any = match;
-  const postSelector = (state: any) => state.fetchPost;
-  const postState: FetchPostsState = useSelector(postSelector);
-  const dispatch = useDispatch();
+  // const { match } = useReactRouter();
+  // const { params }: any = match;
   const [page, setPage] = useState<number>(1);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
   const [isMoreLoading, setIsMoreLoading] = useState<boolean>(false);
