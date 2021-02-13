@@ -1,6 +1,5 @@
-import { AccountCircle, HistoryRounded, HomeRounded } from '@material-ui/icons';
+import { AccountCircle, HomeRounded } from '@material-ui/icons';
 import React from 'react';
-import useReactRouter from 'use-react-router';
 import { useEnhancer } from './enhancer';
 import { CustomAvatar, Container, WhiteAppBar, ImageContainer, BarContainer, AppBarLeftItem, AppBarRightItem, CustomIconLabel, CustomIconButton, CreatePostButton, CreatePostButtonLabel, VideoCallIcon, AvatarContainer, SearchContainer, SearchField, SearchButton, SearchIcon, TopLink } from './styles';
 
@@ -12,24 +11,20 @@ const Header = () => {
     <Container>
       <WhiteAppBar>
         <BarContainer>
-          <TopLink
-            onClick={() =>
-              pushHome()
-            }
-          >
+          <TopLink onClick={() => pushHome()}>
             <ImageContainer>
               <img height="40px" src={icon} alt="" />
             </ImageContainer>
           </TopLink>
           <AppBarLeftItem>
-            <CustomIconButton>
+            <CustomIconButton onClick={() => pushHome()}>
               <HomeRounded />
               <CustomIconLabel>ホーム</CustomIconLabel>
             </CustomIconButton>
-            <CustomIconButton>
+            {/* <CustomIconButton>
               <HistoryRounded />
               <CustomIconLabel>履歴</CustomIconLabel>
-            </CustomIconButton>
+            </CustomIconButton> */}
           </AppBarLeftItem>
           <SearchContainer>
             <SearchField
