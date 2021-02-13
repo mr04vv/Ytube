@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from 'reduxes/modules/posts/fetchPost';
 import { FetchPostsState } from 'entity/reduxState/fetchPostsState';
 import { Post } from 'entity/entity/post';
+import useReactRouter from 'use-react-router';
+import { SortType } from 'entity/union/sortType';
 
 export interface OrderInterface {
   id: number;
@@ -21,10 +23,19 @@ export const useEnhancer = () => {
   const [isMoreLoading, setIsMoreLoading] = useState<boolean>(false);
   const PER = 20;
   const [postLength, setPostLength] = useState<number>(0);
+  const { history } = useReactRouter();
 
   useEffect(() => {
     dispatch(getPosts(1, PER));
   }, []);
+
+  const onClickOrder = (order: SortType) => {
+    const searchCondition = `order=${order}`;
+    history.push({
+      pathname: 'search',
+      search: `?${searchCondition}`,
+    });
+  };
 
   useEffect(() => {
     if (postState.data.posts) {
@@ -57,6 +68,7 @@ export const useEnhancer = () => {
     loadMore,
     isLastPage,
     isMoreLoading,
-    postLength
+    postLength,
+    onClickOrder
   };
 };

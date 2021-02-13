@@ -7,7 +7,7 @@ interface Props {
   onClick: (s: SortType) => void;
 }
 
-const Sort = ({ sortType, onClick }:Props) => (
+export const Sort = ({ sortType, onClick }:Props) => (
 
   <OrderContainer>
     <OrderItem selected={sortType === SortTypes.NEWEST} onClick={() => onClick(SortTypes.NEWEST)}>投稿が新しい順</OrderItem>
@@ -16,5 +16,3 @@ const Sort = ({ sortType, onClick }:Props) => (
     <OrderItem selected={sortType === SortTypes.PLAY_COUNT} onClick={() => onClick(SortTypes.PLAY_COUNT)}>再生回数が多い順</OrderItem>
   </OrderContainer>
 );
-
-export default Sort;
