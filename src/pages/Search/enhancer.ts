@@ -51,6 +51,11 @@ export const useEnhancer = () => {
     return param;
   };
 
+  const pushPostDetailPage = (postId: number) => {
+    history.push({
+      pathname: `/post/${postId}`,
+    });
+  };
 
   useEffect(() => {
     (async () => {
@@ -127,6 +132,7 @@ export const useEnhancer = () => {
     setSortType,
     search,
     isSorting,
-    sortType
+    sortType,
+    pushPostDetailPage
   };
 };

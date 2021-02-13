@@ -37,6 +37,12 @@ export const useEnhancer = () => {
     });
   };
 
+  const pushPostDetailPage = (postId: number) => {
+    history.push({
+      pathname: `/post/${postId}`,
+    });
+  };
+
   useEffect(() => {
     if (postState.data.posts) {
       if (postState.status === 'success') {
@@ -69,6 +75,7 @@ export const useEnhancer = () => {
     isLastPage,
     isMoreLoading,
     postLength,
-    onClickOrder
+    onClickOrder,
+    pushPostDetailPage
   };
 };

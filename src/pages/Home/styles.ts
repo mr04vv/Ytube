@@ -36,11 +36,19 @@ export const PostListItemContainer = styled.div<Props>`
   width: calc(${props => props.width}px / ${props => props.splitSize} + 25px);
   min-width: calc(${props => props.width}px / 5);
   margin: 18px 0;
+  :hover {
+    opacity: 0.7;
+    cursor: pointer;
+  }
 `;
 
 export const SmallPostListItemContainer = styled.div`
   min-width: 230px;
   margin: 2px 0;
+  :hover {
+    opacity: 0.7;
+    cursor: pointer;
+  }
 `;
 
 export const CustomExpansionPanelSummary = styled(ExpansionPanelSummary)`
