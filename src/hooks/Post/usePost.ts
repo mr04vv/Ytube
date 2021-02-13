@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { CategoryInterface } from 'interfaces/CategoryInterface';
 import { useDispatch } from 'react-redux';
 import { createPost } from 'reduxes/modules/posts/post';
 import { CreatePostInterface, UpdatePostInterface } from 'interfaces/posts/CreatePostInterface';
-import { getPosts } from 'reduxes/modules/posts/fetchPost';
+import { fetchPosts } from 'reduxes/modules/posts/fetchPost';
 import { fetchLikedPost } from 'reduxes/modules/posts/fetchLikedPost';
 import { PostInterface } from 'interfaces/posts/PostInterface';
 import updatePost from 'api/posts/updatePost';
@@ -99,7 +99,7 @@ const usePost = (
     init();
     setTabIndex(0);
     closeModal();
-    dispatch(getPosts(1, 10));
+    dispatch(fetchPosts('1', '10'));
     setIsLoading(false);
   };
 
@@ -137,7 +137,7 @@ const usePost = (
         dispatch(fetchMyPosts(page, per));
       }
       if (place === 'home') {
-        dispatch(getPosts(0, 20));
+        dispatch(fetchPosts(page, per));
       }
     }
     setIsLoading(false);

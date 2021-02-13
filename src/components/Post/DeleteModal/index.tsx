@@ -37,7 +37,7 @@ const customStyles = {
 };
 
 const DeleteModal = ({ isOpen, closeModal, del }: PropsInterface) => (
-  <Modal isOpen={isOpen} contentLabel="Contact Modal">
+  <Modal isOpen={isOpen} style={customStyles} contentLabel="Contact Modal">
     <LabelContainer>
       <Typography>削除しますか？</Typography>
     </LabelContainer>

@@ -69,7 +69,7 @@ export const Ytube = () => (
         <Header />
         <App />
         <BottomFooter />
-        {/* <SideMenu /> */}
+        <SideMenu />
       </StylesProvider>
     </Router>
   </Provider>
