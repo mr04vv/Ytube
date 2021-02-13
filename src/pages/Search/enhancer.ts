@@ -2,9 +2,11 @@
 import { useState, useEffect } from 'react';
 import useReactRouter from 'use-react-router';
 import { Post } from 'entity/entity/post';
-import { SortType, SortTypeRelation, SortTypes } from 'entity/union/sortType';
+import { SortType, SortTypes } from 'entity/union/sortType';
 import { searchPostList } from 'api/posts/searchPostList';
 import { SearchParam, SearchParams } from 'constants/searchParams';
+import { COUNT_PER_PAGE } from 'constants/countPerPage';
+import { INITIAL_SEARCH_PARAM } from 'constants/initialSearchParam';
 
 export interface OrderInterface {
   id: number;
@@ -19,35 +21,25 @@ export const useEnhancer = () => {
   const params = new URLSearchParams(location.search);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
   const [isMoreLoading, setIsMoreLoading] = useState<boolean>(false);
-  const PER = 20;
   const [postLength, setPostLength] = useState<number>(0);
-  const [searchParam, setSearchParam] = useState<SearchParam>({
-    order: SortTypes.NEWEST,
-    page: 1,
-    per: PER,
-    game: [],
-    category: [],
-    word: ''
-  });
+  const [sortType, setSortType] = useState<SortType>(SortTypes.NEWEST);
+  const [page, setPage] = useState<number>(1);
+  const [searchWord, setWord] = useState<string>('');
 
-  const setSortType = (s: SortType) => {
-    const param = searchParam;
-    param.order = s;
-    setSearchParam({ ...param });
-  };
 
-  const setPage = (p: number) => {
-    const param = searchParam;
-    param.page = p;
-    setSearchParam({ ...param });
-  };
-
-  const getParams = () => {
+  const getParams = (): SearchParam => {
+    const param: SearchParam = { ...INITIAL_SEARCH_PARAM };
     const order = params.get(SearchParams.ORDER);
     if (order != null) {
       const orderNum: SortType = +order as SortType;
-      searchParam.order = orderNum;
-      setSortType(SortTypeRelation[orderNum]);
+      setSortType(orderNum);
+      param.order = orderNum;
+    }
+
+    const word = params.get(SearchParams.WORD);
+    if (word != null) {
+      setWord(word);
+      param.word = word;
     }
 
     // const order = params.get(SearchParams.ORDER);
@@ -56,52 +48,42 @@ export const useEnhancer = () => {
     //   searchParam.order = orderNum;
     //   setSortType(SortTypeRelation[orderNum]);
     // }
+    return param;
   };
 
-  useEffect(() => {
-    getParams();
 
+  useEffect(() => {
     (async () => {
-      setIsLoading(true);
+      const param = getParams();
+      setIsSorting(true);
       try {
-        await search();
+        await search(param);
       } finally {
         setIsLoading(false);
+        setIsSorting(false);
       }
     })();
-  }, []);
-
-  useEffect(() => {
-    if (posts.length > 0) {
-      (async () => {
-        setIsSorting(true);
-        try {
-          await search();
-        } finally {
-          setIsSorting(false);
-        }
-      })();
-    }
   }, [location.search]);
 
   useEffect(() => {
     if (posts.length > 0) {
-      let searchCondition = `order=${searchParam.order}`;
+      let searchCondition = `order=${sortType}`;
       // if (selectedCategory.length !== 0) searchCondition += `&category=${selectedCategory.toString()}`;
       // if (selectedGame.length !== 0) searchCondition += `&game=${selectedGame.toString()}`;
-      searchCondition += `&word=${searchParam.word}`;
+      searchCondition += `&word=${searchWord}`;
 
       history.push({
         pathname: 'search',
         search: `?${searchCondition}`,
       });
     }
-  }, [searchParam.order]);
+  }, [sortType]);
 
-  const search = async () => {
+  const search = async (param: SearchParam) => {
     setPosts([]);
     try {
-      const res = await searchPostList(1, searchParam.per, searchParam.game, searchParam.category, searchParam.order, searchParam.word);
+      const res = await searchPostList(1, param.per, param.game, param.category, param.order, param.word);
+      setIsLastPage(false);
       setPosts(res.posts);
       setPostLength(res.posts.length);
       setPage(2);
@@ -112,7 +94,7 @@ export const useEnhancer = () => {
 
 
   const checkLastPage = (postList: Post[]) => {
-    if (postList.length < PER) {
+    if (postList.length < COUNT_PER_PAGE) {
       setIsLastPage(true);
     }
   };
@@ -120,11 +102,12 @@ export const useEnhancer = () => {
   const loadMore = async () => {
     setIsMoreLoading(true);
     try {
-      const res = await searchPostList(searchParam.page, PER, [], [], searchParam.order, '');
+      const param = getParams();
+      const res = await searchPostList(page, COUNT_PER_PAGE, [], [], param.order, param.word);
       setPosts([...posts, ...res.posts]);
       setPostLength(l => l + res.posts.length);
       setIsLoading(false);
-      setPage(searchParam.page + 1);
+      setPage(page + 1);
       checkLastPage(res.posts);
       setIsMoreLoading(false);
     } catch (e) {
@@ -141,9 +124,9 @@ export const useEnhancer = () => {
     isLastPage,
     isMoreLoading,
     postLength,
-    searchParam,
     setSortType,
     search,
-    isSorting
+    isSorting,
+    sortType
   };
 };

@@ -7,17 +7,14 @@ import { CustomAvatar, Container, WhiteAppBar, ImageContainer, BarContainer, App
 const icon = require('assets/logo.png');
 
 const Header = () => {
-  const { history } = useReactRouter();
-  const { userInfo } = useEnhancer();
+  const { userInfo, setSearchWord, onKeyPressed, searchWord, pushSearchPage, pushHome } = useEnhancer();
   return (
     <Container>
       <WhiteAppBar>
         <BarContainer>
           <TopLink
             onClick={() =>
-              history.push({
-                pathname: '/home',
-              })
+              pushHome()
             }
           >
             <ImageContainer>
@@ -35,8 +32,13 @@ const Header = () => {
             </CustomIconButton>
           </AppBarLeftItem>
           <SearchContainer>
-            <SearchField placeholder="検索" />
-            <SearchButton>
+            <SearchField
+              value={searchWord}
+              placeholder="検索"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchWord(e.target.value)}
+              onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => onKeyPressed(e.key)}
+            />
+            <SearchButton onClick={() => pushSearchPage()}>
               <SearchIcon />
             </SearchButton>
           </SearchContainer>

@@ -64,7 +64,6 @@ export const LoaderContainer = styled.div`
   align-items: center;
 `;
 
-
 export const ProgressContainer = styled.div`
   display: flex;
   justify-content: center;

@@ -28,7 +28,8 @@ const Home = () => {
   const enhancer = useEnhancer();
   const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
   const window = useWindowDimensions();
-  const dummyLength = (window.splitSize - 1) - (enhancer.postLength % (window.splitSize - 1));
+  const maxSplit = window.splitSize > 5 ? 4 : window.splitSize - 1;
+  const dummyLength = maxSplit - (enhancer.postLength % maxSplit);
   return (
     enhancer.isLoading ?
       <LoaderContainer>
@@ -45,7 +46,7 @@ const Home = () => {
           >
             並べ替え
           </CustomExpansionPanelSummary>
-          <Sort sortType={enhancer.searchParam.order} onClick={enhancer.setSortType} />
+          <Sort sortType={enhancer.sortType} onClick={enhancer.setSortType} />
         </CustomExpantionPanel>
         <Devider />
         {enhancer.isSorting ?
