@@ -18,4 +18,5 @@ export interface Post {
   likeCount: number;
   thumbnailUrl: string;
   playCount: number;
+  dynamicLink: string;
 }
