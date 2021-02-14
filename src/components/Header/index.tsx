@@ -6,7 +6,7 @@ import { CustomAvatar, Container, WhiteAppBar, ImageContainer, BarContainer, App
 const icon = require('assets/logo.png');
 
 const Header = () => {
-  const { userInfo, setSearchWord, onKeyPressed, searchWord, pushSearchPage, pushHome } = useEnhancer();
+  const { userInfo, setSearchWord, onKeyPressed, searchWord, pushSearchPage, pushHome, isSearchable } = useEnhancer();
   return (
     <Container>
       <WhiteAppBar>
@@ -33,7 +33,11 @@ const Header = () => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchWord(e.target.value)}
               onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => onKeyPressed(e.key)}
             />
-            <SearchButton onClick={() => pushSearchPage()}>
+            <SearchButton onClick={() => {
+              if (!isSearchable()) return;
+              pushSearchPage();
+            }}
+            >
               <SearchIcon />
             </SearchButton>
           </SearchContainer>
