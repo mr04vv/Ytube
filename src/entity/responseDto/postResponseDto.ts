@@ -1,3 +1,5 @@
 import { Post } from 'entity/entity/post';
 
-export interface PostResponseDto extends Post { }
+export interface PostResponseDto {
+  post: Post;
+}

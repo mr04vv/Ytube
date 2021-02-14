@@ -1,11 +1,10 @@
 /* eslint-disable no-console */
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getPosts } from 'reduxes/modules/posts/fetchPost';
-import { FetchPostsState } from 'entity/reduxState/fetchPostsState';
 import { Post } from 'entity/entity/post';
 import useReactRouter from 'use-react-router';
-import { SortType } from 'entity/union/sortType';
+import { SortType, SortTypes } from 'entity/union/sortType';
+import { searchPostList } from 'api/posts/searchPostList';
+import { COUNT_PER_PAGE } from 'constants/countPerPage';
 
 export interface OrderInterface {
   id: number;
@@ -15,9 +14,6 @@ export interface OrderInterface {
 export const useEnhancer = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const postSelector = (state: any) => state.fetchPost;
-  const postState: FetchPostsState = useSelector(postSelector);
-  const dispatch = useDispatch();
   const [page, setPage] = useState<number>(1);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
   const [isMoreLoading, setIsMoreLoading] = useState<boolean>(false);
@@ -26,7 +22,13 @@ export const useEnhancer = () => {
   const { history } = useReactRouter();
 
   useEffect(() => {
-    dispatch(getPosts(1, PER));
+    (async () => {
+      try {
+        await initLoad();
+      } finally {
+        setIsLoading(false);
+      }
+    })();
   }, []);
 
   const onClickOrder = (order: SortType) => {
@@ -37,19 +39,12 @@ export const useEnhancer = () => {
     });
   };
 
-  useEffect(() => {
-    if (postState.data.posts) {
-      if (postState.status === 'success') {
-        const fetchedPosts = postState.data.posts;
-        setPostLength(l => l + fetchedPosts.length);
-        setPosts([...posts, ...fetchedPosts]);
-        setIsLoading(false);
-        setPage(p => p + 1);
-        checkLastPage(fetchedPosts);
-        setIsMoreLoading(false);
-      }
-    }
-  }, [postState]);
+  const pushPostDetailPage = (postId: number) => {
+    history.push({
+      pathname: `/post/${postId}`,
+    });
+  };
+
 
   const checkLastPage = (postList: Post[]) => {
     if (postList.length < PER) {
@@ -57,9 +52,34 @@ export const useEnhancer = () => {
     }
   };
 
+  const initLoad = async () => {
+    setPosts([]);
+    try {
+      const res = await searchPostList(1, COUNT_PER_PAGE, [], [], SortTypes.NEWEST, '');
+      setIsLastPage(false);
+      setPosts(res.posts);
+      setPostLength(res.posts.length);
+      setPage(2);
+    } catch (e) {
+      console.debug(e);
+    }
+  };
+
   const loadMore = async () => {
     setIsMoreLoading(true);
-    await dispatch(getPosts(page, PER));
+    try {
+      const res = await searchPostList(page, COUNT_PER_PAGE, [], [], SortTypes.NEWEST, '');
+      setPosts([...posts, ...res.posts]);
+      setPostLength(l => l + res.posts.length);
+      setIsLoading(false);
+      setPage(page + 1);
+      checkLastPage(res.posts);
+      setIsMoreLoading(false);
+    } catch (e) {
+      console.debug(e);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return {
@@ -69,6 +89,7 @@ export const useEnhancer = () => {
     isLastPage,
     isMoreLoading,
     postLength,
-    onClickOrder
+    onClickOrder,
+    pushPostDetailPage
   };
 };

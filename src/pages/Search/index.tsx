@@ -61,11 +61,11 @@ const Home = () => {
               <>
                 {enhancer.posts.map(post =>
                   (window.windowDimensions.width > 480 ?
-                    <PostListItemContainer width={window.windowDimensions.width} splitSize={window.splitSize}>
+                    <PostListItemContainer onClick={() => enhancer.pushPostDetailPage(post.id)} width={window.windowDimensions.width} splitSize={window.splitSize}>
                       <PostListItem post={post as any} />
                     </PostListItemContainer>
                     :
-                    <SmallPostListItemContainer>
+                    <SmallPostListItemContainer onClick={() => enhancer.pushPostDetailPage(post.id)}>
                       <SmallSizePostListItem post={post as any} />
                     </SmallPostListItemContainer>
                   ))}

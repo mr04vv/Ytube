@@ -1,5 +1,5 @@
 import { Button } from '@material-ui/core';
-import { FavoriteBorder, FavoriteOutlined, Share } from '@material-ui/icons';
+import { FavoriteBorder, Share } from '@material-ui/icons';
 import { COLOR_GRAY, COLOR_LIGHT_GRAY, COLOR_MAIN, COLOR_MAIN_TEXT, COLOR_WHITE } from 'constants/colors';
 import { SMALL_POST_LIST_CONTAINER_MAX_WIDTH } from 'constants/maxWidth';
 import ReactPlayer from 'react-player';
@@ -147,6 +147,10 @@ export const YouTubePlayer = styled(ReactPlayer)``;
 export const RandomPostContainer = styled.div`
   min-width: 230px;
   margin-bottom: 2px;
+  :hover {
+    opacity: 0.7;
+    cursor: pointer;
+  }
 `;
 
 export const RandomPostListContainer = styled.div`
@@ -186,4 +190,11 @@ export const OpenAppButton = styled(Button)`
   }
   display: flex;
   justify-content: space-around;
+`;
+
+export const LoaderContainer = styled.div`
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
 `;

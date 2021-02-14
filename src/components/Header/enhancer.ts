@@ -45,8 +45,14 @@ export const useEnhancer = () => {
     // }
   };
 
+  const isSearchable = (): boolean => {
+    if (searchWord.length === 0) return false;
+    return true;
+  };
+
 
   const onKeyPressed = (key: string) => {
+    if (!isSearchable()) return;
     if (key === 'Enter') {
       pushSearchPage();
     }
@@ -59,7 +65,7 @@ export const useEnhancer = () => {
     searchCondition += `&word=${searchWord}`;
 
     history.push({
-      pathname: 'search',
+      pathname: '/search',
       search: `?${searchCondition}`,
     });
   };
@@ -106,6 +112,7 @@ export const useEnhancer = () => {
     onKeyPressed,
     pushSearchPage,
     pushHome,
-    searchWord
+    searchWord,
+    isSearchable
   };
 };
