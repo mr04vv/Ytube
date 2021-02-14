@@ -13,6 +13,7 @@ export const useEnhancer = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { match, history }: RouteComponentProps<{id: string}> = useReactRouter();
   const { params } = match;
+  const [isOpenShareModal, setIsOpenShareModal] = useState<boolean>(false);
 
   const [failed, setFailed] = useState<boolean>(false);
   const [ref] = useState<React.MutableRefObject<ReactPlayer | undefined>>(
@@ -57,6 +58,8 @@ export const useEnhancer = () => {
     randomPosts,
     pushPostDetailPage,
     ref,
-    loop
+    loop,
+    isOpenShareModal,
+    setIsOpenShareModal
   };
 };
