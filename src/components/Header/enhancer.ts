@@ -59,7 +59,7 @@ export const useEnhancer = () => {
     searchCondition += `&word=${searchWord}`;
 
     history.push({
-      pathname: 'search',
+      pathname: '/search',
       search: `?${searchCondition}`,
     });
   };
