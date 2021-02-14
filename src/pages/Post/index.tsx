@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Helmet from 'react-helmet';
-import { useState } from 'react';
 import { SmallSizePostListItem } from 'components/SmallSizePostListItem';
 import { useWindowDimensions } from 'usecase/useWindowDimensions';
 import { Category } from 'entity/entity/category';
@@ -14,14 +13,6 @@ const Post = () => {
   const enhancer = useEnhancer();
   const window = useWindowDimensions();
 
-  const [ref] = useState<React.MutableRefObject<null> >(
-    React.useRef(null)
-  );
-  // const [isPlaying, setIsPlaying] = React.useState<boolean>(false);
-
-  const loop = (r: any, second: number) => {
-    r.player.seekTo(second, 'seconds');
-  };
   return (
     <>
       { enhancer.isLoading &&
@@ -51,13 +42,18 @@ const Post = () => {
         <Container width={window.windowDimensions.width}>
           <MainContentContainer width={`${window.windowDimensions.width - SMALL_POST_LIST_CONTAINER_MAX_WIDTH - 56}px`}>
             <YouTubePlayer
-              ref={ref}
+              key={enhancer.post.id}
+              ref={enhancer.ref}
               controls
               width="100%"
               height={window.windowDimensions.width > 1700 ? `${(1700 - SMALL_POST_LIST_CONTAINER_MAX_WIDTH) * 0.5625}px` : `${(window.windowDimensions.width - SMALL_POST_LIST_CONTAINER_MAX_WIDTH) * 0.5625}px`}
-              onStart={async () => {
-              }}
-              onEnded={() => loop(ref.current, enhancer.post ? enhancer.post.startTime : 0)}
+              onStart={async () => { }}
+              onEnded={() => {
+                if (enhancer.ref.current) {
+                  enhancer.loop(enhancer.ref.current, enhancer.post ? enhancer.post.startTime : 0);
+                }
+              }
+            }
               url={enhancer.post.videoUrl}
               youtubeConfig={{
                 playerVars: {
