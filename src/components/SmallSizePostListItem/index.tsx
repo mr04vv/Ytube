@@ -20,8 +20,8 @@ export const SmallSizePostListItem = ({ post }: Props) => {
       <PostInfoContainer>
         <div>
           <CategoryGameContainer>
-            <GameTitle>{post.game.title}</GameTitle>
-            {post.categories.map((category: Category) => <CategoryName>{category.name}</CategoryName>)}
+            <GameTitle>{post.game?.title}</GameTitle>
+            {post.categories?.map((category: Category) => <CategoryName>{category.name}</CategoryName>)}
 
           </CategoryGameContainer>
           <Title>{post.title}</Title>
@@ -29,7 +29,7 @@ export const SmallSizePostListItem = ({ post }: Props) => {
         <MetaContainer>
           <PlayCountAndDate>
             { post.playCount}
-          回再生・
+            回再生・
             {calculatePostDate(post.createdAt)}
           </PlayCountAndDate>
           <LikeContainer>
