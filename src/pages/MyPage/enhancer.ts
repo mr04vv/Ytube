@@ -127,7 +127,7 @@ export const useEnhancer = () => {
     if (implementsUser(userState.data)) {
       setUserInfo(userState.data);
     }
-    if (userState.status === 'failed') {
+    if (userState.status !== 'loggedIn') {
       history.push({
         pathname: '/login',
       });

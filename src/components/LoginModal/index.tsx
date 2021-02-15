@@ -3,7 +3,9 @@ import { Button } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 import React from 'react';
 import { useEnhancer } from './enhancer';
-import { ButtonContainer, CloseButton, Container, CustomModal, Explain, ModalTitleContainer } from './style';
+import { ButtonContainer, CloseButton, Container, CustomModal, Explain, LogoContainer, ModalTitleContainer } from './style';
+
+const icon = require('assets/logo.png');
 
 
 interface Props {
@@ -32,14 +34,16 @@ export const LoginModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
       }}
     >
       <Container>
+        <CloseButton onClick={() => setIsOpen(false)}>
+          <Close />
+        </CloseButton>
         <ModalTitleContainer>
-          <div>ログインが必要です</div>
-          <CloseButton onClick={() => setIsOpen(false)}>
-            <Close />
-          </CloseButton>
+          <LogoContainer>
+            <img height="40px" src={icon} alt="" />
+          </LogoContainer>
         </ModalTitleContainer>
         <Explain>
-          投稿やいいねをするにはログインが必要です。ログイン画面に移動しますか？
+          わいコレはわいわいさんがYouTubeに投稿した動画のお気に入りのシーンを投稿して共有するプラットフォームです。ログインしていいねや投稿をしましょう。
         </Explain>
         <ButtonContainer>
           <Button color="primary" onClick={enhancer.pushLogin}>ログイン画面へ</Button>

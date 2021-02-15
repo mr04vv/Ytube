@@ -29,25 +29,25 @@ const login = createReducer(initialState, handleAction => [
     ...state,
     data: action.payload,
     loading: false,
-    status: 'success',
+    status: 'loggedIn',
   })),
   handleAction(fetchSuccess, (state, action) => ({
     ...state,
     data: action.payload,
     loading: false,
-    status: 'success',
+    status: 'loggedIn',
   })),
   handleAction(loginFail, state => ({
     ...state,
     data: {},
     loading: false,
-    status: 'failed',
+    status: 'notLoggedIn',
   })),
   handleAction(logout, state => ({
     ...state,
     data: {},
     loading: false,
-    status: 'success',
+    status: 'notLoggedIn',
   })),
 ]);
 

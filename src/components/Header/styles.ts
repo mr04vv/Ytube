@@ -176,3 +176,22 @@ export const Divider = styled.div`
   border-bottom: thin solid ${COLOR_LIGHT_GRAY};
   margin: 4px 0;
 `;
+
+
+export const LoginButton = styled(Button)`
+  width: 100px;
+  height: 30px;
+  margin: 0 5px;
+  background-color: ${COLOR_MAIN};
+  :hover {
+    background-color: ${COLOR_MAIN};
+    opacity: 0.8;
+   }
+   display: flex;
+   justify-content: space-around;
+`;
+
+export const LoginButtonLabel = styled.p`
+  color: ${COLOR_MAIN_TEXT};
+  font-size: 12px;
+`;
