@@ -23,8 +23,8 @@ export const PostListItem = ({ post }: Props) => {
         <TimeContainer><Time>{playTime}</Time></TimeContainer>
       </ThumbnailImageContainer>
       <CategoryGameContainer>
-        <GameTitle>{post.game.title}</GameTitle>
-        {post.categories.map((category: Category) => <CategoryName>{category.name}</CategoryName>)}
+        <GameTitle>{post.game?.title}</GameTitle>
+        {post.categories?.map((category: Category) => <CategoryName>{category.name}</CategoryName>)}
 
       </CategoryGameContainer>
       <Title>{post.title}</Title>

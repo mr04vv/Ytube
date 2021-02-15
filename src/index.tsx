@@ -14,10 +14,10 @@ import useFetch from 'hooks/Login/useFetchMe';
 import Account from 'pages/Account';
 import Home from 'pages/Home';
 import Help from 'pages/Help';
-import SideMenu from 'components/SideMenu';
 import Search from 'pages/Search';
 import Information from 'pages/Info';
 import Post from 'pages/Post';
+import { MyPage } from 'pages/MyPage';
 import * as serviceWorker from './serviceWorker';
 
 export const providerGoogle = new firebase.auth.GoogleAuthProvider();
@@ -51,7 +51,7 @@ const App = () => {
       <Route exact path="/" component={Top} />
       <Route exact path="/home" component={Home} />
       <Route exact path="/login" component={Login} />
-      <Route exact path="/accounts" component={Account} />
+      <Route exact path="/mypage" component={MyPage} />
       <Route exact path="/accounts/likes" component={Account} />
       <Route exact path="/help" component={Help} />
       <Route exact path="/search" component={Search} />

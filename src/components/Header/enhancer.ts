@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { User } from 'interfaces/UserInterface';
 import { signOut } from 'reduxes/modules/accounts/login';
@@ -26,10 +26,24 @@ export const useEnhancer = () => {
   const params = new URLSearchParams(location.search);
   const [sortType, setSortType] = useState<SortType>(SortTypes.NEWEST);
   const [searchWord, setSearchWord] = useState<string>('');
+  const anchorRef = useRef<HTMLButtonElement>(null);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     getParams();
   }, []);
+
+  const handleToggle = () => {
+    setOpen(prevOpen => !prevOpen);
+  };
+
+  const handleClose = (event: React.MouseEvent<EventTarget>) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const getParams = () => {
     const word = params.get(SearchParams.WORD);
@@ -77,6 +91,15 @@ export const useEnhancer = () => {
     });
   };
 
+  const pushMyPage = (event: React.MouseEvent<EventTarget>) => {
+    handleClose(event);
+    resetSearchParam();
+    history.push({
+      pathname: '/mypage',
+    });
+  };
+
+
   const resetSearchParam = () => {
     setSearchWord('');
     setSortType(SortTypes.NEWEST);
@@ -113,6 +136,11 @@ export const useEnhancer = () => {
     pushSearchPage,
     pushHome,
     searchWord,
-    isSearchable
+    isSearchable,
+    anchorRef,
+    open,
+    handleClose,
+    handleToggle,
+    pushMyPage
   };
 };

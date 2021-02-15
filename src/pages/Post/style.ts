@@ -171,7 +171,7 @@ export const MainContentContainer = styled.div<MainContentContainerProps>`
   flex-direction: column;
 `;
 
-export const Devider = styled.div`
+export const Divider = styled.div`
   border-bottom: thin solid ${COLOR_LIGHT_GRAY};
   margin-top: 4px;
 `;

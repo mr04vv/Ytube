@@ -6,7 +6,7 @@ import { Category } from 'entity/entity/category';
 import { SMALL_POST_LIST_CONTAINER_MAX_WIDTH } from 'constants/maxWidth';
 import { Loader } from 'components/Loader';
 import { useEnhancer } from './enhancer';
-import { CategoryGameContainer, CategoryName, Container, Detail, DetailContainer, Devider, GameTitle, LikeContainer, LikeIcon, LoaderContainer, MainContentContainer, MetaContainer, OpenAppButton, OpenAppButtonContainer, PlayCountAndDate, RandomPostContainer, RandomPostListContainer, ShareAndLikeContainer, ShareContainer, ShareIcon, Title, YouTubePlayer, } from './style';
+import { CategoryGameContainer, CategoryName, Container, Detail, DetailContainer, Divider, GameTitle, LikeContainer, LikeIcon, LoaderContainer, MainContentContainer, MetaContainer, OpenAppButton, OpenAppButtonContainer, PlayCountAndDate, RandomPostContainer, RandomPostListContainer, ShareAndLikeContainer, ShareContainer, ShareIcon, Title, YouTubePlayer, } from './style';
 import { ShareModal } from './ShareModal';
 
 
@@ -67,8 +67,8 @@ const Post = () => {
                 playing
               />
               <CategoryGameContainer>
-                <GameTitle>{enhancer.post.game.title}</GameTitle>
-                {enhancer.post.categories.map((category: Category) => <CategoryName>{category.name}</CategoryName>)}
+                <GameTitle>{enhancer.post.game?.title}</GameTitle>
+                {enhancer.post.categories?.map((category: Category) => <CategoryName>{category.name}</CategoryName>)}
               </CategoryGameContainer>
               <Title>{enhancer.post.title}</Title>
               <DetailContainer>
@@ -93,7 +93,7 @@ const Post = () => {
                   </ShareContainer>
                 </ShareAndLikeContainer>
               </MetaContainer>
-              <Devider />
+              <Divider />
               <OpenAppButtonContainer>
                 <OpenAppButton>
                   アプリで開く

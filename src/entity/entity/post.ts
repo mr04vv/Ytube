@@ -10,8 +10,8 @@ export interface Post {
   endTime: number;
   startTime: number;
   user: User;
-  game: Game;
-  categories: Category[];
+  game?: Game;
+  categories?: Category[];
   createdAt: string;
   isAnonymous: boolean;
   alreadyLiked: boolean;

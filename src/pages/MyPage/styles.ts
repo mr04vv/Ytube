@@ -1,8 +1,6 @@
 import styled from 'styled-components';
-import React from 'react';
-import { ExpansionPanel, ExpansionPanelSummary } from '@material-ui/core';
-import { ExpansionPanelProps } from '@material-ui/core/ExpansionPanel';
 import { COLOR_LIGHT_GRAY, COLOR_MAIN_TEXT } from 'constants/colors';
+import { Avatar } from '@material-ui/core';
 
 export const Container = styled.div`
   margin: 80px 16px;
@@ -14,16 +12,6 @@ export const PostContainer = styled.div`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-`;
-
-export const CustomExpantionPanel = styled(ExpansionPanel as React.FC<ExpansionPanelProps>)`
-  &.MuiPaper-elevation1 {
-    box-shadow: unset;
-  }
-  &.MuiExpansionPanel-root {
-    position: unset;
-  }
-  text-align: 'right';
 `;
 
 
@@ -51,15 +39,6 @@ export const SmallPostListItemContainer = styled.div`
   }
 `;
 
-export const CustomExpansionPanelSummary = styled(ExpansionPanelSummary)`
-  .MuiExpansionPanelSummary-expandIcon {
-    order: -1;
-    margin-right: 2px;
-  }
-  color: ${COLOR_MAIN_TEXT};
-  font-size: 14px;
-`;
-
 export const Divider = styled.div`
   border-bottom: thin solid ${COLOR_LIGHT_GRAY};
   margin: 4px 14px 0 14px;
@@ -72,8 +51,33 @@ export const LoaderContainer = styled.div`
   align-items: center;
 `;
 
-
 export const ProgressContainer = styled.div`
   display: flex;
   justify-content: center;
+  height: 60px;
+  align-items: center;
+`;
+
+export const AccountInfo = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0 0 10px 18px;
+`;
+
+export const AccountIcon = styled(Avatar)`
+  width: 60px;
+  height: 60px;
+`;
+
+export const IconContainer = styled.div`
+  margin: 0 12px;
+`;
+
+export const UserName = styled.div`
+  font-size: 16px;
+  color: ${COLOR_MAIN_TEXT};
+`;
+
+export const TabContainer = styled.div`
+  margin: 0 30px;
 `;

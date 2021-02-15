@@ -12,7 +12,7 @@ import {
   Container,
   CustomExpansionPanelSummary,
   CustomExpantionPanel,
-  Devider,
+  Divider,
   LoaderContainer,
   PostContainer,
   PostListItemContainer,
@@ -48,7 +48,7 @@ const Home = () => {
           </CustomExpansionPanelSummary>
           <Sort sortType={SortTypes.NEWEST} onClick={enhancer.onClickOrder} />
         </CustomExpantionPanel>
-        <Devider />
+        <Divider />
         <InfiniteScroll
           loadMore={enhancer.loadMore} // 項目を読み込む際に処理するコールバック関数
           hasMore={!enhancer.isLastPage && !enhancer.isMoreLoading} // 読み込みを行うかどうかの判定
@@ -58,11 +58,11 @@ const Home = () => {
               {enhancer.posts.map(post =>
                 (window.windowDimensions.width > 480 ?
                   <PostListItemContainer onClick={() => enhancer.pushPostDetailPage(post.id)} width={window.windowDimensions.width} splitSize={window.splitSize}>
-                    <PostListItem post={post as any} />
+                    <PostListItem post={post} />
                   </PostListItemContainer>
                   :
                   <SmallPostListItemContainer onClick={() => enhancer.pushPostDetailPage(post.id)}>
-                    <SmallSizePostListItem post={post as any} />
+                    <SmallSizePostListItem post={post} />
                   </SmallPostListItemContainer>
                 ))}
               {window.windowDimensions.width > 480 && [...Array(dummyLength)].map(() => <PostListItemContainer width={window.windowDimensions.width} splitSize={window.splitSize} />)}
