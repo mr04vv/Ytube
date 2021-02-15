@@ -11,7 +11,7 @@ import {
   Container,
   CustomExpansionPanelSummary,
   CustomExpantionPanel,
-  Devider,
+  Divider,
   LoaderContainer,
   PostContainer,
   PostListItemContainer,
@@ -48,7 +48,7 @@ const Home = () => {
           </CustomExpansionPanelSummary>
           <Sort sortType={enhancer.sortType} onClick={enhancer.setSortType} />
         </CustomExpantionPanel>
-        <Devider />
+        <Divider />
         {enhancer.isSorting ?
           <ProgressContainer>
             <CircularProgress size="30px" />
@@ -62,11 +62,11 @@ const Home = () => {
                 {enhancer.posts.map(post =>
                   (window.windowDimensions.width > 480 ?
                     <PostListItemContainer onClick={() => enhancer.pushPostDetailPage(post.id)} width={window.windowDimensions.width} splitSize={window.splitSize}>
-                      <PostListItem post={post as any} />
+                      <PostListItem post={post} />
                     </PostListItemContainer>
                     :
                     <SmallPostListItemContainer onClick={() => enhancer.pushPostDetailPage(post.id)}>
-                      <SmallSizePostListItem post={post as any} />
+                      <SmallSizePostListItem post={post} />
                     </SmallPostListItemContainer>
                   ))}
                 {window.windowDimensions.width > 480 && [...Array(dummyLength)].map(() => <PostListItemContainer width={window.windowDimensions.width} splitSize={window.splitSize} />)}

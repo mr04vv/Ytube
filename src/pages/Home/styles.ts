@@ -60,7 +60,7 @@ export const CustomExpansionPanelSummary = styled(ExpansionPanelSummary)`
   font-size: 14px;
 `;
 
-export const Devider = styled.div`
+export const Divider = styled.div`
   border-bottom: thin solid ${COLOR_LIGHT_GRAY};
   margin: 4px 14px 0 14px;
 `;
