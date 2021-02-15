@@ -59,6 +59,7 @@ export const useEnhancer = () => {
       setIsLastPage(false);
       setPosts(res.posts);
       setPostLength(res.posts.length);
+      checkLastPage(res.posts);
       setPage(2);
     } catch (e) {
       console.debug(e);
