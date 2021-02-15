@@ -16,3 +16,4 @@ export const COLOR_MAIN = '#FFDE8D';
 export const COLOR_MAIN_TEXT = '#6A6A6A';
 export const COLOR_BLACK = '#0F0F0F';
 export const COLOR_TWITTER = '#00acee';
+export const COLOR_LIKED = '#F05B5B';
