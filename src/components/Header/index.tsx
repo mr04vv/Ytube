@@ -1,23 +1,24 @@
-import { AccountCircle, HomeRounded } from '@material-ui/icons';
+import { ClickAwayListener, Grow, MenuList, Paper } from '@material-ui/core';
+import { AccountCircle, ExitToApp, HomeRounded } from '@material-ui/icons';
 import React from 'react';
 import { useEnhancer } from './enhancer';
-import { CustomAvatar, Container, WhiteAppBar, ImageContainer, BarContainer, AppBarLeftItem, AppBarRightItem, CustomIconLabel, CustomIconButton, CreatePostButton, CreatePostButtonLabel, VideoCallIcon, AvatarContainer, SearchContainer, SearchField, SearchButton, SearchIcon, TopLink } from './styles';
+import { CustomAvatar, Container, WhiteAppBar, ImageContainer, BarContainer, AppBarLeftItem, AppBarRightItem, CustomIconLabel, CustomIconButton, CreatePostButton, CreatePostButtonLabel, VideoCallIcon, AvatarContainer, SearchContainer, SearchField, SearchButton, SearchIcon, TopLink, AccountInfo, UserName, IconContainer, CustomPopper, MenuItemIcon, CustomMenuItem, Divider } from './styles';
 
 const icon = require('assets/logo.png');
 
 const Header = () => {
-  const { userInfo, setSearchWord, onKeyPressed, searchWord, pushSearchPage, pushHome, isSearchable } = useEnhancer();
+  const enhancer = useEnhancer();
   return (
     <Container>
       <WhiteAppBar>
         <BarContainer>
-          <TopLink onClick={() => pushHome()}>
+          <TopLink onClick={() => enhancer.pushHome()}>
             <ImageContainer>
               <img height="40px" src={icon} alt="" />
             </ImageContainer>
           </TopLink>
           <AppBarLeftItem>
-            <CustomIconButton onClick={() => pushHome()}>
+            <CustomIconButton onClick={() => enhancer.pushHome()}>
               <HomeRounded />
               <CustomIconLabel>ホーム</CustomIconLabel>
             </CustomIconButton>
@@ -28,14 +29,14 @@ const Header = () => {
           </AppBarLeftItem>
           <SearchContainer>
             <SearchField
-              value={searchWord}
+              value={enhancer.searchWord}
               placeholder="検索"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchWord(e.target.value)}
-              onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => onKeyPressed(e.key)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => enhancer.setSearchWord(e.target.value)}
+              onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => enhancer.onKeyPressed(e.key)}
             />
             <SearchButton onClick={() => {
-              if (!isSearchable()) return;
-              pushSearchPage();
+              if (!enhancer.isSearchable()) return;
+              enhancer.pushSearchPage();
             }}
             >
               <SearchIcon />
@@ -46,13 +47,53 @@ const Header = () => {
               <VideoCallIcon />
               <CreatePostButtonLabel>新規投稿</CreatePostButtonLabel>
             </CreatePostButton>
-            <AvatarContainer>
-              {userInfo && userInfo.imageUrl ? (
-                <CustomAvatar aria-label="recipe" src={userInfo.imageUrl} />
+            <AvatarContainer ref={enhancer.anchorRef} onClick={enhancer.handleToggle}>
+              {enhancer.userInfo && enhancer.userInfo.imageUrl ? (
+                <CustomAvatar aria-label="recipe" src={enhancer.userInfo.imageUrl} />
               ) : (
                 <AccountCircle color="action" />
               )}
             </AvatarContainer>
+            <CustomPopper open={enhancer.open} anchorEl={enhancer.anchorRef.current} role={undefined} transition disablePortal>
+              {({ TransitionProps, placement }) => (
+                <Grow
+                  {...TransitionProps}
+                  style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                >
+                  <Paper>
+                    <ClickAwayListener onClickAway={enhancer.handleClose}>
+                      <MenuList id="menu-list-grow">
+                        <AccountInfo>
+                          <IconContainer>
+                            <CustomAvatar aria-label="recipe" src={enhancer.userInfo?.imageUrl} />
+                          </IconContainer>
+                          <UserName>{ enhancer.userInfo?.name}</UserName>
+                        </AccountInfo>
+                        <Divider />
+                        <CustomMenuItem onClick={enhancer.pushMyPage}>
+                          <MenuItemIcon>
+                            <AccountCircle color="action" />
+                          </MenuItemIcon>
+                          マイページ
+                        </CustomMenuItem>
+                        {/* <CustomMenuItem onClick={enhancer.handleClose}>
+                          <MenuItemIcon>
+                            <History color="action" />
+                          </MenuItemIcon>
+                          視聴履歴
+                        </CustomMenuItem> */}
+                        <CustomMenuItem onClick={enhancer.handleClose}>
+                          <MenuItemIcon>
+                            <ExitToApp color="action" />
+                          </MenuItemIcon>
+                          ログアウト
+                        </CustomMenuItem>
+                      </MenuList>
+                    </ClickAwayListener>
+                  </Paper>
+                </Grow>
+              )}
+            </CustomPopper>
           </AppBarRightItem>
         </BarContainer>
       </WhiteAppBar>

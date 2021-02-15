@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { IconButton, AppBar, Toolbar, Button, InputBase, Avatar } from '@material-ui/core';
-import { COLOR_MAIN, COLOR_MAIN_TEXT, COLOR_WHITE } from 'constants/colors';
+import { IconButton, AppBar, Toolbar, Button, InputBase, Avatar, Popper, MenuItem } from '@material-ui/core';
+import { COLOR_LIGHT_GRAY, COLOR_MAIN, COLOR_MAIN_TEXT, COLOR_WHITE } from 'constants/colors';
 import { SearchRounded, VideoCallRounded } from '@material-ui/icons';
 import { InputBaseProps } from '@material-ui/core/InputBase';
 
@@ -133,4 +133,46 @@ export const TopLink = styled.div`
 export const CustomAvatar = styled(Avatar)`
   width: 36px;
   height: 36px;
+`;
+
+export const AccountInfo = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 4px 0;
+  :focus {
+    outline: none;
+  }
+`;
+
+export const IconContainer = styled.div`
+  margin: 0 12px;
+`;
+
+export const UserName = styled.div`
+  font-size: 16px;
+  color: ${COLOR_MAIN_TEXT};
+`;
+
+export const CustomPopper = styled(Popper)`
+  width: 230px;
+  left: -14px;
+`;
+
+export const MenuItemIcon = styled.div`
+  margin: 0 10px;
+  display: flex;
+  align-items: center;
+`;
+
+export const CustomMenuItem = styled(MenuItem)`
+  display: flex;
+  align-items: center;
+  padding: 8px 2px;
+  font-size: 14px;
+  color: ${COLOR_MAIN_TEXT};
+`;
+
+export const Divider = styled.div`
+  border-bottom: thin solid ${COLOR_LIGHT_GRAY};
+  margin: 4px 0;
 `;
