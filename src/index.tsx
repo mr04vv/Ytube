@@ -9,14 +9,19 @@ import BottomFooter from 'components/BottomFooter';
 import Top from 'pages/Top';
 import Header from 'components/Header';
 import { StylesProvider } from '@material-ui/styles';
+import Login from 'pages/Login';
 import useFetch from 'hooks/Login/useFetchMe';
+import Account from 'pages/Account';
 import Home from 'pages/Home';
 import Help from 'pages/Help';
+import SideMenu from 'components/SideMenu';
 import Search from 'pages/Search';
 import Information from 'pages/Info';
 import Post from 'pages/Post';
-import { MyPage } from 'pages/MyPage';
 import * as serviceWorker from './serviceWorker';
+
+export const providerGoogle = new firebase.auth.GoogleAuthProvider();
+export const providerTwitter = new firebase.auth.TwitterAuthProvider();
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBd6qvPBAcBO7zPEG5leDFQVzZL6gYnqhw',
@@ -45,7 +50,9 @@ const App = () => {
     <Switch>
       <Route exact path="/" component={Top} />
       <Route exact path="/home" component={Home} />
-      <Route exact path="/mypage" component={MyPage} />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/accounts" component={Account} />
+      <Route exact path="/accounts/likes" component={Account} />
       <Route exact path="/help" component={Help} />
       <Route exact path="/search" component={Search} />
       <Route exact path="/info" component={Information} />
@@ -62,7 +69,7 @@ export const Ytube = () => (
         <Header />
         <App />
         <BottomFooter />
-        {/* <SideMenu /> */}
+        <SideMenu />
       </StylesProvider>
     </Router>
   </Provider>

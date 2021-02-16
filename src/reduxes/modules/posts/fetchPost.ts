@@ -1,13 +1,10 @@
-import { fetchPostList } from 'api/posts/fetchPostList';
 import { createActionCreator, createReducer } from 'deox';
-import { FetchPostsState } from 'entity/reduxState/fetchPostsState';
 import { Dispatch } from 'redux';
+import client from 'utilities/apiClient';
 
 const MODULE_NAME = 'POST';
-const initialState: FetchPostsState = {
+const initialState = {
   data: {},
-  loading: false,
-  status: 'notInitialized'
 };
 
 // Constants
@@ -30,8 +27,10 @@ export default fetchPost;
 
 // GET Data
 
-export const getPosts = (page: number, per: number) => async (dispatch: Dispatch) => {
-  const res = await fetchPostList(page, per);
-  dispatch(fetchSuccess(res));
-  return res;
+export const fetchPosts = (page: string, per: string) => async (dispatch: Dispatch) => {
+  const res = await client.get(`/api/posts?page=${page}&per=${per}`).catch((err) => {
+    throw err;
+  });
+  dispatch(fetchSuccess(res.data));
+  return res.data;
 };

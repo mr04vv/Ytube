@@ -1,14 +1,10 @@
-import { fetchMyInfo } from 'api/users/fetchMyInfo';
 import { createActionCreator, createReducer } from 'deox';
-import { FetchMeState } from 'entity/reduxState/fetchMeState';
 import { Dispatch } from 'redux';
 import client from 'utilities/apiClient';
 
 const MODULE_NAME = 'login';
-const initialState: FetchMeState = {
+const initialState = {
   data: {},
-  loading: false,
-  status: 'notInitialized'
 };
 
 // Constants
@@ -20,7 +16,7 @@ export const LOGOUT = `redux/${MODULE_NAME}/LOGOUT`;
 // Actions
 export const loginSuccess = createActionCreator(LOGIN_SUCCESS, resolve => (res: object) => resolve(res));
 export const fetchSuccess = createActionCreator(FETCH_SUCCESS, resolve => (res: object) => resolve(res));
-const loginFail = createActionCreator(LOGIN_FAIL);
+const loginFail = createActionCreator(LOGIN_FAIL, resolve => (err: string) => resolve(err));
 const logout = createActionCreator(LOGOUT);
 
 // Reducer
@@ -29,25 +25,25 @@ const login = createReducer(initialState, handleAction => [
     ...state,
     data: action.payload,
     loading: false,
-    status: 'loggedIn',
+    status: 'success',
   })),
   handleAction(fetchSuccess, (state, action) => ({
     ...state,
     data: action.payload,
     loading: false,
-    status: 'loggedIn',
+    status: 'success',
   })),
-  handleAction(loginFail, state => ({
+  handleAction(loginFail, (state, action) => ({
     ...state,
-    data: {},
+    data: action.payload,
     loading: false,
-    status: 'notLoggedIn',
+    status: 'fail',
   })),
   handleAction(logout, state => ({
     ...state,
     data: {},
     loading: false,
-    status: 'notLoggedIn',
+    status: 'logout',
   })),
 ]);
 
@@ -59,7 +55,7 @@ export const signIn = (firebaseToken: string) => async (dispatch: Dispatch) => {
     fb_custom_token: firebaseToken,
   };
   const res = await client.post('/api/users_for_pc', body).catch((err: string) => {
-    dispatch(loginFail());
+    dispatch(loginFail(err));
     throw err;
   });
   dispatch(loginSuccess(res.data.user));
@@ -68,12 +64,12 @@ export const signIn = (firebaseToken: string) => async (dispatch: Dispatch) => {
 
 // GET Data
 export const fetchMe = () => async (dispatch: Dispatch) => {
-  const res = await fetchMyInfo().catch((err: string) => {
-    dispatch(loginFail());
+  const res = await client.get('/api/me').catch((err: string) => {
+    dispatch(loginFail(err));
     throw err;
   });
-  dispatch(fetchSuccess(res.user));
-  return res.user;
+  dispatch(fetchSuccess(res.data.user));
+  return res.data.user;
 };
 
 export const signOut = () => async (dispatch: Dispatch) => {

@@ -28,8 +28,8 @@ function SimpleSnackBar({
     <div>
       <Snackbar
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: 'top',
+          horizontal: 'center',
         }}
         open={isShow}
         onClose={onClose}

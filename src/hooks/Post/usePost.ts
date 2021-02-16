@@ -1,18 +1,22 @@
 /* eslint-disable no-console */
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { CategoryInterface } from 'interfaces/CategoryInterface';
 import { useDispatch } from 'react-redux';
 import { createPost } from 'reduxes/modules/posts/post';
 import { CreatePostInterface, UpdatePostInterface } from 'interfaces/posts/CreatePostInterface';
-import { getPosts } from 'reduxes/modules/posts/fetchPost';
+import { fetchPosts } from 'reduxes/modules/posts/fetchPost';
+import { fetchLikedPost } from 'reduxes/modules/posts/fetchLikedPost';
 import { PostInterface } from 'interfaces/posts/PostInterface';
 import updatePost from 'api/posts/updatePost';
+import { Place } from 'components/PostList';
+import { fetchMyPosts } from 'reduxes/modules/posts/fetchMyPost';
 
 const usePost = (
   categoryMaster: CategoryInterface[],
   content?: PostInterface,
   page?: string,
   per?: string,
+  place?: Place
 ) => {
   const [startTime, setStartTime] = useState<string>('0');
   const [endTime, setEndTime] = useState<string>('0');
@@ -95,7 +99,7 @@ const usePost = (
     init();
     setTabIndex(0);
     closeModal();
-    dispatch(getPosts(1, 10));
+    dispatch(fetchPosts('1', '10'));
     setIsLoading(false);
   };
 
@@ -125,6 +129,17 @@ const usePost = (
     init();
     setTabIndex(0);
     closeModal();
+    if (page && per) {
+      if (place === 'like') {
+        dispatch(fetchLikedPost(page, per));
+      }
+      if (place === 'accounts') {
+        dispatch(fetchMyPosts(page, per));
+      }
+      if (place === 'home') {
+        dispatch(fetchPosts(page, per));
+      }
+    }
     setIsLoading(false);
   };
 

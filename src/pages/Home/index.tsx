@@ -1,83 +1,46 @@
-import React from 'react';
-import { PostListItem } from 'components/PostListItem';
-import { useWindowDimensions } from 'usecase/useWindowDimensions';
-import { SmallSizePostListItem } from 'components/SmallSizePostListItem';
-import { TuneOutlined } from '@material-ui/icons';
-import { Loader } from 'components/Loader';
-import InfiniteScroll from 'react-infinite-scroller';
-import { CircularProgress } from '@material-ui/core';
-import { SortTypes } from 'entity/union/sortType';
-import { Sort } from 'components/Sort';
+import * as React from 'react';
+import AddIcon from '@material-ui/icons/Add';
+import usePostModal from 'hooks/Post/usePostModal';
+import PostList from 'components/PostList';
+import useFetchPost, { OrderInterface } from 'hooks/Post/useFetchPost';
+import useMyInfo from 'hooks/User/useMyInfo';
+import useMasterData from 'hooks/Post/useMasterData';
 import {
-  Container,
-  CustomExpansionPanelSummary,
+  FormControl,
+  ExpansionPanelSummary,
+  Typography,
+  InputLabel,
+  Select,
+  Input,
+  MenuItem,
+  ListItemText,
+  CircularProgress,
+} from '@material-ui/core';
+import { SearchOutlined, TuneOutlined } from '@material-ui/icons';
+import { CategoryInterface } from 'interfaces/CategoryInterface';
+import { GameInterface } from 'interfaces/GameInterface';
+import {
+  SearchTextField,
+  SearchButton,
   CustomExpantionPanel,
-  Divider,
-  LoaderContainer,
-  PostContainer,
-  PostListItemContainer,
-  ProgressContainer,
-  SmallPostListItemContainer,
+  SearchContainer,
+  CustomSearchButton,
+  CustomFab,
+  Container,
+  CustomSearchContainer,
 } from './styles';
-import { useEnhancer } from './enhancer';
+import PostModal from './PostModal';
 
 const Home = () => {
-  // const modalOpen = usePostModal();
-  // const master = useMasterData();
-  // const post = useFetchPost(master.categoryMaster, master.gameMaster);
-  // const info = useMyInfo();
-  const enhancer = useEnhancer();
+  const modalOpen = usePostModal();
+  const master = useMasterData();
+  const post = useFetchPost(master.categoryMaster, master.gameMaster);
+  const info = useMyInfo();
   const [isExpanded, setIsExpanded] = React.useState<boolean>(false);
-  const window = useWindowDimensions();
-  const dummyLength = (window.splitSize - 1) - (enhancer.postLength % (window.splitSize - 1));
+
   return (
-    enhancer.isLoading ?
-      <LoaderContainer>
-        <Loader />
-      </LoaderContainer>
-      :
-      <Container>
-        <CustomExpantionPanel expanded={isExpanded}>
-          <CustomExpansionPanelSummary
-            onClick={() => { setIsExpanded(!isExpanded); }}
-            expandIcon={<TuneOutlined />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-          >
-            並べ替え
-          </CustomExpansionPanelSummary>
-          <Sort sortType={SortTypes.NEWEST} onClick={enhancer.onClickOrder} />
-        </CustomExpantionPanel>
-        <Divider />
-        <InfiniteScroll
-          loadMore={enhancer.loadMore} // 項目を読み込む際に処理するコールバック関数
-          hasMore={!enhancer.isLastPage && !enhancer.isMoreLoading} // 読み込みを行うかどうかの判定
-        >
-          <PostContainer>
-            <>
-              {enhancer.posts.map(post =>
-                (window.windowDimensions.width > 480 ?
-                  <PostListItemContainer onClick={() => enhancer.pushPostDetailPage(post.id)} width={window.windowDimensions.width} splitSize={window.splitSize}>
-                    <PostListItem post={post} />
-                  </PostListItemContainer>
-                  :
-                  <SmallPostListItemContainer onClick={() => enhancer.pushPostDetailPage(post.id)}>
-                    <SmallSizePostListItem post={post} />
-                  </SmallPostListItemContainer>
-                ))}
-              {window.windowDimensions.width > 480 && [...Array(dummyLength)].map(() => <PostListItemContainer width={window.windowDimensions.width} splitSize={window.splitSize} />)}
-            </>
-          </PostContainer>
-          {enhancer.isMoreLoading &&
-            <ProgressContainer>
-              <CircularProgress size="30px" />
-            </ProgressContainer>
-            }
-
-        </InfiniteScroll>
-
-      </Container>
-  /* <SearchContainer>
+    <>
+      <SearchContainer>
         <FormControl
           fullWidth
           style={{
@@ -222,7 +185,8 @@ const Home = () => {
             per={post.per}
           />
         </Container>
-      )} */
+      )}
+    </>
   );
 };
 
