@@ -1,6 +1,6 @@
 import { Button } from '@material-ui/core';
-import { FavoriteBorder, Share } from '@material-ui/icons';
-import { COLOR_GRAY, COLOR_LIGHT_GRAY, COLOR_MAIN, COLOR_MAIN_TEXT, COLOR_WHITE } from 'constants/colors';
+import { Favorite, FavoriteBorder, Share } from '@material-ui/icons';
+import { COLOR_GRAY, COLOR_LIGHT_GRAY, COLOR_LIKED, COLOR_MAIN, COLOR_MAIN_TEXT, COLOR_WHITE } from 'constants/colors';
 import { SMALL_POST_LIST_CONTAINER_MAX_WIDTH } from 'constants/maxWidth';
 import ReactPlayer from 'react-player';
 import styled, { css } from 'styled-components';
@@ -113,6 +113,11 @@ export const LikeIcon = styled(FavoriteBorder)`
   color: ${COLOR_GRAY};
   margin-right: 6px;
 `;
+
+export const LikedIcon = styled(Favorite)`
+  font-size: 26px;
+  color: ${COLOR_LIKED};
+  margin-right: 6px;`;
 
 export const PlayCountAndDate = styled.div`
   font-size: 13px;

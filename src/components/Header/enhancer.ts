@@ -7,6 +7,9 @@ import firebase from 'firebase';
 import useReactRouter from 'use-react-router';
 import { SortType, SortTypes } from 'entity/union/sortType';
 import { SearchParams } from 'constants/searchParams';
+import { FetchMeState } from 'entity/reduxState/fetchMeState';
+import { implementsUser } from 'entity/entity/user';
+import { LoginStatus } from 'entity/union/reduxStatus';
 
 export interface UseMyInfoInterface {
   userInfo: User | undefined;
@@ -18,16 +21,17 @@ export interface UseMyInfoInterface {
 export const useEnhancer = () => {
   const [userInfo, setUserInfo] = useState<User | undefined>();
   const userSelector = (state: any) => state.login;
-  const userState = useSelector(userSelector);
+  const userState: FetchMeState = useSelector(userSelector);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const dispatch = useDispatch();
-  const [loginStatus, setLoginStatus] = useState<string | undefined>('');
+  const [loginStatus, setLoginStatus] = useState<LoginStatus>('notInitialized');
   const { history, location } = useReactRouter();
   const params = new URLSearchParams(location.search);
   const [sortType, setSortType] = useState<SortType>(SortTypes.NEWEST);
   const [searchWord, setSearchWord] = useState<string>('');
   const anchorRef = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
+  const [isOpenLoginModal, setIsOpenLoginModal] = useState<boolean>(false);
 
   useEffect(() => {
     getParams();
@@ -105,17 +109,24 @@ export const useEnhancer = () => {
     setSortType(SortTypes.NEWEST);
   };
 
+  const onClickCreatePostButton = () => {
+    if (implementsUser(userState.data)) {
+      history.push({
+        pathname: '/create',
+      });
+    } else {
+      setIsOpenLoginModal(true);
+    }
+  };
 
   useEffect(() => {
-    if (Object.keys(userState.data).length !== 0) {
+    if (implementsUser(userState.data)) {
       setUserInfo(userState.data);
       setIsLoading(false);
-    }
-    if (userState.status) {
       setLoginStatus(userState.status);
-      setIsLoading(false);
     }
-    if (userState.status === 'logout') {
+    if (userState.status === 'notLoggedIn') {
+      setLoginStatus(userState.status);
       setUserInfo(undefined);
     }
   }, [userState]);
@@ -123,7 +134,8 @@ export const useEnhancer = () => {
   const logout = () => {
     dispatch(signOut());
     firebase.auth().signOut();
-    setLoginStatus('logout');
+    setLoginStatus('notLoggedIn');
+    setOpen(false);
   };
 
   return {
@@ -141,6 +153,9 @@ export const useEnhancer = () => {
     open,
     handleClose,
     handleToggle,
-    pushMyPage
+    pushMyPage,
+    onClickCreatePostButton,
+    isOpenLoginModal,
+    setIsOpenLoginModal
   };
 };

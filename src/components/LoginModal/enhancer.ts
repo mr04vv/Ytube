@@ -1,17 +1,25 @@
-/* eslint-disable no-console */
+
 import firebase from 'firebase';
-import { providerTwitter, providerGoogle } from 'index';
 import { useState, useEffect } from 'react';
 import useReactRouter from 'use-react-router';
 import { signIn } from 'reduxes/modules/accounts/login';
 import { useDispatch } from 'react-redux';
+import { RouteComponentProps } from 'react-router';
 
-const useLogin = () => {
+const providerGoogle = new firebase.auth.GoogleAuthProvider();
+const providerTwitter = new firebase.auth.TwitterAuthProvider();
+
+interface Props {
+  setIsOpen: (v: boolean) => void;
+}
+
+export const useEnhancer = ({ setIsOpen }: Props) => {
   const [isLoaggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [uid, setUid] = useState<string>();
-  const { history } = useReactRouter();
   const dispatch = useDispatch();
+  const { history }: RouteComponentProps<{id: string}> = useReactRouter();
+
   useEffect(() => {
     (async () => {
       firebase.auth().onAuthStateChanged(async (user: any) => {
@@ -22,9 +30,7 @@ const useLogin = () => {
             console.debug(user);
             setUid(user.uid);
             setIsLoading(false);
-            history.push({
-              pathname: '/home',
-            });
+            setIsOpen(false);
           } catch {
             setIsLoading(false);
           }
@@ -46,6 +52,7 @@ const useLogin = () => {
   };
 
   const signOut = () => {
+    dispatch(signOut());
     firebase.auth().signOut();
     setIsLoggedIn(false);
     setIsLoading(false);
@@ -60,5 +67,3 @@ const useLogin = () => {
     signOut,
   };
 };
-
-export default useLogin;

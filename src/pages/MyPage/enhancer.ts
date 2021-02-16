@@ -8,7 +8,7 @@ import { COUNT_PER_PAGE } from 'constants/countPerPage';
 import { fetchMyPostList } from 'api/posts/fetchMyPostList';
 import { fetchLikePostList } from 'api/posts/fetchLikePostList';
 import { LikePost } from 'entity/responseDto/likePostListResponseDto';
-import { User } from 'entity/entity/user';
+import { implementsUser, User } from 'entity/entity/user';
 import { FetchMeState } from 'entity/reduxState/fetchMeState';
 
 export interface OrderInterface {
@@ -122,14 +122,12 @@ export const useEnhancer = () => {
     }
   };
 
-  const implementsUser = (arg: any): arg is User => arg !== null &&
-      typeof arg.id === 'number';
 
   useEffect(() => {
     if (implementsUser(userState.data)) {
       setUserInfo(userState.data);
     }
-    if (userState.status === 'failed') {
+    if (userState.status !== 'loggedIn') {
       history.push({
         pathname: '/login',
       });

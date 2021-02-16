@@ -11,16 +11,17 @@ export const CustomModal = styled(Modal)`
   right: unset;
   bottom: unset;
   background-color: white;
-  max-width: 500px;
+  max-width: 540px;
   margin: 0 auto;
   border-radius: 4px;
+  position: relative;
   :focus {
     outline: none;
   }
 `;
 
 export const Container = styled.div`
-  padding: 24px 20px;
+  padding: 24px 36px;
 `;
 
 export const CopyButton = styled(Button)`
@@ -73,6 +74,9 @@ export const ModalTitleContainer = styled.div`
 
 
 export const CloseButton = styled(Button)`
+  position: absolute;
+  right: 1em;
+  top: 1em; 
   color: ${COLOR_LIGHT_GRAY};
   min-width: unset;
   padding: unset;

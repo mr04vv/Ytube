@@ -5,8 +5,9 @@ import { useWindowDimensions } from 'usecase/useWindowDimensions';
 import { Category } from 'entity/entity/category';
 import { SMALL_POST_LIST_CONTAINER_MAX_WIDTH } from 'constants/maxWidth';
 import { Loader } from 'components/Loader';
+import { LoginModal } from 'components/LoginModal';
 import { useEnhancer } from './enhancer';
-import { CategoryGameContainer, CategoryName, Container, Detail, DetailContainer, Divider, GameTitle, LikeContainer, LikeIcon, LoaderContainer, MainContentContainer, MetaContainer, OpenAppButton, OpenAppButtonContainer, PlayCountAndDate, RandomPostContainer, RandomPostListContainer, ShareAndLikeContainer, ShareContainer, ShareIcon, Title, YouTubePlayer, } from './style';
+import { CategoryGameContainer, CategoryName, Container, Detail, DetailContainer, Divider, GameTitle, LikeContainer, LikedIcon, LikeIcon, LoaderContainer, MainContentContainer, MetaContainer, OpenAppButton, OpenAppButtonContainer, PlayCountAndDate, RandomPostContainer, RandomPostListContainer, ShareAndLikeContainer, ShareContainer, ShareIcon, Title, YouTubePlayer, } from './style';
 import { ShareModal } from './ShareModal';
 
 
@@ -16,6 +17,7 @@ const Post = () => {
 
   return (
     <>
+      <LoginModal isOpen={enhancer.isOpenLoginModal} setIsOpen={enhancer.setIsOpenLoginModal} />
       { enhancer.isLoading &&
       <LoaderContainer>
         <Loader />
@@ -50,7 +52,6 @@ const Post = () => {
                 controls
                 width="100%"
                 height={window.windowDimensions.width > 1700 ? `${(1700 - SMALL_POST_LIST_CONTAINER_MAX_WIDTH) * 0.5625}px` : `${(window.windowDimensions.width - SMALL_POST_LIST_CONTAINER_MAX_WIDTH) * 0.5625}px`}
-                onStart={async () => { }}
                 onEnded={() => {
                   if (enhancer.ref.current) {
                     enhancer.loop(enhancer.ref.current, enhancer.post ? enhancer.post.startTime : 0);
@@ -83,8 +84,8 @@ const Post = () => {
                   秒
                 </PlayCountAndDate>
                 <ShareAndLikeContainer>
-                  <LikeContainer>
-                    <LikeIcon />
+                  <LikeContainer onClick={enhancer.onClickLikeButton}>
+                    {enhancer.post.alreadyLiked ? <LikedIcon /> : <LikeIcon />}
                     {enhancer.post.likeCount}
                   </LikeContainer>
                   <ShareContainer onClick={() => enhancer.setIsOpenShareModal(true)}>
