@@ -1,5 +1,5 @@
 import { Button } from '@material-ui/core';
-import { COLOR_LIGHT_GRAY, COLOR_MAIN_TEXT, COLOR_WHITE } from 'constants/colors';
+import { COLOR_LIGHT_GRAY, COLOR_MAIN_TEXT, COLOR_TWITTER, COLOR_TWITTER_HOVER, COLOR_WHITE } from 'constants/colors';
 import Modal from 'react-modal';
 import styled from 'styled-components';
 
@@ -20,7 +20,7 @@ export const CustomModal = styled(Modal)`
 `;
 
 export const Container = styled.div`
-  padding: 24px 20px;
+  padding: 24px 36px;
 `;
 
 export const ModalTitleContainer = styled.div`
@@ -46,6 +46,7 @@ export const CloseButton = styled(Button)`
 export const Explain = styled.div`
   font-size: 13px;
   color: ${COLOR_MAIN_TEXT};
+  letter-spacing: 1.08px;
 `;
 
 export const ButtonContainer = styled.div`
@@ -58,4 +59,54 @@ export const ButtonContainer = styled.div`
 export const LogoContainer = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+export const IconContainer = styled.div`
+  padding-right: 10px;
+  display: flex;
+  align-items: center;
+`;
+
+export const CustomButton = styled(Button)`
+  width: 200px;
+  padding: 4px 20px;
+  text-transform: unset;
+  font-weight: bold;
+  font-size: 14px;
+  border: 1px solid rgba(92,147,187,.15);
+  box-shadow: 0 2px 5px -2px rgb(100 110 167 / 20%);
+  background: rgba(239,246,251,0.6);
+  :hover {
+    background: #edf2f7;
+  }
+`;
+
+export const TwitterButton = styled(Button)`
+  width: 200px;
+  padding: 4px 20px;
+  text-transform: unset;
+  font-weight: bold;
+  font-size: 14px;
+  border: 1px solid rgba(92,147,187,.15);
+  box-shadow: 0 2px 5px -2px rgb(100 110 167 / 20%);
+  background: ${COLOR_TWITTER};
+  color: ${COLOR_WHITE};
+  :hover {
+    background: ${COLOR_TWITTER_HOVER};
+  }
+`;
+
+export const CustomButtonContainer = styled.div`
+  margin: 3px 0;
+`;
+
+export const Attention = styled.div`
+  margin-top: 20px;
+  font-size: 12px;
+  color: ${COLOR_MAIN_TEXT};
+  letter-spacing: 1.08px;
+`;
+
+export const A = styled.a`
+  color: ${COLOR_MAIN_TEXT};
 `;

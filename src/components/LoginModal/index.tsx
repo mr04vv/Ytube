@@ -1,9 +1,11 @@
 
-import { Button } from '@material-ui/core';
+import { faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Close } from '@material-ui/icons';
+import { GoogleIcon } from 'components/GoogleIcon';
 import React from 'react';
 import { useEnhancer } from './enhancer';
-import { ButtonContainer, CloseButton, Container, CustomModal, Explain, LogoContainer, ModalTitleContainer } from './style';
+import { A, Attention, ButtonContainer, CloseButton, Container, CustomButton, CustomButtonContainer, CustomModal, Explain, IconContainer, LogoContainer, ModalTitleContainer, TwitterButton } from './style';
 
 const icon = require('assets/logo.png');
 
@@ -14,7 +16,7 @@ interface Props {
 }
 
 export const LoginModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
-  const enhancer = useEnhancer();
+  const enhancer = useEnhancer({ setIsOpen });
   return (
     <CustomModal
       onRequestClose={() => setIsOpen(false)}
@@ -46,9 +48,29 @@ export const LoginModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
           わいコレはわいわいさんがYouTubeに投稿した動画のお気に入りのシーンを投稿して共有するプラットフォームです。ログインしていいねや投稿をしましょう。
         </Explain>
         <ButtonContainer>
-          <Button color="primary" onClick={enhancer.pushLogin}>ログイン画面へ</Button>
-          <Button color="primary" onClick={() => setIsOpen(false)}>キャンセル</Button>
+          <CustomButtonContainer>
+            <CustomButton onClick={enhancer.loginWithGoogle}>
+              <IconContainer>
+                <GoogleIcon size={26} />
+              </IconContainer>
+              Googleでログイン
+            </CustomButton>
+          </CustomButtonContainer>
+          <CustomButtonContainer>
+            <TwitterButton onClick={enhancer.loginWithTwitter}>
+              <IconContainer>
+                <FontAwesomeIcon icon={faTwitter} size="lg" />
+              </IconContainer>
+              Twitterでログイン
+            </TwitterButton>
+          </CustomButtonContainer>
         </ButtonContainer>
+        <Attention>
+          <A href="https://mr04vv.github.io/yy_collection_kiyaku/" target="_blank">利用規約</A>
+          と
+          <A href="https://mr04vv.github.io/yy_collection_privacy/" target="_blank">プライバシーポリシー</A>
+          に同意した上でログインしてください。
+        </Attention>
       </Container>
     </CustomModal>
   );
