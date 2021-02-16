@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteById } from 'reduxes/modules/posts/delete';
-import { fetchPosts } from 'reduxes/modules/posts/fetchPost';
+import { getPosts } from 'reduxes/modules/posts/fetchPost';
 
 export interface UseEditPostInterface {
   isOpenNumber: number | undefined;
@@ -10,7 +10,7 @@ export interface UseEditPostInterface {
   handleClick: (event: React.MouseEvent<HTMLButtonElement>, num: number) => void;
   handleClose: () => void;
   anchorEl: null | HTMLElement;
-  del: (id: number, page: string, per: string) => void;
+  del: (id: number, page: number, per: number) => void;
   isLoading: boolean;
 }
 
@@ -30,14 +30,14 @@ const useEditPost = () => {
     setAnchorEl(null);
   };
 
-  const del = async (id: number, page: string, per: string) => {
+  const del = async (id: number, page: number, per: number) => {
     setIsLoading(true);
     await dispatch<any>(deleteById(id)).catch((err: any) => {
       throw err;
     });
     setIsOpenNumber(0);
 
-    await dispatch(fetchPosts(page, per));
+    await dispatch(getPosts(page, per));
     setIsLoading(false);
   };
 

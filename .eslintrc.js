@@ -10,6 +10,9 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'react-hooks'],
   parserOptions: {
+    parserOptions: {
+      parser: '@typescript-eslint/parser',
+    },
     sourceType: 'module',
     project: './tsconfig.json',
   },
@@ -28,6 +31,7 @@ module.exports = {
   },
   rules: {
     'react/prop-types': [0],
+    "no-use-before-define": "off",
     'react-hooks/rules-of-hooks': 'error',
     'react/jsx-filename-extension': [
       'error',
@@ -46,7 +50,7 @@ module.exports = {
       },
     ],
     '@typescript-eslint/no-unused-vars': 'error',
-    'no-unused-var': 0,
+    'no-unused-vars': 0,
     'no-undef': 'off',
     'max-len': ['off'],
     'object-curly-newline': 'off',
@@ -54,5 +58,6 @@ module.exports = {
     'react/jsx-wrap-multilines': 'off',
     'operator-linebreak': 'off',
     'comma-dangle': 'off',
+    'import/prefer-default-export': 'off'
   },
 };
