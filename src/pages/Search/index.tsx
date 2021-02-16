@@ -1,12 +1,13 @@
 import React from 'react';
-import { PostListItem } from 'components/PostListItem';
-import { useWindowDimensions } from 'usecase/useWindowDimensions';
 import { SmallSizePostListItem } from 'components/SmallSizePostListItem';
+import { useWindowDimensions } from 'usecase/useWindowDimensions';
+import { PostListItem } from 'components/PostListItem';
 import { TuneOutlined } from '@material-ui/icons';
 import { Loader } from 'components/Loader';
 import InfiniteScroll from 'react-infinite-scroller';
 import { CircularProgress } from '@material-ui/core';
 import { Sort } from 'components/Sort';
+import { Post } from 'entity/entity/post';
 import {
   Container,
   CustomExpansionPanelSummary,
@@ -59,7 +60,7 @@ const Home = () => {
           >
             <PostContainer>
               <>
-                {enhancer.posts.map(post =>
+                {enhancer.posts.map((post: Post) =>
                   (window.windowDimensions.width > 480 ?
                     <PostListItemContainer onClick={() => enhancer.pushPostDetailPage(post.id)} width={window.windowDimensions.width} splitSize={window.splitSize}>
                       <PostListItem post={post} />
