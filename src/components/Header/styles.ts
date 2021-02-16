@@ -187,8 +187,9 @@ export const LoginButton = styled(Button)`
     background-color: ${COLOR_MAIN};
     opacity: 0.8;
    }
-   display: flex;
-   justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
+  font-weight: bold;
 `;
 
 export const LoginButtonLabel = styled.p`
