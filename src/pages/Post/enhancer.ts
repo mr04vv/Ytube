@@ -117,6 +117,21 @@ export const useEnhancer = () => {
     setPlaying(false);
   };
 
+  const pushSearchPage = (gameId: number | undefined, categoryId: number | undefined) => {
+    if (gameId) {
+      history.push({
+        pathname: '/search',
+        search: `?order=0&game=${gameId}`
+      });
+    }
+    if (categoryId) {
+      history.push({
+        pathname: '/search',
+        search: `?order=0&category=${categoryId}`
+      });
+    }
+  };
+
   return {
     post,
     isLoading,
@@ -133,6 +148,7 @@ export const useEnhancer = () => {
     incrementPlayCount,
     onClickOpenAppButton,
     playing,
-    setPlaying
+    setPlaying,
+    pushSearchPage
   };
 };

@@ -47,6 +47,9 @@ const CategoryStyle = css`
   color: ${COLOR_MAIN_TEXT};
   display: flex;
   align-items: center;
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 export const CategoryName = styled.div`

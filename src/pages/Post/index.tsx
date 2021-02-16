@@ -73,8 +73,8 @@ const Post = () => {
                 playing={enhancer.playing}
               />
               <CategoryGameContainer>
-                <GameTitle>{enhancer.post.game?.title}</GameTitle>
-                {enhancer.post.categories?.map((category: Category) => <CategoryName>{category.name}</CategoryName>)}
+                <GameTitle onClick={() => enhancer.pushSearchPage(enhancer.post?.game?.id, undefined)}>{enhancer.post.game?.title}</GameTitle>
+                {enhancer.post.categories?.map((category: Category) => <CategoryName onClick={() => enhancer.pushSearchPage(undefined, category.id)}>{category.name}</CategoryName>)}
               </CategoryGameContainer>
               <Title>{enhancer.post.title}</Title>
               <DetailContainer>
