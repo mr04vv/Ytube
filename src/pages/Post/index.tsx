@@ -52,7 +52,6 @@ const Post = () => {
                 controls
                 width="100%"
                 height={window.windowDimensions.width > 1700 ? `${(1700 - SMALL_POST_LIST_CONTAINER_MAX_WIDTH) * 0.5625}px` : `${(window.windowDimensions.width - SMALL_POST_LIST_CONTAINER_MAX_WIDTH) * 0.5625}px`}
-                onStart={async () => { }}
                 onEnded={() => {
                   if (enhancer.ref.current) {
                     enhancer.loop(enhancer.ref.current, enhancer.post ? enhancer.post.startTime : 0);

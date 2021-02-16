@@ -12,6 +12,7 @@ import { implementsUser } from 'entity/entity/user';
 import { LikeRequestDto } from 'entity/requestDto/likeRequestDto';
 import { like } from 'api/posts/like';
 import { disLike } from 'api/posts/disLike';
+import updatePlayCount from 'api/posts/updatePlayCount';
 
 export const useEnhancer = () => {
   const [post, setPost] = useState<Post>();
@@ -40,6 +41,7 @@ export const useEnhancer = () => {
         try {
           const [postRes, randomRes] = await Promise.all([fetchPost(postId), fetchRandomPostList()]);
           setPost(postRes.post);
+          incrementPlayCount();
           setRandomPosts(randomRes.posts);
         } finally {
           setIsLoading(false);
@@ -103,6 +105,12 @@ export const useEnhancer = () => {
     }
   };
 
+  const incrementPlayCount = () => {
+    if (post) {
+      updatePlayCount(post.id);
+    }
+  };
+
   return {
     post,
     isLoading,
@@ -115,6 +123,7 @@ export const useEnhancer = () => {
     setIsOpenShareModal,
     onClickLikeButton,
     isOpenLoginModal,
-    setIsOpenLoginModal
+    setIsOpenLoginModal,
+    incrementPlayCount
   };
 };
