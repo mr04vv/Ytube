@@ -135,6 +135,7 @@ export const useEnhancer = () => {
     dispatch(signOut());
     firebase.auth().signOut();
     setLoginStatus('notLoggedIn');
+    setOpen(false);
   };
 
   return {
