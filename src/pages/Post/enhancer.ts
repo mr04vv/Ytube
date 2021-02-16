@@ -22,6 +22,7 @@ export const useEnhancer = () => {
   const { params } = match;
   const [isOpenShareModal, setIsOpenShareModal] = useState<boolean>(false);
   const [isOpenLoginModal, setIsOpenLoginModal] = useState<boolean>(false);
+  const [playing, setPlaying] = useState<boolean>(true);
 
   const [failed, setFailed] = useState<boolean>(false);
   const [ref] = useState<React.MutableRefObject<ReactPlayer | undefined>>(
@@ -41,6 +42,7 @@ export const useEnhancer = () => {
         try {
           const [postRes, randomRes] = await Promise.all([fetchPost(postId), fetchRandomPostList()]);
           setPost(postRes.post);
+          setPlaying(true);
           incrementPlayCount();
           setRandomPosts(randomRes.posts);
         } finally {
@@ -111,6 +113,10 @@ export const useEnhancer = () => {
     }
   };
 
+  const onClickOpenAppButton = () => {
+    setPlaying(false);
+  };
+
   return {
     post,
     isLoading,
@@ -124,6 +130,9 @@ export const useEnhancer = () => {
     onClickLikeButton,
     isOpenLoginModal,
     setIsOpenLoginModal,
-    incrementPlayCount
+    incrementPlayCount,
+    onClickOpenAppButton,
+    playing,
+    setPlaying
   };
 };
