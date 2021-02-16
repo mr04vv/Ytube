@@ -1,7 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
-import { IconButton, AppBar, Toolbar, Button, InputBase, Avatar, Popper, MenuItem } from '@material-ui/core';
-import { COLOR_LIGHT_GRAY, COLOR_MAIN, COLOR_MAIN_TEXT, COLOR_WHITE } from 'constants/colors';
+import styled, { css } from 'styled-components';
+import { IconButton, AppBar, Toolbar, Button, InputBase, Avatar, Popper, MenuItem, PopperProps } from '@material-ui/core';
+import { COLOR_LIGHT_GRAY, COLOR_MAIN, COLOR_MAIN_TEXT, COLOR_SUPER_LIGHT_GREY, COLOR_WHITE } from 'constants/colors';
 import { SearchRounded, VideoCallRounded } from '@material-ui/icons';
 import { InputBaseProps } from '@material-ui/core/InputBase';
 
@@ -195,4 +195,55 @@ export const LoginButton = styled(Button)`
 export const LoginButtonLabel = styled.p`
   color: ${COLOR_MAIN_TEXT};
   font-size: 12px;
+`;
+
+export const SearchPopup = styled(Popper as React.FC<PopperProps>)`
+  position: fixed;
+  min-width: 471px;
+  top: 56px;
+  text-align: left;
+  left: 285px;
+  border: thin solid ${COLOR_MAIN_TEXT};
+  background-color: ${COLOR_WHITE};
+  z-index: 1101;
+  margin-top: 6px;
+`;
+
+export const PopupTitleContainer = styled.div`
+  height: 30px;
+  display: flex;
+  font-size: 13px;
+  align-items: center;
+  border-bottom: thin solid ${COLOR_MAIN_TEXT};
+  justify-content: space-between;
+  padding: 6px 10px;
+  background-color: ${COLOR_SUPER_LIGHT_GREY};
+  color: ${COLOR_MAIN_TEXT};
+`;
+
+const PopupItemStyle = css`
+  height: 30px;
+  display: flex;
+  font-size: 13px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 18px;
+  color: ${COLOR_MAIN_TEXT};
+  background-color: ${COLOR_WHITE};
+  :hover {
+    cursor: pointer;
+  }
+`;
+
+export const PopupItemContainer = styled.div`
+  ${PopupItemStyle};
+  border-bottom: thin solid ${COLOR_MAIN_TEXT};
+`;
+
+export const PopupLastItemContainer = styled.div`
+  ${PopupItemStyle};
+`;
+
+export const UnselectButton = styled(Button)`
+  color: ${COLOR_MAIN_TEXT};
 `;

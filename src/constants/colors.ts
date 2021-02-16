@@ -18,3 +18,5 @@ export const COLOR_BLACK = '#0F0F0F';
 export const COLOR_TWITTER = '#00acee';
 export const COLOR_TWITTER_HOVER = '#009CD8';
 export const COLOR_LIKED = '#F05B5B';
+export const COLOR_YOUTUBE = '#FF0000';
+export const COLOR_SUPER_LIGHT_GREY = '#F0F0F0';

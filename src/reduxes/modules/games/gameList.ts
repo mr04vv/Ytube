@@ -1,10 +1,13 @@
+import { fetchGameList } from 'api/games/fetchGameList';
 import { createActionCreator, createReducer } from 'deox';
+import { FetchGamesState } from 'entity/reduxState/fetchGamesState';
 import { Dispatch } from 'redux';
-import client from 'utilities/apiClient';
 
 const MODULE_NAME = 'FETCH_GAME_LIST';
-const initialState = {
+const initialState: FetchGamesState = {
   data: {},
+  loading: false,
+  status: 'notInitialized'
 };
 
 // Constants
@@ -27,9 +30,9 @@ export default gameList;
 
 // GET Data
 export const fetchGames = () => async (dispatch: Dispatch) => {
-  const res = await client.get('/api/games').catch((err) => {
+  const res = await fetchGameList().catch((err) => {
     throw err;
   });
-  dispatch(fetchSuccess(res.data));
-  return res.data;
+  dispatch(fetchSuccess(res));
+  return res;
 };

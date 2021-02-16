@@ -47,6 +47,9 @@ const CategoryStyle = css`
   color: ${COLOR_MAIN_TEXT};
   display: flex;
   align-items: center;
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 export const CategoryName = styled.div`
@@ -181,8 +184,13 @@ export const Divider = styled.div`
   margin-top: 4px;
 `;
 
-export const OpenAppButtonContainer = styled.div`
+export const AppButtonsContainer = styled.div`
+  display: flex;
   margin-top: 20px;
+`;
+
+export const OpenAppButtonContainer = styled.div`
+  margin-right: 10px;
 `;
 
 export const OpenAppButton = styled(Button)`
@@ -195,6 +203,22 @@ export const OpenAppButton = styled(Button)`
   }
   display: flex;
   justify-content: space-around;
+  text-decoration: none;
+  text-transform: unset;
+`;
+
+export const OpenYouTubeButton = styled(Button)`
+  width: 160px;
+  color: ${COLOR_MAIN_TEXT};
+  border-radius: 0;
+  border: thin solid ${COLOR_LIGHT_GRAY};
+  :hover {
+    opacity: 0.8;
+  }
+  display: flex;
+  justify-content: space-around;
+  text-decoration: none;
+  text-transform: unset;
 `;
 
 export const LoaderContainer = styled.div`
@@ -202,4 +226,8 @@ export const LoaderContainer = styled.div`
   height: 100vh;
   justify-content: center;
   align-items: center;
+`;
+
+export const A = styled.a`
+  text-decoration: none;
 `;

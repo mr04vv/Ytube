@@ -6,8 +6,11 @@ import { Category } from 'entity/entity/category';
 import { SMALL_POST_LIST_CONTAINER_MAX_WIDTH } from 'constants/maxWidth';
 import { Loader } from 'components/Loader';
 import { LoginModal } from 'components/LoginModal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { COLOR_YOUTUBE } from 'constants/colors';
 import { useEnhancer } from './enhancer';
-import { CategoryGameContainer, CategoryName, Container, Detail, DetailContainer, Divider, GameTitle, LikeContainer, LikedIcon, LikeIcon, LoaderContainer, MainContentContainer, MetaContainer, OpenAppButton, OpenAppButtonContainer, PlayCountAndDate, RandomPostContainer, RandomPostListContainer, ShareAndLikeContainer, ShareContainer, ShareIcon, Title, YouTubePlayer, } from './style';
+import { A, AppButtonsContainer, CategoryGameContainer, CategoryName, Container, Detail, DetailContainer, Divider, GameTitle, LikeContainer, LikedIcon, LikeIcon, LoaderContainer, MainContentContainer, MetaContainer, OpenAppButton, OpenAppButtonContainer, OpenYouTubeButton, PlayCountAndDate, RandomPostContainer, RandomPostListContainer, ShareAndLikeContainer, ShareContainer, ShareIcon, Title, YouTubePlayer, } from './style';
 import { ShareModal } from './ShareModal';
 
 
@@ -50,6 +53,8 @@ const Post = () => {
                 key={enhancer.post.id}
                 ref={enhancer.ref}
                 controls
+                onPause={() => enhancer.setPlaying(false)}
+                onPlay={() => enhancer.setPlaying(true)}
                 width="100%"
                 height={window.windowDimensions.width > 1700 ? `${(1700 - SMALL_POST_LIST_CONTAINER_MAX_WIDTH) * 0.5625}px` : `${(window.windowDimensions.width - SMALL_POST_LIST_CONTAINER_MAX_WIDTH) * 0.5625}px`}
                 onEnded={() => {
@@ -57,7 +62,7 @@ const Post = () => {
                     enhancer.loop(enhancer.ref.current, enhancer.post ? enhancer.post.startTime : 0);
                   }
                 }
-            }
+                }
                 url={enhancer.post.videoUrl}
                 youtubeConfig={{
                   playerVars: {
@@ -65,11 +70,11 @@ const Post = () => {
                     end: enhancer.post.endTime,
                   },
                 }}
-                playing
+                playing={enhancer.playing}
               />
               <CategoryGameContainer>
-                <GameTitle>{enhancer.post.game?.title}</GameTitle>
-                {enhancer.post.categories?.map((category: Category) => <CategoryName>{category.name}</CategoryName>)}
+                <GameTitle onClick={() => enhancer.pushSearchPage(enhancer.post?.game?.id, undefined)}>{enhancer.post.game?.title}</GameTitle>
+                {enhancer.post.categories?.map((category: Category) => <CategoryName onClick={() => enhancer.pushSearchPage(undefined, category.id)}>{category.name}</CategoryName>)}
               </CategoryGameContainer>
               <Title>{enhancer.post.title}</Title>
               <DetailContainer>
@@ -95,11 +100,23 @@ const Post = () => {
                 </ShareAndLikeContainer>
               </MetaContainer>
               <Divider />
-              <OpenAppButtonContainer>
-                <OpenAppButton>
-                  アプリで開く
-                </OpenAppButton>
-              </OpenAppButtonContainer>
+              <AppButtonsContainer>
+                <OpenAppButtonContainer>
+                  <A href={enhancer.post.dynamicLink} target="_blank" rel="noreferrer">
+                    <OpenAppButton onClick={enhancer.onClickOpenAppButton}>
+                      アプリで開く
+                    </OpenAppButton>
+                  </A>
+                </OpenAppButtonContainer>
+                <OpenAppButtonContainer>
+                  <A href={enhancer.post.videoUrl} target="_blank" rel="noreferrer">
+                    <OpenYouTubeButton onClick={enhancer.onClickOpenAppButton}>
+                      <FontAwesomeIcon icon={faYoutube} size="lg" color={COLOR_YOUTUBE} />
+                      YouTubeで開く
+                    </OpenYouTubeButton>
+                  </A>
+                </OpenAppButtonContainer>
+              </AppButtonsContainer>
             </MainContentContainer>
             <RandomPostListContainer>
               {

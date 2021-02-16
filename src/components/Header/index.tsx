@@ -1,9 +1,12 @@
 import { ClickAwayListener, Grow, MenuList, Paper } from '@material-ui/core';
-import { AccountCircle, ExitToApp, HomeRounded } from '@material-ui/icons';
+import { AccountCircle, ExitToApp, HomeRounded, NavigateNext } from '@material-ui/icons';
 import { LoginModal } from 'components/LoginModal';
+import { Category } from 'entity/entity/category';
+import { Game } from 'entity/entity/game';
 import React from 'react';
 import { useEnhancer } from './enhancer';
-import { CustomAvatar, Container, WhiteAppBar, ImageContainer, BarContainer, AppBarLeftItem, AppBarRightItem, CustomIconLabel, CustomIconButton, CreatePostButton, CreatePostButtonLabel, VideoCallIcon, AvatarContainer, SearchContainer, SearchField, SearchButton, SearchIcon, TopLink, AccountInfo, UserName, IconContainer, CustomPopper, MenuItemIcon, CustomMenuItem, Divider, LoginButton, LoginButtonLabel } from './styles';
+import { SelectModal } from './SelectModal';
+import { CustomAvatar, Container, WhiteAppBar, ImageContainer, BarContainer, AppBarLeftItem, AppBarRightItem, CustomIconLabel, CustomIconButton, CreatePostButton, CreatePostButtonLabel, VideoCallIcon, AvatarContainer, SearchContainer, SearchField, SearchButton, SearchIcon, TopLink, AccountInfo, UserName, IconContainer, CustomPopper, MenuItemIcon, CustomMenuItem, Divider, LoginButton, LoginButtonLabel, SearchPopup, PopupTitleContainer, PopupItemContainer, PopupLastItemContainer, UnselectButton } from './styles';
 
 const icon = require('assets/logo.png');
 
@@ -12,6 +15,31 @@ const Header = () => {
   return (
     <>
       <LoginModal isOpen={enhancer.isOpenLoginModal} setIsOpen={enhancer.setIsOpenLoginModal} />
+
+      <SearchPopup open={enhancer.openSearchPopup} anchorEl={enhancer.searchRef.current} role={undefined} transition disablePortal>
+        <ClickAwayListener onClickAway={enhancer.searchPopupClose}>
+          <div>
+            <SelectModal loading={enhancer.loadingMeta} items={enhancer.categories} setItem={(c: Category) => enhancer.setSearchCategory(c)} itemType="category" isOpen={enhancer.openCategories} setIsOpen={enhancer.setOpenCategories} />
+            <SelectModal loading={enhancer.loadingMeta} items={enhancer.games} setItem={(g: Game) => enhancer.setSearchGame(g)} itemType="game" isOpen={enhancer.openGames} setIsOpen={enhancer.setOpenGames} />
+            <PopupTitleContainer>
+              カテゴリ
+              {enhancer.searchCategory && <UnselectButton onClick={() => enhancer.setSearchCategory(undefined)}>選択を解除</UnselectButton>}
+            </PopupTitleContainer>
+            <PopupItemContainer onClick={() => enhancer.openSelectCategory()}>
+              {enhancer.searchCategory?.name ?? '選択なし'}
+              <NavigateNext />
+            </PopupItemContainer>
+            <PopupTitleContainer>
+              ゲーム
+              {enhancer.searchGame && <UnselectButton onClick={() => enhancer.setSearchGame(undefined)}>選択を解除</UnselectButton>}
+            </PopupTitleContainer>
+            <PopupLastItemContainer onClick={() => enhancer.openSelectGame()}>
+              {enhancer.searchGame?.title ?? '選択なし'}
+              <NavigateNext />
+            </PopupLastItemContainer>
+          </div>
+        </ClickAwayListener>
+      </SearchPopup>
       <Container>
         <WhiteAppBar>
           <BarContainer>
@@ -32,7 +60,9 @@ const Header = () => {
             </AppBarLeftItem>
             <SearchContainer>
               <SearchField
+                onFocus={() => enhancer.setOpenSearchPopup(true)}
                 value={enhancer.searchWord}
+                ref={enhancer.searchRef}
                 placeholder="検索"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => enhancer.setSearchWord(e.target.value)}
                 onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => enhancer.onKeyPressed(e.key)}

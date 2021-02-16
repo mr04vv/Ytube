@@ -10,6 +10,12 @@ import { SearchParams } from 'constants/searchParams';
 import { FetchMeState } from 'entity/reduxState/fetchMeState';
 import { implementsUser } from 'entity/entity/user';
 import { LoginStatus } from 'entity/union/reduxStatus';
+import { Category, implementsCategory } from 'entity/entity/category';
+import { Game, implementsGame } from 'entity/entity/game';
+import { fetchCategories } from 'reduxes/modules/categories/categoryList';
+import { fetchGames } from 'reduxes/modules/games/gameList';
+import { FetchGamesState } from 'entity/reduxState/fetchGamesState';
+import { FetchCategoriesState } from 'entity/reduxState/fetchCategoriesState';
 
 export interface UseMyInfoInterface {
   userInfo: User | undefined;
@@ -30,12 +36,53 @@ export const useEnhancer = () => {
   const [sortType, setSortType] = useState<SortType>(SortTypes.NEWEST);
   const [searchWord, setSearchWord] = useState<string>('');
   const anchorRef = useRef<HTMLButtonElement>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
   const [isOpenLoginModal, setIsOpenLoginModal] = useState<boolean>(false);
+  const [openSearchPopup, setOpenSearchPopup] = useState<boolean>(false);
+  const [searchCategory, setSearchCategory] = useState<Category | undefined>();
+  const [searchGame, setSearchGame] = useState<Game | undefined>();
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [games, setGames] = useState<Game[]>([]);
+  const [loadingMeta, setLoadingMeta] = useState<boolean>(false);
+  const [openGames, setOpenGames] = useState<boolean>(false);
+  const [openCategories, setOpenCategories] = useState<boolean>(false);
+
+  const gameSelector = (state: any) => state.gameList;
+  const gameState: FetchGamesState = useSelector(gameSelector);
+  const categorySelector = (state: any) => state.categoryList;
+  const categoryState: FetchCategoriesState = useSelector(categorySelector);
 
   useEffect(() => {
     getParams();
+    (async () => {
+      dispatch(fetchCategories());
+      dispatch(fetchGames());
+      setLoadingMeta(false);
+    })();
   }, []);
+
+  useEffect(() => {
+    if (implementsGame(gameState.data)) {
+      setGames(gameState.data);
+      const gameId = params.get(SearchParams.GAME);
+      if (gameId) {
+        const game = gameState.data.find((g: Game) => g.id === Number(gameId));
+        setSearchGame(game);
+      }
+    }
+  }, [gameState]);
+
+  useEffect(() => {
+    if (implementsCategory(categoryState.data)) {
+      setCategories(categoryState.data);
+      const categoryId = params.get(SearchParams.CATEGORY);
+      if (categoryId) {
+        const category = categoryState.data.find((c: Category) => c.id === Number(categoryId));
+        setSearchCategory(category);
+      }
+    }
+  }, [categoryState]);
 
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
@@ -49,12 +96,18 @@ export const useEnhancer = () => {
     setOpen(false);
   };
 
+  const searchPopupClose = (event: React.MouseEvent<EventTarget>) => {
+    if (searchRef.current && searchRef.current.contains(event.target as HTMLElement)) {
+      return;
+    }
+    setOpenSearchPopup(false);
+  };
+
   const getParams = () => {
     const word = params.get(SearchParams.WORD);
     if (word != null) {
       setSearchWord(word);
     }
-
     // const order = params.get(SearchParams.ORDER);
     // if (order != null) {
     //   const orderNum: SortType = +order as SortType;
@@ -64,7 +117,7 @@ export const useEnhancer = () => {
   };
 
   const isSearchable = (): boolean => {
-    if (searchWord.length === 0) return false;
+    if (searchWord.length === 0 && !searchCategory && !searchGame) return false;
     return true;
   };
 
@@ -77,9 +130,10 @@ export const useEnhancer = () => {
   };
 
   const pushSearchPage = () => {
+    setOpenSearchPopup(false);
     let searchCondition = `order=${sortType}`;
-    // if (selectedCategory.length !== 0) searchCondition += `&category=${selectedCategory.toString()}`;
-    // if (selectedGame.length !== 0) searchCondition += `&game=${selectedGame.toString()}`;
+    if (searchCategory) searchCondition += `&category=${searchCategory.id.toString()}`;
+    if (searchGame) searchCondition += `&game=${searchGame.id.toString()}`;
     searchCondition += `&word=${searchWord}`;
 
     history.push({
@@ -107,6 +161,8 @@ export const useEnhancer = () => {
   const resetSearchParam = () => {
     setSearchWord('');
     setSortType(SortTypes.NEWEST);
+    setSearchGame(undefined);
+    setSearchCategory(undefined);
   };
 
   const onClickCreatePostButton = () => {
@@ -131,12 +187,21 @@ export const useEnhancer = () => {
     }
   }, [userState]);
 
+  const openSelectCategory = () => {
+    setOpenCategories(true);
+  };
+
+  const openSelectGame = () => {
+    setOpenGames(true);
+  };
+
   const logout = () => {
     dispatch(signOut());
     firebase.auth().signOut();
     setLoginStatus('notLoggedIn');
     setOpen(false);
   };
+
 
   return {
     userInfo,
@@ -156,6 +221,23 @@ export const useEnhancer = () => {
     pushMyPage,
     onClickCreatePostButton,
     isOpenLoginModal,
-    setIsOpenLoginModal
+    setIsOpenLoginModal,
+    openSearchPopup,
+    setOpenSearchPopup,
+    searchPopupClose,
+    searchRef,
+    searchCategory,
+    searchGame,
+    setSearchCategory,
+    setSearchGame,
+    setOpenCategories,
+    setOpenGames,
+    categories,
+    games,
+    openCategories,
+    openGames,
+    openSelectCategory,
+    openSelectGame,
+    loadingMeta
   };
 };

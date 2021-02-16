@@ -25,7 +25,8 @@ export const useEnhancer = () => {
   const [sortType, setSortType] = useState<SortType>(SortTypes.NEWEST);
   const [page, setPage] = useState<number>(1);
   const [searchWord, setWord] = useState<string>('');
-
+  const [searchCategoryIds, setSearchCategoryIds] = useState<number[]>([]);
+  const [searchGameIds, setSearchGameIds] = useState<number[]>([]);
 
   const getParams = (): SearchParam => {
     const param: SearchParam = { ...INITIAL_SEARCH_PARAM };
@@ -40,6 +41,18 @@ export const useEnhancer = () => {
     if (word != null) {
       setWord(word);
       param.word = word;
+    }
+
+    const category = params.get(SearchParams.CATEGORY);
+    if (category != null) {
+      setSearchCategoryIds([Number(category)]);
+      param.category = [Number(category)];
+    }
+
+    const game = params.get(SearchParams.GAME);
+    if (game != null) {
+      setSearchGameIds([Number(game)]);
+      param.game = [Number(game)];
     }
 
     // const order = params.get(SearchParams.ORDER);
@@ -66,6 +79,9 @@ export const useEnhancer = () => {
       } finally {
         setIsLoading(false);
         setIsSorting(false);
+        (async () => {
+
+        })();
       }
     })();
   }, [location.search]);
@@ -73,8 +89,8 @@ export const useEnhancer = () => {
   useEffect(() => {
     if (posts.length > 0) {
       let searchCondition = `order=${sortType}`;
-      // if (selectedCategory.length !== 0) searchCondition += `&category=${selectedCategory.toString()}`;
-      // if (selectedGame.length !== 0) searchCondition += `&game=${selectedGame.toString()}`;
+      if (searchCategoryIds.length !== 0) searchCondition += `&category=${searchCategoryIds[0]}`;
+      if (searchGameIds.length !== 0) searchCondition += `&game=${searchGameIds[0]}`;
       searchCondition += `&word=${searchWord}`;
 
       history.push({
@@ -109,7 +125,7 @@ export const useEnhancer = () => {
     setIsMoreLoading(true);
     try {
       const param = getParams();
-      const res = await searchPostList(page, COUNT_PER_PAGE, [], [], param.order, param.word);
+      const res = await searchPostList(page, COUNT_PER_PAGE, param.game, param.category, param.order, param.word);
       setPosts([...posts, ...res.posts]);
       setPostLength(l => l + res.posts.length);
       setIsLoading(false);
