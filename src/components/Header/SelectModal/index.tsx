@@ -3,7 +3,7 @@ import { CircularProgress } from '@material-ui/core';
 import { Category } from 'entity/entity/category';
 import { Game } from 'entity/entity/game';
 import React from 'react';
-import { CategoryName, Container, CustomModal, LoadingContainer } from './style';
+import { CategoryName, Container, ContentContainer, CustomModal, LoadingContainer, ModalTitleContainer } from './style';
 
 
 type ItemType = 'game' | 'category';
@@ -37,17 +37,22 @@ export const SelectModal: React.FC<Props> = ({ items, setItem, setIsOpen, isOpen
     }}
   >
     <Container>
-      {loading ? <LoadingContainer><CircularProgress /></LoadingContainer> :
-      <>
-        {itemType === 'category' ?
-          (items as Category[]).map((item: Category) => (
-            <CategoryName onClick={() => { setItem(item); setIsOpen(false); }}>{item.name}</CategoryName>))
-          :
-          (items as Game[]).map((item: Game) => (
-            <CategoryName onClick={() => { setItem(item); setIsOpen(false); }}>{item.title}</CategoryName>
-          ))}
-      </>
-    }
+      <ModalTitleContainer>
+        {itemType === 'category' ? 'カテゴリ' : 'ゲーム'}
+      </ModalTitleContainer>
+      <ContentContainer>
+        {loading ? <LoadingContainer><CircularProgress /></LoadingContainer> :
+        <>
+          {itemType === 'category' ?
+            (items as Category[]).map((item: Category) => (
+              <CategoryName onClick={() => { setItem(item); setIsOpen(false); }}>{item.name}</CategoryName>))
+            :
+            (items as Game[]).map((item: Game) => (
+              <CategoryName onClick={() => { setItem(item); setIsOpen(false); }}>{item.title}</CategoryName>
+            ))}
+        </>
+        }
+      </ContentContainer>
     </Container>
   </CustomModal>
 );
