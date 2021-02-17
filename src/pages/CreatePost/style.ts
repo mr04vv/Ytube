@@ -1,8 +1,8 @@
 import { Button, Checkbox, TextField } from '@material-ui/core';
 import { HelpOutline, NavigateNext } from '@material-ui/icons';
-import { COLOR_LIGHT_GRAY, COLOR_MAIN_HEAVY, COLOR_MAIN_TEXT, COLOR_SUPER_LIGHT_GREY } from 'constants/colors';
+import { COLOR_LIGHT_GRAY, COLOR_MAIN, COLOR_MAIN_HEAVY, COLOR_MAIN_TEXT, COLOR_SUPER_LIGHT_GREY } from 'constants/colors';
 import ReactPlayer from 'react-player';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   margin: 100px auto;
@@ -104,6 +104,7 @@ export const ItemTitle = styled.div`
 
 export const SelectItem = styled.div`
   display: flex;
+  flex-wrap: wrap;
   padding-right: 30px;
   align-items: center;
   color: ${COLOR_MAIN_TEXT};
@@ -115,7 +116,7 @@ export const SelectItem = styled.div`
 `;
 
 export const NextIcon = styled(NavigateNext)`
-  margin-left: 40px;
+  margin-left: 10px;
 `;
 
 export const CheckContainer = styled.div`
@@ -152,4 +153,22 @@ export const Help = styled(HelpOutline)`
   right: 0em;
   color: ${COLOR_MAIN_TEXT};
   z-index: 1;
+`;
+
+const CategoryStyle = css`
+  border-radius: 8px;
+  font-size: 14px;
+  margin-right: 6px;
+  padding: 4px 10px;
+  color: ${COLOR_MAIN_TEXT};
+  display: flex;
+  align-items: center;
+  :hover {
+    cursor: pointer;
+  }
+`;
+
+export const CategoryName = styled.div`
+  background-color: ${COLOR_MAIN};
+  ${CategoryStyle};
 `;

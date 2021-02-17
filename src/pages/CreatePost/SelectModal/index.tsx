@@ -4,7 +4,7 @@ import { Close } from '@material-ui/icons';
 import { Category } from 'entity/entity/category';
 import { Game } from 'entity/entity/game';
 import React from 'react';
-import { CategoryName, CloseButton, Container, ContentContainer, CustomModal, LoadingContainer, ModalTitleContainer, SearchIcon } from './style';
+import { CategoryName, CloseButton, Container, ContentContainer, CustomModal, LoadingContainer, ModalTitleContainer, SearchIcon, SelectedContainer, SelectedTitle } from './style';
 
 
 type ItemType = 'game' | 'category';
@@ -17,9 +17,11 @@ interface Props {
   itemType: ItemType
   loading: boolean
   search: (w: string) => void
+  selectedItems: Category[] | Game[],
+  unset: Function;
 }
 
-export const SelectModal: React.FC<Props> = ({ items, setItem, setIsOpen, isOpen, itemType, loading, search }) => (
+export const SelectModal: React.FC<Props> = ({ items, setItem, setIsOpen, isOpen, itemType, loading, search, selectedItems, unset }) => (
   <CustomModal
     onRequestClose={() => setIsOpen(false)}
     isOpen={isOpen}
@@ -56,12 +58,39 @@ export const SelectModal: React.FC<Props> = ({ items, setItem, setIsOpen, isOpen
           }}
         />
       </ModalTitleContainer>
+      {itemType === 'category' &&
+        <>
+          <SelectedTitle>選択済み</SelectedTitle>
+          <SelectedContainer>
+            <>
+              {selectedItems.length === 0 && '選択されていません'}
+              {itemType === 'category' ?
+                (selectedItems as Category[]).map((item: Category) => (
+                  <CategoryName onClick={() => unset(item)}>
+                    {item.name}
+
+                  </CategoryName>))
+                :
+                (selectedItems as Game[]).map((item: Game) => (
+                  <CategoryName onClick={() => {
+                    setItem(item);
+                    setIsOpen(false);
+                  }}
+                  >
+                    {item.title}
+
+                  </CategoryName>
+                ))}
+            </>
+          </SelectedContainer>
+        </>
+      }
       <ContentContainer>
         {loading ? <LoadingContainer><CircularProgress /></LoadingContainer> :
         <>
           {itemType === 'category' ?
             (items as Category[]).map((item: Category) => (
-              <CategoryName onClick={() => { setItem(item); setIsOpen(false); }}>{item.name}</CategoryName>))
+              <CategoryName onClick={() => { setItem(item); }}>{item.name}</CategoryName>))
             :
             (items as Game[]).map((item: Game) => (
               <CategoryName onClick={() => { setItem(item); setIsOpen(false); }}>{item.title}</CategoryName>

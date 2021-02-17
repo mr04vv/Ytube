@@ -80,3 +80,19 @@ export const CloseButton = styled(Button)`
     background-color: ${COLOR_WHITE};
   }
 `;
+
+export const SelectedContainer = styled.div`
+  border-bottom: thin solid ${COLOR_LIGHT_GRAY};
+  display: flex;
+  margin-bottom: 20px;
+  padding: 14px 0;
+  flex-wrap: wrap;
+  font-size: 14px;
+  color: ${COLOR_MAIN_TEXT};
+  text-align: center;
+`;
+
+export const SelectedTitle = styled.div`
+  font-size: 14px;
+  color: ${COLOR_MAIN_TEXT};
+`;

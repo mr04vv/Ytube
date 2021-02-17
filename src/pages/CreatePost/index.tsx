@@ -1,13 +1,11 @@
-import { TextField } from '@material-ui/core';
 import { Category } from 'entity/entity/category';
 import { Game } from 'entity/entity/game';
 import * as React from 'react';
 import { useWindowDimensions } from 'usecase/useWindowDimensions';
-import { convertPlayTime } from 'utilities/convertPlayTime';
 import { useEnhancer } from './enhancer';
 import { HelpModal } from './HelpModal';
 import { SelectModal } from './SelectModal';
-import { Check, CheckContainer, Container, CustomTextField, FormContainer, Help, ItemTitle, NextIcon, SelectItem, SelectItemContainer, TextFieldContainer, TimeSetButton, YouTubePlayer } from './style';
+import { CategoryName, Check, CheckContainer, Container, CustomTextField, FormContainer, Help, ItemTitle, NextIcon, SelectItem, SelectItemContainer, TextFieldContainer, TimeSetButton, YouTubePlayer } from './style';
 
 
 export const CreatePost = () => {
@@ -22,22 +20,26 @@ export const CreatePost = () => {
           setIsOpen={enhancer.setOpenHelp}
         />
         <SelectModal
+          unset={enhancer.unsetSelectedCategories}
           search={enhancer.categoryFilter}
           loading={enhancer.loadingMeta}
           items={enhancer.filteredCategories}
-          setItem={(c: Category) => { }}
+          setItem={(c: Category) => enhancer.setSelectedCategories(c)}
           itemType="category"
           isOpen={enhancer.openCategories}
           setIsOpen={enhancer.setOpenCategories}
+          selectedItems={enhancer.selectedCategories}
         />
         <SelectModal
+          unset={() => { }}
           search={enhancer.gameFilter}
           loading={enhancer.loadingMeta}
           items={enhancer.filteredGames}
-          setItem={(g: Game) => { }}
+          setItem={(g: Game) => enhancer.setSelectedGames(g)}
           itemType="game"
           isOpen={enhancer.openGames}
           setIsOpen={enhancer.setOpenGames}
+          selectedItems={enhancer.selectedGames}
         />
         <YouTubePlayer
           ref={enhancer.ref}
@@ -117,15 +119,22 @@ export const CreatePost = () => {
           </CheckContainer>
           <SelectItemContainer>
             <ItemTitle>カテゴリ*</ItemTitle>
-            <SelectItem onClick={() => enhancer.setOpenCategories(true)}>
-              選択してください
+            <SelectItem onClick={enhancer.openSelectCategory}>
+              {enhancer.selectedCategories.length === 0 ?
+                '選択してください' :
+                (enhancer.selectedCategories).map((item: Category) => (
+                  <CategoryName>{item.name}</CategoryName>))
+              }
               <NextIcon />
             </SelectItem>
           </SelectItemContainer>
           <SelectItemContainer>
             <ItemTitle>ゲーム*</ItemTitle>
-            <SelectItem onClick={() => enhancer.setOpenGames(true)}>
-              選択してください
+            <SelectItem onClick={enhancer.openSelectGame}>
+              {enhancer.selectedGames.length === 0 ?
+                '選択してください' :
+                <CategoryName>{ enhancer.selectedGames[0].title}</CategoryName>
+              }
               <NextIcon />
             </SelectItem>
           </SelectItemContainer>

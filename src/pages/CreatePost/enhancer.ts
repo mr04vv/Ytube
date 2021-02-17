@@ -6,7 +6,6 @@ import { createPost } from 'reduxes/modules/posts/post';
 import { CreatePostInterface, UpdatePostInterface } from 'interfaces/posts/CreatePostInterface';
 import { getPosts } from 'reduxes/modules/posts/fetchPost';
 import updatePost from 'api/posts/updatePost';
-import { Post } from 'entity/entity/post';
 import { Category, implementsCategory } from 'entity/entity/category';
 import { Game, implementsGame } from 'entity/entity/game';
 import { FetchGamesState } from 'entity/reduxState/fetchGamesState';
@@ -44,6 +43,8 @@ export const useEnhancer = () => {
   const [ref] = useState<React.MutableRefObject<ReactPlayer | undefined>>(
     React.useRef()
   );
+  const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
+  const [selectedGames, setSelectedGames] = useState<Game[]>([]);
 
   const init = () => {
     setTitle('');
@@ -144,7 +145,9 @@ export const useEnhancer = () => {
   };
 
   const categoryFilter = (keyword: string) => {
-    const filtered = categories.filter((c: Category) => c.name.includes(keyword));
+    let filtered = categories.filter((c: Category) => c.name.includes(keyword));
+    selectedCategories.forEach((sc: Category) => { filtered = filtered.filter(f => f.id !== sc.id); });
+    console.debug(filtered);
     setFilteredCategories(filtered);
   };
 
@@ -153,6 +156,18 @@ export const useEnhancer = () => {
     setFilteredGames(filtered);
   };
 
+  const openSelectCategory = () => {
+    let filtered = categories.slice();
+    selectedCategories.forEach((sc: Category) => { filtered = filtered.filter(f => f.id !== sc.id); });
+    console.debug(filtered);
+    setFilteredCategories(filtered);
+    setOpenCategories(true);
+  };
+
+  const openSelectGame = () => {
+    setFilteredGames(games);
+    setOpenGames(true);
+  };
 
   return {
     startTime,
@@ -203,6 +218,23 @@ export const useEnhancer = () => {
     setEnd,
     ref,
     openHelp,
-    setOpenHelp
+    setOpenHelp,
+    openSelectCategory,
+    openSelectGame,
+    selectedCategories,
+    selectedGames,
+    setSelectedCategories: (c: Category) => {
+      setSelectedCategories(s => [...s, c]);
+      setFilteredCategories(fcs => fcs.filter(fc => fc !== c));
+    },
+    setSelectedGames: (g: Game) => {
+      setSelectedGames([g]);
+    },
+    unsetSelectedCategories: (c: Category) => {
+      const i = selectedCategories;
+      const unseted = i.filter(f => f !== c);
+      setSelectedCategories(unseted);
+      setFilteredCategories(f => [...f, c]);
+    }
   };
 };
