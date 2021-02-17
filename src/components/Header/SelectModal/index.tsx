@@ -1,6 +1,5 @@
 
 import { CircularProgress, InputAdornment, TextField } from '@material-ui/core';
-import { SearchOutlined } from '@material-ui/icons';
 import { Category } from 'entity/entity/category';
 import { Game } from 'entity/entity/game';
 import React from 'react';
