@@ -170,6 +170,7 @@ export const useEnhancer = () => {
 
   const onClickCreatePostButton = () => {
     if (implementsUser(userState.data)) {
+      window.scrollTo(0, 0);
       history.push({
         pathname: '/create',
       });
