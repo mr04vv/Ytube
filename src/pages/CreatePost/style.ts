@@ -1,11 +1,11 @@
-import { Checkbox, TextField } from '@material-ui/core';
-import { NavigateNext } from '@material-ui/icons';
-import { COLOR_LIGHT_GRAY, COLOR_MAIN, COLOR_MAIN_HEAVY, COLOR_MAIN_TEXT, COLOR_SUPER_LIGHT_GREY } from 'constants/colors';
+import { Button, Checkbox, TextField } from '@material-ui/core';
+import { HelpOutline, NavigateNext } from '@material-ui/icons';
+import { COLOR_LIGHT_GRAY, COLOR_MAIN_HEAVY, COLOR_MAIN_TEXT, COLOR_SUPER_LIGHT_GREY } from 'constants/colors';
 import ReactPlayer from 'react-player';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  margin: 80px auto;
+  margin: 100px auto;
   max-width: 700px;
   width: 90%;
   display: flex;
@@ -74,6 +74,8 @@ export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  position: relative;
+  margin-top: 8px;
 `;
 
 export const CustomTextField = styled(TextField)`
@@ -85,6 +87,7 @@ export const CustomTextField = styled(TextField)`
 
 export const TextFieldContainer = styled.div`
   margin-top: 14px;
+  display: flex;
 `;
 
 export const SelectItemContainer = styled.div`
@@ -130,4 +133,23 @@ export const Check = styled(Checkbox)`
   :hover {
     background-color: rgb(215 142 31 / 8%);
   }
+`;
+
+export const TimeSetButton = styled(Button)`
+  color: ${COLOR_MAIN_TEXT};
+  margin-left: 14px;
+  font-size: 12px;
+  border: thin solid ${COLOR_LIGHT_GRAY};
+`;
+
+export const Help = styled(HelpOutline)`
+  :hover{
+    cursor: pointer;
+    opacity: 0.7;
+  }
+  position: absolute;
+  top: 0em;
+  right: 0em;
+  color: ${COLOR_MAIN_TEXT};
+  z-index: 1;
 `;

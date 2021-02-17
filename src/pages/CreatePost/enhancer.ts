@@ -11,14 +11,13 @@ import { Category, implementsCategory } from 'entity/entity/category';
 import { Game, implementsGame } from 'entity/entity/game';
 import { FetchGamesState } from 'entity/reduxState/fetchGamesState';
 import { FetchCategoriesState } from 'entity/reduxState/fetchCategoriesState';
+import ReactPlayer from 'react-player';
+import { convertPlayTime } from 'utilities/convertPlayTime';
 
-const usePost = (
-  content?: Post,
-) => {
-  const [startTime, setStartTime] = useState<string>('0');
-  const [endTime, setEndTime] = useState<string>('0');
+export const useEnhancer = () => {
+  const [startTime, setStartTime] = useState<string>('');
+  const [endTime, setEndTime] = useState<string>('');
   const [url, setUrl] = useState<string>('');
-  const [tabIndex, setTabIndex] = useState<number>(0);
   const [error, setError] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const [titleError] = useState<string>('');
@@ -38,6 +37,13 @@ const usePost = (
   const gameState: FetchGamesState = useSelector(gameSelector);
   const categorySelector = (state: any) => state.categoryList;
   const categoryState: FetchCategoriesState = useSelector(categorySelector);
+  const [openGames, setOpenGames] = useState<boolean>(false);
+  const [openCategories, setOpenCategories] = useState<boolean>(false);
+  const [loadingMeta, setLoadingMeta] = useState<boolean>(false);
+  const [openHelp, setOpenHelp] = useState<boolean>(false);
+  const [ref] = useState<React.MutableRefObject<ReactPlayer | undefined>>(
+    React.useRef()
+  );
 
   const init = () => {
     setTitle('');
@@ -46,9 +52,9 @@ const usePost = (
     setGame(undefined);
     setComment('');
     setUrl('');
-    setStartTime('0');
+    setStartTime('');
     setIsAnonymous(false);
-    setEndTime('0');
+    setEndTime('');
   };
 
   useEffect(() => {
@@ -65,32 +71,24 @@ const usePost = (
     }
   }, [categoryState]);
 
-  useEffect(() => {
-    setTitle(content?.title ?? '');
-    setCategory(content?.categories?.map((c: CategoryInterface) => c.id) ?? []);
-    setCategoryName(content?.categories?.map((c: CategoryInterface) => c.name) ?? []);
-    setGame(content?.game?.id ?? undefined);
-    setComment(content?.detail ?? '');
-    setUrl(content?.videoUrl ?? '');
-    setStartTime(content?.startTime.toString() ?? '0');
-    setIsAnonymous(content?.isAnonymous ?? false);
-    setEndTime(content?.endTime.toString() ?? '0');
-  }, [content]);
 
-  const setStart = (r: any) => {
-    if (r.player) {
-      setStartTime(r.player.getCurrentTime());
+  const setStart = () => {
+    if (ref.current) {
+      const currentTime = Math.floor(ref.current.getCurrentTime() / 1);
+      setStartTime(convertPlayTime(currentTime));
     }
   };
 
-  const setEnd = (r: any) => {
-    if (r.player) {
-      setEndTime(r.player.getCurrentTime());
+  const setEnd = () => {
+    if (ref.current) {
+      const currentTime = Math.floor(ref.current.getCurrentTime() / 1);
+      setEndTime(convertPlayTime(currentTime));
     }
   };
 
   const post = async (closeModal: () => void) => {
     setIsLoading(true);
+    // ここで時間を文字列から数値に治す
     const body: CreatePostInterface = {
       title,
       detail: comment,
@@ -112,7 +110,6 @@ const usePost = (
       throw err;
     });
     init();
-    setTabIndex(0);
     closeModal();
     dispatch(getPosts(1, 10));
     setIsLoading(false);
@@ -142,20 +139,28 @@ const usePost = (
     });
 
     init();
-    setTabIndex(0);
     closeModal();
     setIsLoading(false);
   };
+
+  const categoryFilter = (keyword: string) => {
+    const filtered = categories.filter((c: Category) => c.name.includes(keyword));
+    setFilteredCategories(filtered);
+  };
+
+  const gameFilter = (keyword: string) => {
+    const filtered = games.filter((g: Game) => g.title.includes(keyword));
+    setFilteredGames(filtered);
+  };
+
 
   return {
     startTime,
     endTime,
     url,
-    setUrl,
-    setStart,
-    setEnd,
-    tabIndex,
-    setTabIndex,
+    setUrl: (e: React.ChangeEvent<HTMLInputElement>) => setUrl(e.target.value),
+    setStartTime: (e: React.ChangeEvent<HTMLInputElement>) => setStartTime(e.target.value),
+    setEndTime: (e: React.ChangeEvent<HTMLInputElement>) => setEndTime(e.target.value),
     error,
     setError,
     title,
@@ -185,7 +190,19 @@ const usePost = (
     isAnonymous,
     setIsAnonymous,
     editPost,
+    filteredCategories,
+    filteredGames,
+    categoryFilter,
+    gameFilter,
+    loadingMeta,
+    openCategories,
+    openGames,
+    setOpenGames,
+    setOpenCategories,
+    setStart,
+    setEnd,
+    ref,
+    openHelp,
+    setOpenHelp
   };
 };
-
-export default usePost;
