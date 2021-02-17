@@ -19,8 +19,24 @@ const Header = () => {
       <SearchPopup open={enhancer.openSearchPopup} anchorEl={enhancer.searchRef.current} role={undefined} transition disablePortal>
         <ClickAwayListener onClickAway={enhancer.searchPopupClose}>
           <div>
-            <SelectModal loading={enhancer.loadingMeta} items={enhancer.categories} setItem={(c: Category) => enhancer.setSearchCategory(c)} itemType="category" isOpen={enhancer.openCategories} setIsOpen={enhancer.setOpenCategories} />
-            <SelectModal loading={enhancer.loadingMeta} items={enhancer.games} setItem={(g: Game) => enhancer.setSearchGame(g)} itemType="game" isOpen={enhancer.openGames} setIsOpen={enhancer.setOpenGames} />
+            <SelectModal
+              search={enhancer.categoryFilter}
+              loading={enhancer.loadingMeta}
+              items={enhancer.filteredCategories}
+              setItem={(c: Category) => enhancer.setSearchCategory(c)}
+              itemType="category"
+              isOpen={enhancer.openCategories}
+              setIsOpen={enhancer.setOpenCategories}
+            />
+            <SelectModal
+              search={enhancer.gameFilter}
+              loading={enhancer.loadingMeta}
+              items={enhancer.filteredGames}
+              setItem={(g: Game) => enhancer.setSearchGame(g)}
+              itemType="game"
+              isOpen={enhancer.openGames}
+              setIsOpen={enhancer.setOpenGames}
+            />
             <PopupTitleContainer>
               カテゴリ
               {enhancer.searchCategory && <UnselectButton onClick={() => enhancer.setSearchCategory(undefined)}>選択を解除</UnselectButton>}

@@ -1,3 +1,4 @@
+import { SearchOutlined } from '@material-ui/icons';
 import { COLOR_MAIN, COLOR_MAIN_TEXT } from 'constants/colors';
 import Modal from 'react-modal';
 import styled, { css } from 'styled-components';
@@ -60,4 +61,8 @@ export const ModalTitleContainer = styled.div`
 export const ContentContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+`;
+
+export const SearchIcon = styled(SearchOutlined)`
+  color: ${COLOR_MAIN_TEXT};
 `;

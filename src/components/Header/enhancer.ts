@@ -47,7 +47,8 @@ export const useEnhancer = () => {
   const [loadingMeta, setLoadingMeta] = useState<boolean>(false);
   const [openGames, setOpenGames] = useState<boolean>(false);
   const [openCategories, setOpenCategories] = useState<boolean>(false);
-
+  const [filteredCategories, setFilteredCategories] = useState<Category[]>([]);
+  const [filteredGames, setFilteredGames] = useState<Game[]>([]);
   const gameSelector = (state: any) => state.gameList;
   const gameState: FetchGamesState = useSelector(gameSelector);
   const categorySelector = (state: any) => state.categoryList;
@@ -65,6 +66,7 @@ export const useEnhancer = () => {
   useEffect(() => {
     if (implementsGame(gameState.data)) {
       setGames(gameState.data);
+      setFilteredGames(gameState.data);
       const gameId = params.get(SearchParams.GAME);
       if (gameId) {
         const game = gameState.data.find((g: Game) => g.id === Number(gameId));
@@ -75,6 +77,7 @@ export const useEnhancer = () => {
 
   useEffect(() => {
     if (implementsCategory(categoryState.data)) {
+      setFilteredCategories(categoryState.data);
       setCategories(categoryState.data);
       const categoryId = params.get(SearchParams.CATEGORY);
       if (categoryId) {
@@ -188,10 +191,12 @@ export const useEnhancer = () => {
   }, [userState]);
 
   const openSelectCategory = () => {
+    setFilteredCategories(categories);
     setOpenCategories(true);
   };
 
   const openSelectGame = () => {
+    setFilteredGames(games);
     setOpenGames(true);
   };
 
@@ -202,6 +207,15 @@ export const useEnhancer = () => {
     setOpen(false);
   };
 
+  const categoryFilter = (keyword: string) => {
+    const filtered = categories.filter((c: Category) => c.name.includes(keyword));
+    setFilteredCategories(filtered);
+  };
+
+  const gameFilter = (keyword: string) => {
+    const filtered = games.filter((g: Game) => g.title.includes(keyword));
+    setFilteredGames(filtered);
+  };
 
   return {
     userInfo,
@@ -238,6 +252,10 @@ export const useEnhancer = () => {
     openGames,
     openSelectCategory,
     openSelectGame,
-    loadingMeta
+    loadingMeta,
+    categoryFilter,
+    gameFilter,
+    filteredCategories,
+    filteredGames
   };
 };
