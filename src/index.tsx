@@ -16,6 +16,7 @@ import Search from 'pages/Search';
 import Information from 'pages/Info';
 import Post from 'pages/Post';
 import { MyPage } from 'pages/MyPage';
+import { CreatePost } from 'pages/CreatePost';
 import * as serviceWorker from './serviceWorker';
 
 const firebaseConfig = {
@@ -51,6 +52,7 @@ const App = () => {
       <Route exact path="/info" component={Information} />
       <Redirect from="/_post/:id" to="/post/:id" />
       <Route exact path="/post/:id" component={Post} />
+      <Route exact path="/create" component={CreatePost} />
     </Switch>
   );
 };
