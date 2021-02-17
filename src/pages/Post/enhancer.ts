@@ -43,7 +43,7 @@ export const useEnhancer = () => {
           const [postRes, randomRes] = await Promise.all([fetchPost(postId), fetchRandomPostList()]);
           setPost(postRes.post);
           setPlaying(true);
-          incrementPlayCount();
+          incrementPlayCount(postRes.post);
           setRandomPosts(randomRes.posts);
         } finally {
           setIsLoading(false);
@@ -107,9 +107,9 @@ export const useEnhancer = () => {
     }
   };
 
-  const incrementPlayCount = () => {
-    if (post) {
-      updatePlayCount(post.id);
+  const incrementPlayCount = (p: Post) => {
+    if (p) {
+      updatePlayCount(p.id);
     }
   };
 
