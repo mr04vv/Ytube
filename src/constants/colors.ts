@@ -20,3 +20,4 @@ export const COLOR_TWITTER_HOVER = '#009CD8';
 export const COLOR_LIKED = '#F05B5B';
 export const COLOR_YOUTUBE = '#FF0000';
 export const COLOR_SUPER_LIGHT_GREY = '#F0F0F0';
+export const COLOR_MAIN_HEAVY = '#FFBA00';
