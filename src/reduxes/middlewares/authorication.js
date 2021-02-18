@@ -14,7 +14,7 @@ export function setAuthenticationRequestHeader(
 setAuthenticationRequestHeader();
 
 // 認証周り
-export const authenticationMiddleware = () => next => (action) => {
+const authenticationMiddleware = () => (next) => (action) => {
   // ログイン時
   if (action.type === LOGIN_SUCCESS) {
     setAuthenticationRequestHeader(

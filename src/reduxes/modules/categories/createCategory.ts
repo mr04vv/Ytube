@@ -12,10 +12,10 @@ const initialState = {
 export const CREATE_CATEGORY_SUCCESS = `redux/${MODULE_NAME}/CREATE_CATEGORY_SUCCESS`;
 
 // Actions
-export const createSuccess = createActionCreator(CREATE_CATEGORY_SUCCESS, resolve => (res: object) => resolve(res));
+export const createSuccess = createActionCreator(CREATE_CATEGORY_SUCCESS, (resolve) => (res: object) => resolve(res));
 
 // Reducer
-const create = createReducer(initialState, handleAction => [
+const create = createReducer(initialState, (handleAction) => [
   handleAction(createSuccess, (state, action) => ({
     ...state,
     data: action.payload,
