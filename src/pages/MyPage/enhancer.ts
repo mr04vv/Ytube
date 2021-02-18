@@ -124,6 +124,11 @@ export const useEnhancer = () => {
     if (implementsUser(userState.data)) {
       setUserInfo(userState.data);
     }
+    if (userState.status === 'notLoggedIn') {
+      history.push({
+        pathname: '/home',
+      });
+    }
   }, [userState]);
 
   return {

@@ -26,6 +26,9 @@ export const WhiteAppBar = styled(AppBar as React.FC)`
   background-color: ${COLOR_WHITE};
   box-shadow: none;
   border-bottom: thin solid ${COLOR_MAIN_TEXT};
+  @media (max-width: 480px) {
+    margin-top: 80px;
+  }
 `;
 
 export const ImageContainer = styled.p`
@@ -45,6 +48,9 @@ export const BarContainer = styled(Toolbar as React.FC)`
 
 export const AppBarLeftItem = styled.div`
   margin-left: 10px;
+  @media (max-width: 1020px) {
+    display: none;
+  }
 `;
 
 export const AppBarRightItem = styled.div`
@@ -77,11 +83,18 @@ export const CreatePostButton = styled(Button)`
    }
    display: flex;
    justify-content: space-around;
+   @media (max-width: 1020px) {
+    min-width: 40px;
+    width: 40px;
+  }
 `;
 
 export const CreatePostButtonLabel = styled.p`
   color: ${COLOR_MAIN_TEXT};
   font-size: 12px;
+  @media (max-width: 1020px) {
+    display: none;
+  }
 `;
 
 export const VideoCallIcon = styled(VideoCallRounded)`
@@ -106,6 +119,10 @@ export const SearchContainer = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
+  @media (max-width: 1020px) {
+    width: 42%;
+    left: 46%;
+  }
 `;
 
 export const SearchField = styled(InputBase as React.FC<InputBaseProps>)`
@@ -211,6 +228,11 @@ export const SearchPopup = styled(Popper as React.FC<PopperProps>)`
   background-color: ${COLOR_WHITE};
   z-index: 1101;
   margin-top: 6px;
+  @media (max-width: 1020px) {
+    width: 90%;
+    margin: 0 auto;
+    min-width: unset;
+  }
 `;
 
 export const PopupTitleContainer = styled.div`

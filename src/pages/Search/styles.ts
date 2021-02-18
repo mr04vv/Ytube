@@ -8,12 +8,18 @@ export const Container = styled.div`
   margin: 80px 16px;
   display: flex;
   flex-direction: column;
+  @media (max-width: 480px) {
+    margin-top: 170px;
+  }
 `;
 
 export const PostContainer = styled.div`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  @media (max-width: 480px) {
+    padding-top: 20px;
+  }
 `;
 
 export const CustomExpantionPanel = styled(ExpansionPanel as React.FC<ExpansionPanelProps>)`

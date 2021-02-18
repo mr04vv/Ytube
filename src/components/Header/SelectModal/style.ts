@@ -17,12 +17,18 @@ export const CustomModal = styled(Modal)`
   :focus {
     outline: none;
   }
+  @media (max-width: 1020px) {
+    width: 94%;
+  }
 `;
 
 export const Container = styled.div`
   padding: 24px 36px;
   display: flex;
   flex-direction: column;
+  @media (max-width: 1020px) {
+    padding: 18px 24px;
+  }
 `;
 
 const CategoryStyle = css`

@@ -13,6 +13,7 @@ import Post from 'pages/Post';
 import { MyPage } from 'pages/MyPage';
 import { CreatePost } from 'pages/CreatePost';
 import { EditPost } from 'pages/EditPost';
+import { OpenAppHeader } from 'components/OpenAppHeader';
 import * as serviceWorker from './serviceWorker';
 
 const firebaseConfig = {
@@ -58,6 +59,7 @@ export const Ytube = () => (
   <Provider store={store}>
     <Router>
       <StylesProvider injectFirst>
+        <OpenAppHeader />
         <Header />
         <App />
       </StylesProvider>
