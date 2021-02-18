@@ -30,6 +30,7 @@ module.exports = {
     },
   },
   rules: {
+    '@typescript-eslint/no-angle-bracket-type-assertion': 'off',
     'react/prop-types': [0],
     "no-use-before-define": "off",
     'react-hooks/rules-of-hooks': 'error',
@@ -49,7 +50,7 @@ module.exports = {
         tsx: 'never',
       },
     ],
-    '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/no-unused-vars': 'warn',
     'no-unused-vars': 0,
     'no-undef': 'off',
     'max-len': ['off'],
@@ -58,6 +59,7 @@ module.exports = {
     'react/jsx-wrap-multilines': 'off',
     'operator-linebreak': 'off',
     'comma-dangle': 'off',
-    'import/prefer-default-export': 'off'
+    'import/prefer-default-export': 'off',
+    'indent': 'off'
   },
 };

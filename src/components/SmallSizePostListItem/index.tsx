@@ -1,6 +1,6 @@
+import React from 'react';
 import { Category } from 'entity/entity/category';
 import { Post } from 'entity/entity/post';
-import React from 'react';
 import { calculatePostDate } from 'utilities/calcuatePostDate';
 import { convertPlayTime } from 'utilities/convertPlayTime';
 import { CategoryGameContainer, ThumbnailImageContainer, GameTitle, CategoryName, Container, Title, TimeContainer, ThumbnailImage, Time, MetaContainer, PlayCountAndDate, LikeContainer, LikeIcon, PostInfoContainer } from './style';

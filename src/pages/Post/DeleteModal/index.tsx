@@ -1,6 +1,6 @@
+import React, { useState } from 'react';
 import { Close } from '@material-ui/icons';
 import SimpleSnackBar from 'components/SimpleSnackBar';
-import React, { useState } from 'react';
 import useReactRouter from 'use-react-router';
 import { ButtonContainer, CloseButton, Container, CustomModal, DeleteButton, ModalTitleContainer } from './style';
 

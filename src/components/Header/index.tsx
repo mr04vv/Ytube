@@ -1,14 +1,14 @@
+import React from 'react';
 import { ClickAwayListener, Grow, MenuList, Paper } from '@material-ui/core';
 import { AccountCircle, ExitToApp, HomeRounded, NavigateNext } from '@material-ui/icons';
 import { LoginModal } from 'components/LoginModal';
 import { Category } from 'entity/entity/category';
 import { Game } from 'entity/entity/game';
-import React from 'react';
+import Logo from 'assets/logo.png';
 import { useEnhancer } from './enhancer';
 import { SelectModal } from './SelectModal';
 import { CustomAvatar, Container, WhiteAppBar, ImageContainer, BarContainer, AppBarLeftItem, AppBarRightItem, CustomIconLabel, CustomIconButton, CreatePostButton, CreatePostButtonLabel, VideoCallIcon, AvatarContainer, SearchContainer, SearchField, SearchButton, SearchIcon, TopLink, AccountInfo, UserName, IconContainer, CustomPopper, MenuItemIcon, CustomMenuItem, Divider, LoginButton, LoginButtonLabel, SearchPopup, PopupTitleContainer, PopupItemContainer, PopupLastItemContainer, UnselectButton } from './styles';
 
-const icon = require('assets/logo.png');
 
 const Header = () => {
   const enhancer = useEnhancer();
@@ -61,7 +61,7 @@ const Header = () => {
           <BarContainer>
             <TopLink onClick={() => enhancer.pushHome()}>
               <ImageContainer>
-                <img height="40px" src={icon} alt="" />
+                <img height="40px" src={Logo} alt="" />
               </ImageContainer>
             </TopLink>
             <AppBarLeftItem>

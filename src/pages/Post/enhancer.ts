@@ -75,7 +75,6 @@ export const useEnhancer = () => {
   };
 
   const loop = (r: ReactPlayer, second: number) => {
-    console.debug(r.state);
     r.seekTo(second, 'seconds');
   };
 

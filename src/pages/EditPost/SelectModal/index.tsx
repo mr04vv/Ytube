@@ -1,10 +1,9 @@
-
+import React, { useState } from 'react';
 import { CircularProgress, InputAdornment, TextField } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 import SimpleSnackBar from 'components/SimpleSnackBar';
 import { Category } from 'entity/entity/category';
 import { Game } from 'entity/entity/game';
-import React, { useState } from 'react';
 import { AddButton, CategoryName, CloseButton, CloseIcon, Container, ContentContainer, CustomModal, CustomTextField, HelpText, LoadingContainer, ModalTitleContainer, NextButton, SearchIcon, SelectedContainer, SelectedTitle, TextFieldContainer } from './style';
 
 

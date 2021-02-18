@@ -1,4 +1,4 @@
-// /* eslint-disable no-console */
+/* eslint-disable no-console */
 import { useState, useEffect } from 'react';
 import useReactRouter from 'use-react-router';
 import { Post } from 'entity/entity/post';

@@ -1,8 +1,7 @@
-
+import React from 'react';
 import { CircularProgress, InputAdornment, TextField } from '@material-ui/core';
 import { Category } from 'entity/entity/category';
 import { Game } from 'entity/entity/game';
-import React from 'react';
 import { CategoryName, Container, ContentContainer, CustomModal, LoadingContainer, ModalTitleContainer, SearchIcon } from './style';
 
 

@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
-import { CategoryInterface } from 'interfaces/CategoryInterface';
 import { useSelector } from 'react-redux';
 import { Category, implementsCategory } from 'entity/entity/category';
 import { Game, implementsGame } from 'entity/entity/game';
@@ -64,7 +63,6 @@ export const useEnhancer = () => {
   const [targetPost, setPost] = useState<Post>();
 
   useEffect(() => {
-    console.debug('here');
     const postIdStr = params.id;
     const postId = Number(postIdStr);
     if (Number.isNaN(postId)) {
@@ -170,8 +168,6 @@ export const useEnhancer = () => {
     setIsLoading(true);
     const st = parsePlayTime(startTime);
     const ed = parsePlayTime(endTime);
-    console.debug(st);
-    console.debug(ed);
     if (implementsUser(userState.data) && targetPost) {
       if (userState.data.id !== targetPost.user.id) {
         setError('編集権限がありません');
@@ -219,7 +215,6 @@ export const useEnhancer = () => {
   const categoryFilter = (keyword: string) => {
     let filtered = categories.filter((c: Category) => c.name.includes(keyword));
     selectedCategories.forEach((sc: Category) => { filtered = filtered.filter(f => f.id !== sc.id); });
-    console.debug(filtered);
     setFilteredCategories(filtered);
   };
 
@@ -231,7 +226,6 @@ export const useEnhancer = () => {
   const openSelectCategory = () => {
     let filtered = categories.slice();
     selectedCategories.forEach((sc: Category) => { filtered = filtered.filter(f => f.id !== sc.id); });
-    console.debug(filtered);
     setFilteredCategories(filtered);
     setOpenCategories(true);
   };
@@ -313,8 +307,8 @@ export const useEnhancer = () => {
     },
     category,
     setCategory: (v: string[]) => {
-      const list = categories.filter((c: CategoryInterface) => v.includes(c.name));
-      const idList = list.map((l: CategoryInterface) => l.id);
+      const list = categories.filter((c: Category) => v.includes(c.name));
+      const idList = list.map((l: Category) => l.id);
       setCategory(idList);
       setCategoryName(v);
     },

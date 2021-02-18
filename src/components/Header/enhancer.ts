@@ -1,14 +1,13 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { User } from 'interfaces/UserInterface';
-import { signOut } from 'reduxes/modules/accounts/login';
+import { fetchMe, signOut } from 'reduxes/modules/accounts/login';
 import firebase from 'firebase';
 import useReactRouter from 'use-react-router';
 import { SortType, SortTypes } from 'entity/union/sortType';
 import { SearchParams } from 'constants/searchParams';
 import { FetchMeState } from 'entity/reduxState/fetchMeState';
-import { implementsUser } from 'entity/entity/user';
+import { implementsUser, User } from 'entity/entity/user';
 import { LoginStatus } from 'entity/union/reduxStatus';
 import { Category, implementsCategory } from 'entity/entity/category';
 import { Game, implementsGame } from 'entity/entity/game';
@@ -54,6 +53,19 @@ export const useEnhancer = () => {
   const categorySelector = (state: any) => state.categoryList;
   const categoryState: FetchCategoriesState = useSelector(categorySelector);
 
+  const getParams = () => {
+    const word = params.get(SearchParams.WORD);
+    if (word != null) {
+      setSearchWord(word);
+    }
+  };
+
+  useEffect(() => {
+    (async () => {
+        await dispatch(fetchMe());
+    })();
+  }, [dispatch]);
+
   useEffect(() => {
     getParams();
     (async () => {
@@ -61,7 +73,7 @@ export const useEnhancer = () => {
       dispatch(fetchGames());
       setLoadingMeta(false);
     })();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (implementsGame(gameState.data)) {
@@ -73,7 +85,7 @@ export const useEnhancer = () => {
         setSearchGame(game);
       }
     }
-  }, [gameState]);
+  }, [gameState, params]);
 
   useEffect(() => {
     if (implementsCategory(categoryState.data)) {
@@ -85,7 +97,7 @@ export const useEnhancer = () => {
         setSearchCategory(category);
       }
     }
-  }, [categoryState]);
+  }, [categoryState, params]);
 
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
@@ -104,19 +116,6 @@ export const useEnhancer = () => {
       return;
     }
     setOpenSearchPopup(false);
-  };
-
-  const getParams = () => {
-    const word = params.get(SearchParams.WORD);
-    if (word != null) {
-      setSearchWord(word);
-    }
-    // const order = params.get(SearchParams.ORDER);
-    // if (order != null) {
-    //   const orderNum: SortType = +order as SortType;
-    //   searchParam.order = orderNum;
-    //   setSortType(SortTypeRelation[orderNum]);
-    // }
   };
 
   const isSearchable = (): boolean => {

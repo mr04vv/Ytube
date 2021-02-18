@@ -1,8 +1,8 @@
+import React from 'react';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Close } from '@material-ui/icons';
 import SimpleSnackBar from 'components/SimpleSnackBar';
-import React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { useEnhancer } from './enhancer';
 import { A, AContainer, CloseButton, Container, CopyButton, CopyContainer, CustomModal, ModalTitleContainer, TwitterButton, TwitterIconContainer } from './style';

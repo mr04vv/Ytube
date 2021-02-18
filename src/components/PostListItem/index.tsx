@@ -1,6 +1,6 @@
+import React from 'react';
 import { Category } from 'entity/entity/category';
 import { Post } from 'entity/entity/post';
-import React from 'react';
 import { useWindowDimensions } from 'usecase/useWindowDimensions';
 import { calculatePostDate } from 'utilities/calcuatePostDate';
 import { convertPlayTime } from 'utilities/convertPlayTime';

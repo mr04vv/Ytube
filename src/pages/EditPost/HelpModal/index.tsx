@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import Help1 from 'assets/help.png';
 import Help2 from 'assets/help2.png';

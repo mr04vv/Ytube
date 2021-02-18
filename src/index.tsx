@@ -5,10 +5,8 @@ import configureStore from 'reduxes';
 import reactDom from 'react-dom';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
-import Top from 'pages/Top';
 import Header from 'components/Header';
 import { StylesProvider } from '@material-ui/styles';
-import useFetch from 'hooks/Login/useFetchMe';
 import Home from 'pages/Home';
 import Search from 'pages/Search';
 import Post from 'pages/Post';
@@ -28,13 +26,14 @@ const firebaseConfig = {
   measurementId: 'G-000EQW30EY',
 };
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+if (firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 const store = configureStore();
 
 const App = () => {
-  useFetch();
   React.useEffect(() => {
     if (document.domain !== 'yy-tube.com' && document.domain !== 'localhost') {
       window.location.href = `https://yy-tube.com${window.location.pathname}`;
