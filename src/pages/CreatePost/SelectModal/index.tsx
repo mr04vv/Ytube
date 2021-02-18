@@ -4,7 +4,7 @@ import { Close } from '@material-ui/icons';
 import { Category } from 'entity/entity/category';
 import { Game } from 'entity/entity/game';
 import React from 'react';
-import { CategoryName, CloseButton, Container, ContentContainer, CustomModal, LoadingContainer, ModalTitleContainer, SearchIcon, SelectedContainer, SelectedTitle } from './style';
+import { CategoryContainer, CategoryName, CloseButton, CloseIcon, Container, ContentContainer, CustomModal, LoadingContainer, ModalTitleContainer, NextButton, SearchIcon, SelectedContainer, SelectedTitle } from './style';
 
 
 type ItemType = 'game' | 'category';
@@ -68,7 +68,7 @@ export const SelectModal: React.FC<Props> = ({ items, setItem, setIsOpen, isOpen
                 (selectedItems as Category[]).map((item: Category) => (
                   <CategoryName onClick={() => unset(item)}>
                     {item.name}
-
+                    <CloseIcon />
                   </CategoryName>))
                 :
                 (selectedItems as Game[]).map((item: Game) => (
@@ -82,6 +82,7 @@ export const SelectModal: React.FC<Props> = ({ items, setItem, setIsOpen, isOpen
                   </CategoryName>
                 ))}
             </>
+            <NextButton onClick={() => setIsOpen(false)}>カテゴリを確定</NextButton>
           </SelectedContainer>
         </>
       }

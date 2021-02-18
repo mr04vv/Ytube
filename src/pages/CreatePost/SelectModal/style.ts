@@ -1,6 +1,6 @@
 import { Button } from '@material-ui/core';
-import { SearchOutlined } from '@material-ui/icons';
-import { COLOR_LIGHT_GRAY, COLOR_MAIN, COLOR_MAIN_TEXT, COLOR_WHITE } from 'constants/colors';
+import { Close, SearchOutlined } from '@material-ui/icons';
+import { COLOR_GRAY, COLOR_LIGHT_GRAY, COLOR_MAIN, COLOR_MAIN_TEXT, COLOR_WHITE } from 'constants/colors';
 import Modal from 'react-modal';
 import styled, { css } from 'styled-components';
 
@@ -95,4 +95,22 @@ export const SelectedContainer = styled.div`
 export const SelectedTitle = styled.div`
   font-size: 14px;
   color: ${COLOR_MAIN_TEXT};
+`;
+
+export const CategoryContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const NextButton = styled(Button)`
+  color: ${COLOR_MAIN_TEXT};
+  margin-left: 14px;
+  font-size: 12px;
+  border: thin solid ${COLOR_LIGHT_GRAY};
+`;
+
+export const CloseIcon = styled(Close)`
+  height: 18px;
+  width: 18px;
+  color: ${COLOR_GRAY};
 `;
