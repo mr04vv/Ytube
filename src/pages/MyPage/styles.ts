@@ -81,3 +81,12 @@ export const UserName = styled.div`
 export const TabContainer = styled.div`
   margin: 0 30px;
 `;
+
+export const NotFoundContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: ${COLOR_MAIN_TEXT};
+  flex-direction: column;
+`;

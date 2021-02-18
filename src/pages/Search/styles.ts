@@ -78,3 +78,13 @@ export const ProgressContainer = styled.div`
   height: 60px;
   align-items: center;
 `;
+
+export const NotFoundContainer = styled.div`
+  display: flex;
+  height: 300px;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: ${COLOR_MAIN_TEXT};
+  flex-direction: column;
+`;

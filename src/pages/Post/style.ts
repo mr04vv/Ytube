@@ -231,3 +231,13 @@ export const LoaderContainer = styled.div`
 export const A = styled.a`
   text-decoration: none;
 `;
+
+export const NotFoundContainer = styled.div`
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: ${COLOR_MAIN_TEXT};
+  flex-direction: column;
+`;

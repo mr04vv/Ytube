@@ -46,6 +46,7 @@ export const useEnhancer = () => {
           incrementPlayCount(postRes.post);
           setRandomPosts(randomRes.posts);
         } finally {
+          setFailed(true);
           setIsLoading(false);
         }
       })();

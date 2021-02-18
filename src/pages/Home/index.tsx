@@ -8,12 +8,14 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { CircularProgress } from '@material-ui/core';
 import { SortTypes } from 'entity/union/sortType';
 import { Sort } from 'components/Sort';
+import { NotFoundIcon } from 'components/NotFoundIcon';
 import {
   Container,
   CustomExpansionPanelSummary,
   CustomExpantionPanel,
   Divider,
   LoaderContainer,
+  NotFoundContainer,
   PostContainer,
   PostListItemContainer,
   ProgressContainer,
@@ -75,6 +77,12 @@ const Home = () => {
             }
 
         </InfiniteScroll>
+
+        {enhancer.posts.length === 0 &&
+        <NotFoundContainer>
+          <NotFoundIcon size={60} />
+          動画が見つかりませんでした
+        </NotFoundContainer>}
 
       </Container>
   /* <SearchContainer>

@@ -9,8 +9,9 @@ import { LoginModal } from 'components/LoginModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { COLOR_YOUTUBE } from 'constants/colors';
+import { NotFoundIcon } from 'components/NotFoundIcon';
 import { useEnhancer } from './enhancer';
-import { A, AppButtonsContainer, CategoryGameContainer, CategoryName, Container, Detail, DetailContainer, Divider, GameTitle, LikeContainer, LikedIcon, LikeIcon, LoaderContainer, MainContentContainer, MetaContainer, OpenAppButton, OpenAppButtonContainer, OpenYouTubeButton, PlayCountAndDate, RandomPostContainer, RandomPostListContainer, ShareAndLikeContainer, ShareContainer, ShareIcon, Title, YouTubePlayer, } from './style';
+import { A, AppButtonsContainer, CategoryGameContainer, CategoryName, Container, Detail, DetailContainer, Divider, GameTitle, LikeContainer, LikedIcon, LikeIcon, LoaderContainer, MainContentContainer, MetaContainer, NotFoundContainer, OpenAppButton, OpenAppButtonContainer, OpenYouTubeButton, PlayCountAndDate, RandomPostContainer, RandomPostListContainer, ShareAndLikeContainer, ShareContainer, ShareIcon, Title, YouTubePlayer, } from './style';
 import { ShareModal } from './ShareModal';
 
 
@@ -26,8 +27,10 @@ const Post = () => {
         <Loader />
       </LoaderContainer>}
       {enhancer.failed &&
-        <div>見つかりませんでした</div>
-      }
+      <NotFoundContainer>
+        <NotFoundIcon size={60} />
+        動画が見つかりませんでした
+      </NotFoundContainer>}
       {enhancer.post && (
         <Helmet
           title="わいコレ | わいわいの動画共有SNS"
