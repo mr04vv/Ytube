@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // const API_BASE_URL = 'http://localhost:3000';
-const API_BASE_URL = 'https://yy-tube.herokuapp.com';
+const API_BASE_URL = 'https://waikore-stg.herokuapp.com';
 
 const client = axios.create({
   baseURL: API_BASE_URL,

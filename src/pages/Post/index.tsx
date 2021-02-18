@@ -9,9 +9,13 @@ import { LoginModal } from 'components/LoginModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { COLOR_YOUTUBE } from 'constants/colors';
+import { NotFoundIcon } from 'components/NotFoundIcon';
+import { MoreVert } from '@material-ui/icons';
+import { Menu, MenuItem } from '@material-ui/core';
 import { useEnhancer } from './enhancer';
-import { A, AppButtonsContainer, CategoryGameContainer, CategoryName, Container, Detail, DetailContainer, Divider, GameTitle, LikeContainer, LikedIcon, LikeIcon, LoaderContainer, MainContentContainer, MetaContainer, OpenAppButton, OpenAppButtonContainer, OpenYouTubeButton, PlayCountAndDate, RandomPostContainer, RandomPostListContainer, ShareAndLikeContainer, ShareContainer, ShareIcon, Title, YouTubePlayer, } from './style';
+import { A, AppButtonsContainer, CategoryGameContainer, CategoryName, Container, Detail, DetailContainer, Divider, GameTitle, LikeContainer, LikedIcon, LikeIcon, LoaderContainer, MainContentContainer, MetaContainer, NotFoundContainer, OpenAppButton, OpenAppButtonContainer, OpenYouTubeButton, PlayCountAndDate, RandomPostContainer, RandomPostListContainer, SettingContainer, ShareAndLikeContainer, ShareContainer, ShareIcon, Title, YouTubePlayer, } from './style';
 import { ShareModal } from './ShareModal';
+import { DeleteModal } from './DeleteModal';
 
 
 const Post = () => {
@@ -21,13 +25,16 @@ const Post = () => {
   return (
     <>
       <LoginModal isOpen={enhancer.isOpenLoginModal} setIsOpen={enhancer.setIsOpenLoginModal} />
+      <DeleteModal isOpen={enhancer.openDeleteModal} setIsOpen={enhancer.setOpenDeleteModal} deletePost={enhancer.delPost} />
       { enhancer.isLoading &&
       <LoaderContainer>
         <Loader />
       </LoaderContainer>}
       {enhancer.failed &&
-        <div>見つかりませんでした</div>
-      }
+      <NotFoundContainer>
+        <NotFoundIcon size={60} />
+        動画が見つかりませんでした
+      </NotFoundContainer>}
       {enhancer.post && (
         <Helmet
           title="わいコレ | わいわいの動画共有SNS"
@@ -97,6 +104,28 @@ const Post = () => {
                     <ShareIcon />
                     共有
                   </ShareContainer>
+                  {enhancer.isMyPost &&
+                  <>
+                    <SettingContainer aria-controls="simple-menu" onClick={enhancer.handleClick}>
+                      <MoreVert />
+                    </SettingContainer>
+                    <Menu
+                      id="simple-menu"
+                      anchorEl={enhancer.anchorEl}
+                      keepMounted
+                      open={Boolean(enhancer.anchorEl)}
+                      onClose={enhancer.handleClose}
+                    >
+                      <MenuItem onClick={enhancer.pushEdit}>編集</MenuItem>
+                      <MenuItem onClick={() => {
+                        enhancer.handleClose();
+                        enhancer.setOpenDeleteModal(true);
+                      }}
+                      >
+                        削除
+                      </MenuItem>
+                    </Menu>
+                  </>}
                 </ShareAndLikeContainer>
               </MetaContainer>
               <Divider />

@@ -1,14 +1,14 @@
+import React from 'react';
 import { ClickAwayListener, Grow, MenuList, Paper } from '@material-ui/core';
 import { AccountCircle, ExitToApp, HomeRounded, NavigateNext } from '@material-ui/icons';
 import { LoginModal } from 'components/LoginModal';
 import { Category } from 'entity/entity/category';
 import { Game } from 'entity/entity/game';
-import React from 'react';
+import Logo from 'assets/logo.png';
 import { useEnhancer } from './enhancer';
 import { SelectModal } from './SelectModal';
 import { CustomAvatar, Container, WhiteAppBar, ImageContainer, BarContainer, AppBarLeftItem, AppBarRightItem, CustomIconLabel, CustomIconButton, CreatePostButton, CreatePostButtonLabel, VideoCallIcon, AvatarContainer, SearchContainer, SearchField, SearchButton, SearchIcon, TopLink, AccountInfo, UserName, IconContainer, CustomPopper, MenuItemIcon, CustomMenuItem, Divider, LoginButton, LoginButtonLabel, SearchPopup, PopupTitleContainer, PopupItemContainer, PopupLastItemContainer, UnselectButton } from './styles';
 
-const icon = require('assets/logo.png');
 
 const Header = () => {
   const enhancer = useEnhancer();
@@ -19,8 +19,24 @@ const Header = () => {
       <SearchPopup open={enhancer.openSearchPopup} anchorEl={enhancer.searchRef.current} role={undefined} transition disablePortal>
         <ClickAwayListener onClickAway={enhancer.searchPopupClose}>
           <div>
-            <SelectModal loading={enhancer.loadingMeta} items={enhancer.categories} setItem={(c: Category) => enhancer.setSearchCategory(c)} itemType="category" isOpen={enhancer.openCategories} setIsOpen={enhancer.setOpenCategories} />
-            <SelectModal loading={enhancer.loadingMeta} items={enhancer.games} setItem={(g: Game) => enhancer.setSearchGame(g)} itemType="game" isOpen={enhancer.openGames} setIsOpen={enhancer.setOpenGames} />
+            <SelectModal
+              search={enhancer.categoryFilter}
+              loading={enhancer.loadingMeta}
+              items={enhancer.filteredCategories}
+              setItem={(c: Category) => enhancer.setSearchCategory(c)}
+              itemType="category"
+              isOpen={enhancer.openCategories}
+              setIsOpen={enhancer.setOpenCategories}
+            />
+            <SelectModal
+              search={enhancer.gameFilter}
+              loading={enhancer.loadingMeta}
+              items={enhancer.filteredGames}
+              setItem={(g: Game) => enhancer.setSearchGame(g)}
+              itemType="game"
+              isOpen={enhancer.openGames}
+              setIsOpen={enhancer.setOpenGames}
+            />
             <PopupTitleContainer>
               カテゴリ
               {enhancer.searchCategory && <UnselectButton onClick={() => enhancer.setSearchCategory(undefined)}>選択を解除</UnselectButton>}
@@ -45,7 +61,7 @@ const Header = () => {
           <BarContainer>
             <TopLink onClick={() => enhancer.pushHome()}>
               <ImageContainer>
-                <img height="40px" src={icon} alt="" />
+                <img height="40px" src={Logo} alt="" />
               </ImageContainer>
             </TopLink>
             <AppBarLeftItem>

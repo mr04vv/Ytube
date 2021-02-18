@@ -5,17 +5,14 @@ import configureStore from 'reduxes';
 import reactDom from 'react-dom';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
-import BottomFooter from 'components/BottomFooter';
-import Top from 'pages/Top';
 import Header from 'components/Header';
 import { StylesProvider } from '@material-ui/styles';
-import useFetch from 'hooks/Login/useFetchMe';
 import Home from 'pages/Home';
-import Help from 'pages/Help';
 import Search from 'pages/Search';
-import Information from 'pages/Info';
 import Post from 'pages/Post';
 import { MyPage } from 'pages/MyPage';
+import { CreatePost } from 'pages/CreatePost';
+import { EditPost } from 'pages/EditPost';
 import * as serviceWorker from './serviceWorker';
 
 const firebaseConfig = {
@@ -29,13 +26,14 @@ const firebaseConfig = {
   measurementId: 'G-000EQW30EY',
 };
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+if (firebase.apps.length === 0) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 const store = configureStore();
 
 const App = () => {
-  useFetch();
   React.useEffect(() => {
     if (document.domain !== 'yy-tube.com' && document.domain !== 'localhost') {
       window.location.href = `https://yy-tube.com${window.location.pathname}`;
@@ -43,14 +41,14 @@ const App = () => {
   }, []);
   return (
     <Switch>
-      <Route exact path="/" component={Top} />
+      <Route exact path="/" component={Home} />
       <Route exact path="/home" component={Home} />
       <Route exact path="/mypage" component={MyPage} />
-      <Route exact path="/help" component={Help} />
       <Route exact path="/search" component={Search} />
-      <Route exact path="/info" component={Information} />
       <Redirect from="/_post/:id" to="/post/:id" />
       <Route exact path="/post/:id" component={Post} />
+      <Route exact path="/create" component={CreatePost} />
+      <Route exact path="/edit/:id" component={EditPost} />
     </Switch>
   );
 };
@@ -61,8 +59,6 @@ export const Ytube = () => (
       <StylesProvider injectFirst>
         <Header />
         <App />
-        <BottomFooter />
-        {/* <SideMenu /> */}
       </StylesProvider>
     </Router>
   </Provider>

@@ -11,6 +11,7 @@ import {
   Container,
   IconContainer,
   LoaderContainer,
+  NotFoundContainer,
   PostContainer,
   PostListItemContainer,
   ProgressContainer,
@@ -55,57 +56,69 @@ export const MyPage = () => {
           </ProgressContainer> :
           <>
             {enhancer.tabIndex === TabType.my ?
-              <InfiniteScroll
-                loadMore={enhancer.loadMoreMyPosts} // 項目を読み込む際に処理するコールバック関数
-                hasMore={!enhancer.isLastMyPost && !enhancer.isMoreLoading && !enhancer.isLoading}
-              >
-                <PostContainer>
-                  <>
-                    {enhancer.myPosts.map(post =>
-                      (window.windowDimensions.width > 480 ?
-                        <PostListItemContainer onClick={() => enhancer.pushPostDetailPage(post.id)} width={window.windowDimensions.width} splitSize={window.splitSize}>
-                          <PostListItem post={post} />
-                        </PostListItemContainer>
-                        :
-                        <SmallPostListItemContainer onClick={() => enhancer.pushPostDetailPage(post.id)}>
-                          <SmallSizePostListItem post={post} />
-                        </SmallPostListItemContainer>
-                      ))}
-                    {window.windowDimensions.width > 480 && [...Array(dummyLength)].map(() => <PostListItemContainer width={window.windowDimensions.width} splitSize={window.splitSize} />)}
-                  </>
-                </PostContainer>
-                {enhancer.isMoreLoading &&
-                <ProgressContainer>
-                  <CircularProgress size="30px" />
-                </ProgressContainer>
+              <>
+                <InfiniteScroll
+                  loadMore={enhancer.loadMoreMyPosts} // 項目を読み込む際に処理するコールバック関数
+                  hasMore={!enhancer.isLastMyPost && !enhancer.isMoreLoading && !enhancer.isLoading}
+                >
+                  <PostContainer>
+                    <>
+                      {enhancer.myPosts.map(post =>
+                        (window.windowDimensions.width > 480 ?
+                          <PostListItemContainer onClick={() => enhancer.pushPostDetailPage(post.id)} width={window.windowDimensions.width} splitSize={window.splitSize}>
+                            <PostListItem post={post} />
+                          </PostListItemContainer>
+                          :
+                          <SmallPostListItemContainer onClick={() => enhancer.pushPostDetailPage(post.id)}>
+                            <SmallSizePostListItem post={post} />
+                          </SmallPostListItemContainer>
+                        ))}
+                      {window.windowDimensions.width > 480 && [...Array(dummyLength)].map(() => <PostListItemContainer width={window.windowDimensions.width} splitSize={window.splitSize} />)}
+                    </>
+                  </PostContainer>
+                  {enhancer.isMoreLoading &&
+                  <ProgressContainer>
+                    <CircularProgress size="30px" />
+                  </ProgressContainer>
             }
-              </InfiniteScroll>
+                </InfiniteScroll>
+                {enhancer.myPosts.length === 0 &&
+                <NotFoundContainer>
+                  投稿はまだありません
+                </NotFoundContainer>}
+              </>
               :
-              <InfiniteScroll
-                loadMore={enhancer.loadMoreLikePosts} // 項目を読み込む際に処理するコールバック関数
-                hasMore={!enhancer.isLastLikePost && !enhancer.isMoreLoading && !enhancer.isLoading}
-              >
-                <PostContainer>
-                  <>
-                    {enhancer.likePosts.map(like =>
-                      (window.windowDimensions.width > 480 ?
-                        <PostListItemContainer onClick={() => enhancer.pushPostDetailPage(like.post.id)} width={window.windowDimensions.width} splitSize={window.splitSize}>
-                          <PostListItem post={like.post} />
-                        </PostListItemContainer>
-                        :
-                        <SmallPostListItemContainer onClick={() => enhancer.pushPostDetailPage(like.post.id)}>
-                          <SmallSizePostListItem post={like.post} />
-                        </SmallPostListItemContainer>
-                      ))}
-                    {window.windowDimensions.width > 480 && [...Array(dummyLength)].map(() => <PostListItemContainer width={window.windowDimensions.width} splitSize={window.splitSize} />)}
-                  </>
-                </PostContainer>
-                {enhancer.isMoreLoading &&
-                <ProgressContainer>
-                  <CircularProgress size="30px" />
-                </ProgressContainer>
+              <>
+                <InfiniteScroll
+                  loadMore={enhancer.loadMoreLikePosts} // 項目を読み込む際に処理するコールバック関数
+                  hasMore={!enhancer.isLastLikePost && !enhancer.isMoreLoading && !enhancer.isLoading}
+                >
+                  <PostContainer>
+                    <>
+                      {enhancer.likePosts.map(like =>
+                        (window.windowDimensions.width > 480 ?
+                          <PostListItemContainer onClick={() => enhancer.pushPostDetailPage(like.post.id)} width={window.windowDimensions.width} splitSize={window.splitSize}>
+                            <PostListItem post={like.post} />
+                          </PostListItemContainer>
+                          :
+                          <SmallPostListItemContainer onClick={() => enhancer.pushPostDetailPage(like.post.id)}>
+                            <SmallSizePostListItem post={like.post} />
+                          </SmallPostListItemContainer>
+                        ))}
+                      {window.windowDimensions.width > 480 && [...Array(dummyLength)].map(() => <PostListItemContainer width={window.windowDimensions.width} splitSize={window.splitSize} />)}
+                    </>
+                  </PostContainer>
+                  {enhancer.isMoreLoading &&
+                  <ProgressContainer>
+                    <CircularProgress size="30px" />
+                  </ProgressContainer>
             }
-              </InfiniteScroll>
+                </InfiniteScroll>
+                {enhancer.likePosts.length === 0 &&
+                <NotFoundContainer>
+                  いいねはまだありません
+                </NotFoundContainer>}
+              </>
             }
           </>
         }

@@ -1,5 +1,5 @@
 /* eslint-disable no-bitwise */
-export const convertPlayTime = (seconds: number): String => {
+export const convertPlayTime = (seconds: number): string => {
   const h = seconds / 3600 | 0;
   const m = (seconds / 60 | 0) % 60;
   const s = seconds % 60;

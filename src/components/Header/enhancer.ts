@@ -1,14 +1,13 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { User } from 'interfaces/UserInterface';
-import { signOut } from 'reduxes/modules/accounts/login';
+import { fetchMe, signOut } from 'reduxes/modules/accounts/login';
 import firebase from 'firebase';
 import useReactRouter from 'use-react-router';
 import { SortType, SortTypes } from 'entity/union/sortType';
 import { SearchParams } from 'constants/searchParams';
 import { FetchMeState } from 'entity/reduxState/fetchMeState';
-import { implementsUser } from 'entity/entity/user';
+import { implementsUser, User } from 'entity/entity/user';
 import { LoginStatus } from 'entity/union/reduxStatus';
 import { Category, implementsCategory } from 'entity/entity/category';
 import { Game, implementsGame } from 'entity/entity/game';
@@ -47,11 +46,25 @@ export const useEnhancer = () => {
   const [loadingMeta, setLoadingMeta] = useState<boolean>(false);
   const [openGames, setOpenGames] = useState<boolean>(false);
   const [openCategories, setOpenCategories] = useState<boolean>(false);
-
+  const [filteredCategories, setFilteredCategories] = useState<Category[]>([]);
+  const [filteredGames, setFilteredGames] = useState<Game[]>([]);
   const gameSelector = (state: any) => state.gameList;
   const gameState: FetchGamesState = useSelector(gameSelector);
   const categorySelector = (state: any) => state.categoryList;
   const categoryState: FetchCategoriesState = useSelector(categorySelector);
+
+  const getParams = () => {
+    const word = params.get(SearchParams.WORD);
+    if (word != null) {
+      setSearchWord(word);
+    }
+  };
+
+  useEffect(() => {
+    (async () => {
+        await dispatch(fetchMe());
+    })();
+  }, [dispatch]);
 
   useEffect(() => {
     getParams();
@@ -60,21 +73,23 @@ export const useEnhancer = () => {
       dispatch(fetchGames());
       setLoadingMeta(false);
     })();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (implementsGame(gameState.data)) {
       setGames(gameState.data);
+      setFilteredGames(gameState.data);
       const gameId = params.get(SearchParams.GAME);
       if (gameId) {
         const game = gameState.data.find((g: Game) => g.id === Number(gameId));
         setSearchGame(game);
       }
     }
-  }, [gameState]);
+  }, [gameState, params]);
 
   useEffect(() => {
     if (implementsCategory(categoryState.data)) {
+      setFilteredCategories(categoryState.data);
       setCategories(categoryState.data);
       const categoryId = params.get(SearchParams.CATEGORY);
       if (categoryId) {
@@ -82,7 +97,7 @@ export const useEnhancer = () => {
         setSearchCategory(category);
       }
     }
-  }, [categoryState]);
+  }, [categoryState, params]);
 
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
@@ -101,19 +116,6 @@ export const useEnhancer = () => {
       return;
     }
     setOpenSearchPopup(false);
-  };
-
-  const getParams = () => {
-    const word = params.get(SearchParams.WORD);
-    if (word != null) {
-      setSearchWord(word);
-    }
-    // const order = params.get(SearchParams.ORDER);
-    // if (order != null) {
-    //   const orderNum: SortType = +order as SortType;
-    //   searchParam.order = orderNum;
-    //   setSortType(SortTypeRelation[orderNum]);
-    // }
   };
 
   const isSearchable = (): boolean => {
@@ -167,6 +169,7 @@ export const useEnhancer = () => {
 
   const onClickCreatePostButton = () => {
     if (implementsUser(userState.data)) {
+      window.scrollTo(0, 0);
       history.push({
         pathname: '/create',
       });
@@ -188,10 +191,12 @@ export const useEnhancer = () => {
   }, [userState]);
 
   const openSelectCategory = () => {
+    setFilteredCategories(categories);
     setOpenCategories(true);
   };
 
   const openSelectGame = () => {
+    setFilteredGames(games);
     setOpenGames(true);
   };
 
@@ -202,6 +207,15 @@ export const useEnhancer = () => {
     setOpen(false);
   };
 
+  const categoryFilter = (keyword: string) => {
+    const filtered = categories.filter((c: Category) => c.name.includes(keyword));
+    setFilteredCategories(filtered);
+  };
+
+  const gameFilter = (keyword: string) => {
+    const filtered = games.filter((g: Game) => g.title.includes(keyword));
+    setFilteredGames(filtered);
+  };
 
   return {
     userInfo,
@@ -238,6 +252,10 @@ export const useEnhancer = () => {
     openGames,
     openSelectCategory,
     openSelectGame,
-    loadingMeta
+    loadingMeta,
+    categoryFilter,
+    gameFilter,
+    filteredCategories,
+    filteredGames
   };
 };

@@ -1,5 +1,5 @@
-import { SortType, SortTypes } from 'entity/union/sortType';
 import React from 'react';
+import { SortType, SortTypes } from 'entity/union/sortType';
 import { OrderContainer, OrderItem } from './style';
 
 interface Props {

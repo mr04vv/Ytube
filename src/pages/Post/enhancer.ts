@@ -13,6 +13,7 @@ import { LikeRequestDto } from 'entity/requestDto/likeRequestDto';
 import { like } from 'api/posts/like';
 import { disLike } from 'api/posts/disLike';
 import updatePlayCount from 'api/posts/updatePlayCount';
+import { deletePost } from 'api/posts/deletePost';
 
 export const useEnhancer = () => {
   const [post, setPost] = useState<Post>();
@@ -25,11 +26,23 @@ export const useEnhancer = () => {
   const [playing, setPlaying] = useState<boolean>(true);
 
   const [failed, setFailed] = useState<boolean>(false);
+  const [isMyPost, setIsMyPost] = useState<boolean>(false);
   const [ref] = useState<React.MutableRefObject<ReactPlayer | undefined>>(
     React.useRef()
   );
   const userSelector = (state: any) => state.login;
   const userState: FetchMeState = useSelector(userSelector);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
 
   useEffect(() => {
     const postIdStr = params.id;
@@ -43,8 +56,10 @@ export const useEnhancer = () => {
           const [postRes, randomRes] = await Promise.all([fetchPost(postId), fetchRandomPostList()]);
           setPost(postRes.post);
           setPlaying(true);
-          incrementPlayCount();
+          incrementPlayCount(postRes.post);
           setRandomPosts(randomRes.posts);
+        } catch (_) {
+          setFailed(true);
         } finally {
           setIsLoading(false);
         }
@@ -60,7 +75,6 @@ export const useEnhancer = () => {
   };
 
   const loop = (r: ReactPlayer, second: number) => {
-    console.debug(r.state);
     r.seekTo(second, 'seconds');
   };
 
@@ -101,15 +115,21 @@ export const useEnhancer = () => {
     }
   };
 
+  useEffect(() => {
+    if (implementsUser(userState.data) && post) {
+      setIsMyPost(post.user.id === userState.data.id);
+    }
+  }, [userState.data, post]);
+
   const disLikePost = async () => {
     if (implementsUser(userState.data) && post) {
       await disLike(post.id);
     }
   };
 
-  const incrementPlayCount = () => {
-    if (post) {
-      updatePlayCount(post.id);
+  const incrementPlayCount = (p: Post) => {
+    if (p) {
+      updatePlayCount(p.id);
     }
   };
 
@@ -132,6 +152,25 @@ export const useEnhancer = () => {
     }
   };
 
+  const pushEdit = () => {
+    window.scrollTo(0, 0);
+    history.push({
+      pathname: `/edit/${post?.id}`,
+    });
+  };
+
+  const delPost = async (): Promise<boolean> => {
+    try {
+      if (post) {
+        await deletePost(post.id);
+        return true;
+      }
+    } catch (e) {
+      return false;
+    }
+    return false;
+  };
+
   return {
     post,
     isLoading,
@@ -149,6 +188,14 @@ export const useEnhancer = () => {
     onClickOpenAppButton,
     playing,
     setPlaying,
-    pushSearchPage
+    pushSearchPage,
+    isMyPost,
+    anchorEl,
+    handleClick,
+    handleClose,
+    pushEdit,
+    openDeleteModal,
+    setOpenDeleteModal,
+    delPost
   };
 };

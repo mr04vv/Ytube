@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core';
+import { Button, IconButton } from '@material-ui/core';
 import { Favorite, FavoriteBorder, Share } from '@material-ui/icons';
 import { COLOR_GRAY, COLOR_LIGHT_GRAY, COLOR_LIKED, COLOR_MAIN, COLOR_MAIN_TEXT, COLOR_WHITE } from 'constants/colors';
 import { SMALL_POST_LIST_CONTAINER_MAX_WIDTH } from 'constants/maxWidth';
@@ -230,4 +230,22 @@ export const LoaderContainer = styled.div`
 
 export const A = styled.a`
   text-decoration: none;
+`;
+
+export const NotFoundContainer = styled.div`
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: ${COLOR_MAIN_TEXT};
+  flex-direction: column;
+`;
+
+export const SettingContainer = styled(IconButton)`
+  font-size: 14px;
+  margin-left: 4px;
+  color: ${COLOR_MAIN_TEXT};
+  display: flex;
+  align-items: center;
 `;

@@ -1,9 +1,8 @@
-
+import React from 'react';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Close } from '@material-ui/icons';
 import { GoogleIcon } from 'components/GoogleIcon';
-import React from 'react';
 import { useEnhancer } from './enhancer';
 import { A, Attention, ButtonContainer, CloseButton, Container, CustomButton, CustomButtonContainer, CustomModal, Explain, IconContainer, LogoContainer, ModalTitleContainer, TwitterButton } from './style';
 

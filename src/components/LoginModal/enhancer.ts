@@ -27,7 +27,6 @@ export const useEnhancer = ({ setIsOpen }: Props) => {
           try {
             const firebaseToken = await user.getIdToken();
             await dispatch(signIn(firebaseToken));
-            console.debug(user);
             setUid(user.uid);
             setIsLoading(false);
             setIsOpen(false);
@@ -39,7 +38,7 @@ export const useEnhancer = ({ setIsOpen }: Props) => {
         }
       });
     })();
-  }, [history, dispatch]);
+  }, [history, dispatch, setIsOpen]);
 
   const loginWithGoogle = async () => {
     setIsLoading(true);

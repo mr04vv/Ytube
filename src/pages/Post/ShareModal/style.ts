@@ -1,5 +1,5 @@
 import { Button } from '@material-ui/core';
-import { COLOR_LIGHT_GRAY, COLOR_TWITTER, COLOR_WHITE } from 'constants/colors';
+import { COLOR_LIGHT_GRAY, COLOR_MAIN_TEXT, COLOR_TWITTER, COLOR_WHITE } from 'constants/colors';
 import Modal from 'react-modal';
 import styled from 'styled-components';
 
@@ -70,6 +70,7 @@ export const TwitterIconContainer = styled.div`
 export const ModalTitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  color: ${COLOR_MAIN_TEXT};
 `;
 
 

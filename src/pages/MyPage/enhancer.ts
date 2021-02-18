@@ -1,4 +1,4 @@
-// /* eslint-disable no-console */
+/* eslint-disable no-console */
 import { useState, useEffect } from 'react';
 import useReactRouter from 'use-react-router';
 import { useSelector } from 'react-redux';
@@ -126,11 +126,6 @@ export const useEnhancer = () => {
   useEffect(() => {
     if (implementsUser(userState.data)) {
       setUserInfo(userState.data);
-    }
-    if (userState.status !== 'loggedIn') {
-      history.push({
-        pathname: '/login',
-      });
     }
   }, [userState]);
 

@@ -101,6 +101,11 @@ export const SearchContainer = styled.div`
   border-radius: 4px;
   display: flex;
   align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
 `;
 
 export const SearchField = styled(InputBase as React.FC<InputBaseProps>)`
