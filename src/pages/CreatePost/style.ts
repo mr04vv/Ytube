@@ -1,6 +1,6 @@
 import { Button, Checkbox, TextField } from '@material-ui/core';
 import { HelpOutline, NavigateNext } from '@material-ui/icons';
-import { COLOR_LIGHT_GRAY, COLOR_MAIN, COLOR_MAIN_HEAVY, COLOR_MAIN_TEXT, COLOR_SUPER_LIGHT_GREY } from 'constants/colors';
+import { COLOR_GRAY, COLOR_LIGHT_GRAY, COLOR_MAIN, COLOR_MAIN_HEAVY, COLOR_MAIN_TEXT, COLOR_SUPER_LIGHT_GREY } from 'constants/colors';
 import ReactPlayer from 'react-player';
 import styled, { css } from 'styled-components';
 
@@ -75,7 +75,7 @@ export const FormContainer = styled.div`
   flex-direction: column;
   width: 100%;
   position: relative;
-  margin-top: 8px;
+  margin: 10px 0;
 `;
 
 export const CustomTextField = styled(TextField)`
@@ -171,4 +171,22 @@ const CategoryStyle = css`
 export const CategoryName = styled.div`
   background-color: ${COLOR_MAIN};
   ${CategoryStyle};
+`;
+
+export const PostButton = styled(Button)`
+  width: 100px;
+  height: 30px;
+  margin: 0 5px;
+  color: ${COLOR_MAIN_TEXT};
+  background-color: ${COLOR_MAIN};
+  :hover {
+    background-color: ${COLOR_MAIN};
+    opacity: 0.8;
+   }
+  display: flex;
+  justify-content: space-around;
+  font-weight: bold;
+  &.Mui-disabled {
+    background-color: ${COLOR_GRAY};
+  }
 `;

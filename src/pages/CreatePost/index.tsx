@@ -1,3 +1,5 @@
+import { LoginModal } from 'components/LoginModal';
+import SimpleSnackBar from 'components/SimpleSnackBar';
 import { Category } from 'entity/entity/category';
 import { Game } from 'entity/entity/game';
 import * as React from 'react';
@@ -5,7 +7,7 @@ import { useWindowDimensions } from 'usecase/useWindowDimensions';
 import { useEnhancer } from './enhancer';
 import { HelpModal } from './HelpModal';
 import { SelectModal } from './SelectModal';
-import { CategoryName, Check, CheckContainer, Container, CustomTextField, FormContainer, Help, ItemTitle, NextIcon, SelectItem, SelectItemContainer, TextFieldContainer, TimeSetButton, YouTubePlayer } from './style';
+import { CategoryName, Check, CheckContainer, Container, CustomTextField, FormContainer, Help, ItemTitle, NextIcon, PostButton, SelectItem, SelectItemContainer, TextFieldContainer, TimeSetButton, YouTubePlayer } from './style';
 
 
 export const CreatePost = () => {
@@ -14,6 +16,8 @@ export const CreatePost = () => {
 
   return (
     <>
+      <LoginModal isOpen={enhancer.isOpenLoginModal} setIsOpen={enhancer.setIsOpenLoginModal} />
+      <SimpleSnackBar isShow={!!enhancer.error} onClose={() => enhancer.setError('')} message={enhancer.error} type="error" />
       <Container>
         <HelpModal
           isOpen={enhancer.openHelp}
@@ -139,6 +143,7 @@ export const CreatePost = () => {
             </SelectItem>
           </SelectItemContainer>
         </FormContainer>
+        <PostButton disabled={!enhancer.canPost || enhancer.isLoading} onClick={enhancer.post}>投稿</PostButton>
       </Container>
     </>
   );

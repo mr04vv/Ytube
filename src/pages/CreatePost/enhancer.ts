@@ -2,16 +2,16 @@
 import React, { useState, useEffect } from 'react';
 import { CategoryInterface } from 'interfaces/CategoryInterface';
 import { useDispatch, useSelector } from 'react-redux';
-import { createPost } from 'reduxes/modules/posts/post';
-import { CreatePostInterface, UpdatePostInterface } from 'interfaces/posts/CreatePostInterface';
-import { getPosts } from 'reduxes/modules/posts/fetchPost';
-import updatePost from 'api/posts/updatePost';
 import { Category, implementsCategory } from 'entity/entity/category';
 import { Game, implementsGame } from 'entity/entity/game';
 import { FetchGamesState } from 'entity/reduxState/fetchGamesState';
 import { FetchCategoriesState } from 'entity/reduxState/fetchCategoriesState';
 import ReactPlayer from 'react-player';
 import { convertPlayTime } from 'utilities/convertPlayTime';
+import { CreatePostRequestDto } from 'entity/requestDto/createPostRequestDto';
+import { createPost } from 'api/posts/createPost';
+import useReactRouter from 'use-react-router';
+import { FetchMeState } from 'entity/reduxState/fetchMeState';
 
 export const useEnhancer = () => {
   const [startTime, setStartTime] = useState<string>('');
@@ -25,7 +25,6 @@ export const useEnhancer = () => {
   const [game, setGame] = useState<number | undefined>();
   const [category, setCategory] = useState<number[]>([]);
   const [categoryName, setCategoryName] = useState<string[]>([]);
-  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isAnonymous, setIsAnonymous] = useState<boolean>(false);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -45,18 +44,11 @@ export const useEnhancer = () => {
   );
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
   const [selectedGames, setSelectedGames] = useState<Game[]>([]);
-
-  const init = () => {
-    setTitle('');
-    setCategory([]);
-    setCategoryName([]);
-    setGame(undefined);
-    setComment('');
-    setUrl('');
-    setStartTime('');
-    setIsAnonymous(false);
-    setEndTime('');
-  };
+  const [canPost, setCanPost] = useState<boolean>(false);
+  const { history } = useReactRouter();
+  const userSelector = (state: any) => state.login;
+  const userState: FetchMeState = useSelector(userSelector);
+  const [isOpenLoginModal, setIsOpenLoginModal] = useState<boolean>(false);
 
   useEffect(() => {
     if (implementsGame(gameState.data)) {
@@ -87,61 +79,72 @@ export const useEnhancer = () => {
     }
   };
 
-  const post = async (closeModal: () => void) => {
-    setIsLoading(true);
-    // ここで時間を文字列から数値に治す
-    const body: CreatePostInterface = {
-      title,
-      detail: comment,
-      start_time: parseInt(startTime, 10),
-      end_time: parseInt(endTime, 10),
-      video_url: url,
-      game_id: game!,
-      category_ids: category,
-      is_anonymous: isAnonymous,
-    };
-
-    await dispatch<any>(createPost(body)).catch((err: any) => {
-      if (err.response.status === 400) {
-        setError('そのチャンネルの動画は投稿できません');
-      } else {
-        setError('投稿に失敗しました');
+  const parsePlayTime = (time: string) => {
+    const times = time.split(':');
+    try {
+      if (times.length === 1) {
+        return Number(times[0]);
+      } if (times.length === 2) {
+        return Number(times[1]) + (Number(times[0]) * 60);
+      } if (times.length === 3) {
+        return Number(times[2]) +
+            (Number(times[1]) * 60) +
+            (Number(times[0]) * 3600);
       }
-      setIsLoading(false);
-      throw err;
-    });
-    init();
-    closeModal();
-    dispatch(getPosts(1, 10));
-    setIsLoading(false);
+      return -1;
+    } catch (e) {
+      return -1;
+    }
   };
 
-  const editPost = async (id: number, closeModal: () => void) => {
+
+  const post = async () => {
+    if (userState.status !== 'loggedIn') {
+      setIsOpenLoginModal(true);
+      return;
+    }
+
     setIsLoading(true);
-    const body: UpdatePostInterface = {
+    const st = parsePlayTime(startTime);
+    const ed = parsePlayTime(endTime);
+    console.debug(st);
+    console.debug(ed);
+    if (st - ed >= 0 || Number.isNaN(st) || Number.isNaN(ed)) {
+      setError('時間を正しく入力してください');
+      setTimeout(() => {
+        setError('');
+      }, [2000]);
+      setIsLoading(false);
+      return;
+    }
+    // ここで時間を文字列から数値に治す
+    const body: CreatePostRequestDto = {
       title,
       detail: comment,
-      start_time: parseInt(startTime, 10),
-      end_time: parseInt(endTime, 10),
+      start_time: st,
+      end_time: ed,
       video_url: url,
-      game_id: game!,
-      category_ids: category,
+      game_id: selectedGames[0].id,
+      category_ids: selectedCategories.map(c => c.id),
       is_anonymous: isAnonymous,
     };
 
-    await updatePost(id, body).catch((err: any) => {
+    await createPost(body).catch((err: any) => {
       if (err.response.status === 400) {
         setError('そのチャンネルの動画は投稿できません');
       } else {
         setError('投稿に失敗しました');
       }
+      setTimeout(() => {
+        setError('');
+      }, [2000]);
       setIsLoading(false);
       throw err;
     });
 
-    init();
-    closeModal();
-    setIsLoading(false);
+    history.push({
+      pathname: '/home',
+    });
   };
 
   const categoryFilter = (keyword: string) => {
@@ -169,11 +172,20 @@ export const useEnhancer = () => {
     setOpenGames(true);
   };
 
+  useEffect(() => {
+    if (url && selectedCategories.length > 0 && selectedGames.length > 0 && title && startTime && endTime) {
+      setCanPost(true);
+    } else {
+      setCanPost(false);
+    }
+  }, [url, startTime, endTime, title, selectedCategories, selectedGames]);
+
+
   return {
     startTime,
     endTime,
     url,
-    setUrl: (e: React.ChangeEvent<HTMLInputElement>) => setUrl(e.target.value),
+    setUrl: (e: React.ChangeEvent<HTMLInputElement>) => { setUrl(e.target.value); },
     setStartTime: (e: React.ChangeEvent<HTMLInputElement>) => setStartTime(e.target.value),
     setEndTime: (e: React.ChangeEvent<HTMLInputElement>) => setEndTime(e.target.value),
     error,
@@ -204,7 +216,6 @@ export const useEnhancer = () => {
     isLoading,
     isAnonymous,
     setIsAnonymous,
-    editPost,
     filteredCategories,
     filteredGames,
     categoryFilter,
@@ -235,6 +246,9 @@ export const useEnhancer = () => {
       const unseted = i.filter(f => f !== c);
       setSelectedCategories(unseted);
       setFilteredCategories(f => [...f, c]);
-    }
+    },
+    canPost,
+    isOpenLoginModal,
+    setIsOpenLoginModal,
   };
 };
