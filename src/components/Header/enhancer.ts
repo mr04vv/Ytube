@@ -100,7 +100,7 @@ export const useEnhancer = () => {
   }, [categoryState, params]);
 
   const handleToggle = () => {
-    setOpen(prevOpen => !prevOpen);
+    setOpen((prevOpen) => !prevOpen);
   };
 
   const handleClose = (event: React.MouseEvent<EventTarget>) => {
@@ -122,7 +122,6 @@ export const useEnhancer = () => {
     if (searchWord.length === 0 && !searchCategory && !searchGame) return false;
     return true;
   };
-
 
   const onKeyPressed = (key: string) => {
     if (!isSearchable()) return;
@@ -158,7 +157,6 @@ export const useEnhancer = () => {
       pathname: '/mypage',
     });
   };
-
 
   const resetSearchParam = () => {
     setSearchWord('');

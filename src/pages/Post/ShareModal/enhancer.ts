@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import { useState } from 'react';
 
-
 export const useEnhancer = () => {
   const [isCopied, setIsCopied] = useState<boolean>(false);
 

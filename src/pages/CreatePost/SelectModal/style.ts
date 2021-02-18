@@ -4,7 +4,6 @@ import { COLOR_GRAY, COLOR_LIGHT_GRAY, COLOR_MAIN, COLOR_MAIN_TEXT, COLOR_WHITE 
 import Modal from 'react-modal';
 import styled, { css } from 'styled-components';
 
-
 export const CustomModal = styled(Modal)`
   width: 80%;
   height: 80%;
@@ -111,7 +110,6 @@ export const CloseIcon = styled(Close)`
   width: 18px;
   color: ${COLOR_GRAY};
 `;
-
 
 export const AddButton = styled(Button)`
   color: ${COLOR_MAIN_TEXT};

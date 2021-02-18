@@ -57,15 +57,14 @@ const Home = () => {
         >
           <PostContainer>
             <>
-              {enhancer.posts.map(post =>
-                (window.windowDimensions.width > 480 ?
-                  <PostListItemContainer onClick={() => enhancer.pushPostDetailPage(post.id)} width={window.windowDimensions.width} splitSize={window.splitSize}>
-                    <PostListItem post={post} />
-                  </PostListItemContainer>
+              {enhancer.posts.map((post) => (window.windowDimensions.width > 480 ?
+                <PostListItemContainer onClick={() => enhancer.pushPostDetailPage(post.id)} width={window.windowDimensions.width} splitSize={window.splitSize}>
+                  <PostListItem post={post} />
+                </PostListItemContainer>
                   :
-                  <SmallPostListItemContainer onClick={() => enhancer.pushPostDetailPage(post.id)}>
-                    <SmallSizePostListItem post={post} />
-                  </SmallPostListItemContainer>
+                <SmallPostListItemContainer onClick={() => enhancer.pushPostDetailPage(post.id)}>
+                  <SmallSizePostListItem post={post} />
+                </SmallPostListItemContainer>
                 ))}
               {window.windowDimensions.width > 480 && [...Array(dummyLength)].map(() => <PostListItemContainer width={window.windowDimensions.width} splitSize={window.splitSize} />)}
             </>
@@ -73,8 +72,7 @@ const Home = () => {
           {enhancer.isMoreLoading &&
             <ProgressContainer>
               <CircularProgress size="30px" />
-            </ProgressContainer>
-            }
+            </ProgressContainer>}
 
         </InfiniteScroll>
 

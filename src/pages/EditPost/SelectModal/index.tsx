@@ -6,7 +6,6 @@ import { Category } from 'entity/entity/category';
 import { Game } from 'entity/entity/game';
 import { AddButton, CategoryName, CloseButton, CloseIcon, Container, ContentContainer, CustomModal, CustomTextField, HelpText, LoadingContainer, ModalTitleContainer, NextButton, SearchIcon, SelectedContainer, SelectedTitle, TextFieldContainer } from './style';
 
-
 type ItemType = 'game' | 'category';
 
 interface Props {
@@ -90,8 +89,7 @@ export const SelectModal: React.FC<Props> = ({ items, setItem, setIsOpen, isOpen
               </>
               <NextButton onClick={() => setIsOpen(false)}>カテゴリを確定</NextButton>
             </SelectedContainer>
-          </>
-        }
+          </>}
         <ContentContainer>
           {loading ? <LoadingContainer><CircularProgress /></LoadingContainer> :
           <>
@@ -102,8 +100,7 @@ export const SelectModal: React.FC<Props> = ({ items, setItem, setIsOpen, isOpen
               (items as Game[]).map((item: Game) => (
                 <CategoryName onClick={() => { setItem(item); setIsOpen(false); }}>{item.title}</CategoryName>
               ))}
-          </>
-          }
+          </>}
         </ContentContainer>
         <HelpText>*選択したいものが見つからない場合は下のフォームから追加できます</HelpText>
         <TextFieldContainer>

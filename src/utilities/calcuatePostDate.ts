@@ -17,7 +17,6 @@ export const hoursDiff = (d1:number, d2:number) => {
   return hourDiff;
 };
 
-
 export const daysDiff = (d1:number, d2:number) => {
   const hours = hoursDiff(d1, d2);
   const dayDiff = Math.floor(hours / 24);

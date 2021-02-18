@@ -78,10 +78,8 @@ const Home = () => {
             {enhancer.isMoreLoading &&
               <ProgressContainer>
                 <CircularProgress size="30px" />
-              </ProgressContainer>
-            }
-          </InfiniteScroll>
-        }
+              </ProgressContainer>}
+          </InfiniteScroll>}
         {enhancer.posts.length === 0 &&
           <NotFoundContainer>
             <NotFoundIcon size={60} />

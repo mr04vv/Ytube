@@ -82,13 +82,12 @@ export const useEnhancer = () => {
     }
   };
 
-
   const loadMoreMyPosts = async () => {
     setIsMoreLoading(true);
     try {
       const res = await fetchMyPostList(myPostPage, COUNT_PER_PAGE);
       setMyPosts([...myPosts, ...res.posts]);
-      setMyPostLength(l => l + res.posts.length);
+      setMyPostLength((l) => l + res.posts.length);
       setIsLoading(false);
       setMyPostPage(myPostPage + 1);
       if (res.posts.length < COUNT_PER_PAGE) {
@@ -102,13 +101,12 @@ export const useEnhancer = () => {
     }
   };
 
-
   const loadMoreLikePosts = async () => {
     setIsMoreLoading(true);
     try {
       const res = await fetchLikePostList(likePostPage, COUNT_PER_PAGE);
       setLikePosts([...likePosts, ...res.likes]);
-      setLikePostLength(l => l + res.likes.length);
+      setLikePostLength((l) => l + res.likes.length);
       setIsLoading(false);
       setLikePostPage(likePostPage + 1);
       if (res.likes.length < COUNT_PER_PAGE) {
@@ -121,7 +119,6 @@ export const useEnhancer = () => {
       setIsLoading(false);
     }
   };
-
 
   useEffect(() => {
     if (implementsUser(userState.data)) {

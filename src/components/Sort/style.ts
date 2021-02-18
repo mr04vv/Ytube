@@ -12,7 +12,7 @@ interface OrderItemProps {
 
 export const OrderItem = styled.div<OrderItemProps>`
   font-size: 13px;
-  color: ${props => (props.selected ? COLOR_MAIN_TEXT : COLOR_LIGHT_GRAY)};
+  color: ${(props) => (props.selected ? COLOR_MAIN_TEXT : COLOR_LIGHT_GRAY)};
   margin-right: 20px;
   cursor: pointer;
 `;

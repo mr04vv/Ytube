@@ -17,7 +17,6 @@ import { A, AppButtonsContainer, CategoryGameContainer, CategoryName, Container,
 import { ShareModal } from './ShareModal';
 import { DeleteModal } from './DeleteModal';
 
-
 const Post = () => {
   const enhancer = useEnhancer();
   const window = useWindowDimensions();
@@ -68,8 +67,7 @@ const Post = () => {
                   if (enhancer.ref.current) {
                     enhancer.loop(enhancer.ref.current, enhancer.post ? enhancer.post.startTime : 0);
                   }
-                }
-                }
+                }}
                 url={enhancer.post.videoUrl}
                 youtubeConfig={{
                   playerVars: {
@@ -149,14 +147,14 @@ const Post = () => {
             </MainContentContainer>
             <RandomPostListContainer>
               {
-              enhancer.randomPosts.map(p =>
+              enhancer.randomPosts.map((p) =>
                 <RandomPostContainer onClick={() => enhancer.pushPostDetailPage(p.id)}>
                   <SmallSizePostListItem post={p} />
-                </RandomPostContainer>)}
+                </RandomPostContainer>)
+}
             </RandomPostListContainer>
           </Container>
-        </>
-      }
+        </>}
     </>
   );
 };

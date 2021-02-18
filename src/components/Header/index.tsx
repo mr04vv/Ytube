@@ -9,7 +9,6 @@ import { useEnhancer } from './enhancer';
 import { SelectModal } from './SelectModal';
 import { CustomAvatar, Container, WhiteAppBar, ImageContainer, BarContainer, AppBarLeftItem, AppBarRightItem, CustomIconLabel, CustomIconButton, CreatePostButton, CreatePostButtonLabel, VideoCallIcon, AvatarContainer, SearchContainer, SearchField, SearchButton, SearchIcon, TopLink, AccountInfo, UserName, IconContainer, CustomPopper, MenuItemIcon, CustomMenuItem, Divider, LoginButton, LoginButtonLabel, SearchPopup, PopupTitleContainer, PopupItemContainer, PopupLastItemContainer, UnselectButton } from './styles';
 
-
 const Header = () => {
   const enhancer = useEnhancer();
   return (
@@ -110,9 +109,8 @@ const Header = () => {
                     )}
                   </AvatarContainer>
                   <CustomPopper open={enhancer.open} anchorEl={enhancer.anchorRef.current} role={undefined} transition disablePortal>
-                    {({ TransitionProps, placement }) => (
+                    {({ placement }) => (
                       <Grow
-                        {...TransitionProps}
                         style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
                       >
                         <Paper>
@@ -149,8 +147,7 @@ const Header = () => {
                       </Grow>
                     )}
                   </CustomPopper>
-                </>
-              }
+                </>}
             </AppBarRightItem>
           </BarContainer>
         </WhiteAppBar>

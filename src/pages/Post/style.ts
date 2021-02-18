@@ -68,7 +68,7 @@ interface ContainerProps {
 
 export const Container = styled.div<ContainerProps>`
   display: flex;
-  margin: ${props => (props.width < 1700 ? '80px 20px 0 20px' : '80px auto 0 auto')};
+  margin: ${(props) => (props.width < 1700 ? '80px 20px 0 20px' : '80px auto 0 auto')};
   max-width: 1700px;
 `;
 
@@ -96,7 +96,6 @@ export const Detail = styled.p`
   letter-spacing: 1.6px;
   white-space: pre-line;
 `;
-
 
 export const MetaContainer = styled.div`
   display: flex;
@@ -175,7 +174,7 @@ interface MainContentContainerProps {
 
 export const MainContentContainer = styled.div<MainContentContainerProps>`
   display: flex;
-  width: ${props => props.width};
+  width: ${(props) => props.width};
   flex-direction: column;
 `;
 

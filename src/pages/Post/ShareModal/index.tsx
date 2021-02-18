@@ -7,7 +7,6 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import { useEnhancer } from './enhancer';
 import { A, AContainer, CloseButton, Container, CopyButton, CopyContainer, CustomModal, ModalTitleContainer, TwitterButton, TwitterIconContainer } from './style';
 
-
 interface Props {
   dynamicLink: string;
   isOpen: boolean;

@@ -56,7 +56,6 @@ export const useEnhancer = () => {
   const [addGameName, setAddGameName] = useState<string>('');
   const [loadingMeta, setLoadingMeta] = useState<boolean>(false);
 
-
   useEffect(() => {
     if (implementsGame(gameState.data)) {
       setGames(gameState.data);
@@ -70,7 +69,6 @@ export const useEnhancer = () => {
       setCategories(categoryState.data);
     }
   }, [categoryState]);
-
 
   const setStart = () => {
     if (ref.current) {
@@ -129,7 +127,7 @@ export const useEnhancer = () => {
       end_time: ed,
       video_url: url,
       game_id: selectedGames[0].id,
-      category_ids: selectedCategories.map(c => c.id),
+      category_ids: selectedCategories.map((c) => c.id),
       is_anonymous: isAnonymous,
     };
 
@@ -153,7 +151,7 @@ export const useEnhancer = () => {
 
   const categoryFilter = (keyword: string) => {
     let filtered = categories.filter((c: Category) => c.name.includes(keyword));
-    selectedCategories.forEach((sc: Category) => { filtered = filtered.filter(f => f.id !== sc.id); });
+    selectedCategories.forEach((sc: Category) => { filtered = filtered.filter((f) => f.id !== sc.id); });
     setFilteredCategories(filtered);
   };
 
@@ -164,7 +162,7 @@ export const useEnhancer = () => {
 
   const openSelectCategory = () => {
     let filtered = categories.slice();
-    selectedCategories.forEach((sc: Category) => { filtered = filtered.filter(f => f.id !== sc.id); });
+    selectedCategories.forEach((sc: Category) => { filtered = filtered.filter((f) => f.id !== sc.id); });
     setFilteredCategories(filtered);
     setOpenCategories(true);
   };
@@ -220,7 +218,6 @@ export const useEnhancer = () => {
     }
   };
 
-
   return {
     startTime,
     endTime,
@@ -275,17 +272,17 @@ export const useEnhancer = () => {
     selectedCategories,
     selectedGames,
     setSelectedCategories: (c: Category) => {
-      setSelectedCategories(s => [...s, c]);
-      setFilteredCategories(fcs => fcs.filter(fc => fc !== c));
+      setSelectedCategories((s) => [...s, c]);
+      setFilteredCategories((fcs) => fcs.filter((fc) => fc !== c));
     },
     setSelectedGames: (g: Game) => {
       setSelectedGames([g]);
     },
     unsetSelectedCategories: (c: Category) => {
       const i = selectedCategories;
-      const unseted = i.filter(f => f !== c);
+      const unseted = i.filter((f) => f !== c);
       setSelectedCategories(unseted);
-      setFilteredCategories(f => [...f, c]);
+      setFilteredCategories((f) => [...f, c]);
     },
     canPost,
     isOpenLoginModal,

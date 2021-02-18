@@ -45,7 +45,6 @@ export const useEnhancer = () => {
     });
   };
 
-
   const checkLastPage = (postList: Post[]) => {
     if (postList.length < PER) {
       setIsLastPage(true);
@@ -71,7 +70,7 @@ export const useEnhancer = () => {
     try {
       const res = await searchPostList(page, COUNT_PER_PAGE, [], [], SortTypes.NEWEST, '');
       setPosts([...posts, ...res.posts]);
-      setPostLength(l => l + res.posts.length);
+      setPostLength((l) => l + res.posts.length);
       setIsLoading(false);
       setPage(page + 1);
       checkLastPage(res.posts);

@@ -8,7 +8,6 @@ import { A, Attention, ButtonContainer, CloseButton, Container, CustomButton, Cu
 
 const icon = require('assets/logo.png');
 
-
 interface Props {
   isOpen: boolean;
   setIsOpen: (v: boolean) => void;

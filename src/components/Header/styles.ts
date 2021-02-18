@@ -182,7 +182,6 @@ export const Divider = styled.div`
   margin: 4px 0;
 `;
 
-
 export const LoginButton = styled(Button)`
   width: 100px;
   height: 30px;

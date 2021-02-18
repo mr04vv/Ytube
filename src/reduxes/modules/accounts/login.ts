@@ -18,13 +18,13 @@ export const LOGIN_FAIL = `redux/${MODULE_NAME}/LOGIN_FAIL`;
 export const LOGOUT = `redux/${MODULE_NAME}/LOGOUT`;
 
 // Actions
-export const loginSuccess = createActionCreator(LOGIN_SUCCESS, resolve => (res: object) => resolve(res));
-export const fetchSuccess = createActionCreator(FETCH_SUCCESS, resolve => (res: object) => resolve(res));
+export const loginSuccess = createActionCreator(LOGIN_SUCCESS, (resolve) => (res: object) => resolve(res));
+export const fetchSuccess = createActionCreator(FETCH_SUCCESS, (resolve) => (res: object) => resolve(res));
 const loginFail = createActionCreator(LOGIN_FAIL);
 const logout = createActionCreator(LOGOUT);
 
 // Reducer
-const login = createReducer(initialState, handleAction => [
+const login = createReducer(initialState, (handleAction) => [
   handleAction(loginSuccess, (state, action) => ({
     ...state,
     data: action.payload,
@@ -37,13 +37,13 @@ const login = createReducer(initialState, handleAction => [
     loading: false,
     status: 'loggedIn',
   })),
-  handleAction(loginFail, state => ({
+  handleAction(loginFail, (state) => ({
     ...state,
     data: {},
     loading: false,
     status: 'notLoggedIn',
   })),
-  handleAction(logout, state => ({
+  handleAction(logout, (state) => ({
     ...state,
     data: {},
     loading: false,
