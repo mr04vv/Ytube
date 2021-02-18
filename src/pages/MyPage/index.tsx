@@ -63,7 +63,7 @@ export const MyPage = () => {
                 >
                   <PostContainer>
                     <>
-                      {enhancer.myPosts.map(post =>
+                      {enhancer.myPosts.map((post) =>
                         (window.windowDimensions.width > 480 ?
                           <PostListItemContainer onClick={() => enhancer.pushPostDetailPage(post.id)} width={window.windowDimensions.width} splitSize={window.splitSize}>
                             <PostListItem post={post} />
@@ -79,8 +79,7 @@ export const MyPage = () => {
                   {enhancer.isMoreLoading &&
                   <ProgressContainer>
                     <CircularProgress size="30px" />
-                  </ProgressContainer>
-            }
+                  </ProgressContainer>}
                 </InfiniteScroll>
                 {enhancer.myPosts.length === 0 &&
                 <NotFoundContainer>
@@ -95,7 +94,7 @@ export const MyPage = () => {
                 >
                   <PostContainer>
                     <>
-                      {enhancer.likePosts.map(like =>
+                      {enhancer.likePosts.map((like) =>
                         (window.windowDimensions.width > 480 ?
                           <PostListItemContainer onClick={() => enhancer.pushPostDetailPage(like.post.id)} width={window.windowDimensions.width} splitSize={window.splitSize}>
                             <PostListItem post={like.post} />
@@ -111,18 +110,14 @@ export const MyPage = () => {
                   {enhancer.isMoreLoading &&
                   <ProgressContainer>
                     <CircularProgress size="30px" />
-                  </ProgressContainer>
-            }
+                  </ProgressContainer>}
                 </InfiniteScroll>
                 {enhancer.likePosts.length === 0 &&
                 <NotFoundContainer>
                   いいねはまだありません
                 </NotFoundContainer>}
-              </>
-            }
-          </>
-        }
-
+              </>}
+          </>}
       </Container>
   );
 };

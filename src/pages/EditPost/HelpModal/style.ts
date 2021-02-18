@@ -2,7 +2,6 @@ import { COLOR_LIGHT_GRAY, COLOR_MAIN_TEXT } from 'constants/colors';
 import Modal from 'react-modal';
 import styled from 'styled-components';
 
-
 export const CustomModal = styled(Modal)`
   width: 80%;
   height: 80%;

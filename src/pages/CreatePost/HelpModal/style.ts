@@ -2,7 +2,6 @@ import { COLOR_LIGHT_GRAY, COLOR_MAIN_TEXT } from 'constants/colors';
 import Modal from 'react-modal';
 import styled from 'styled-components';
 
-
 export const CustomModal = styled(Modal)`
   width: 80%;
   height: 80%;
@@ -17,6 +16,9 @@ export const CustomModal = styled(Modal)`
   :focus {
     outline: none;
   }
+  @media (max-width: 480px) {
+    width: 90%;
+  }
 `;
 
 export const Container = styled.div`
@@ -25,6 +27,9 @@ export const Container = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  @media (max-width: 480px) {
+    padding: 24px;
+  }
 `;
 
 export const Title = styled.div`
@@ -40,6 +45,9 @@ export const HelpImage = styled.img`
   height: auto;
   min-height: 300px;
   background-color: ${COLOR_LIGHT_GRAY};
+  @media (max-width: 480px) {
+    min-height: 100px;
+  }
 `;
 
 export const HelpSmallImage = styled.img`

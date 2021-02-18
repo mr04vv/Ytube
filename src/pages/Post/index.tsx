@@ -17,7 +17,6 @@ import { A, AppButtonsContainer, CategoryGameContainer, CategoryName, Container,
 import { ShareModal } from './ShareModal';
 import { DeleteModal } from './DeleteModal';
 
-
 const Post = () => {
   const enhancer = useEnhancer();
   const window = useWindowDimensions();
@@ -63,13 +62,13 @@ const Post = () => {
                 onPause={() => enhancer.setPlaying(false)}
                 onPlay={() => enhancer.setPlaying(true)}
                 width="100%"
-                height={window.windowDimensions.width > 1700 ? `${(1700 - SMALL_POST_LIST_CONTAINER_MAX_WIDTH) * 0.5625}px` : `${(window.windowDimensions.width - SMALL_POST_LIST_CONTAINER_MAX_WIDTH) * 0.5625}px`}
+                // eslint-disable-next-line no-nested-ternary
+                height={window.windowDimensions.width > 1700 ? `${(1700 - SMALL_POST_LIST_CONTAINER_MAX_WIDTH) * 0.5625}px` : window.windowDimensions.width > 1020 ? `${(window.windowDimensions.width - SMALL_POST_LIST_CONTAINER_MAX_WIDTH) * 0.5625}px` : `${(window.windowDimensions.width) * 0.5625}px`}
                 onEnded={() => {
                   if (enhancer.ref.current) {
                     enhancer.loop(enhancer.ref.current, enhancer.post ? enhancer.post.startTime : 0);
                   }
-                }
-                }
+                }}
                 url={enhancer.post.videoUrl}
                 youtubeConfig={{
                   playerVars: {
@@ -149,14 +148,14 @@ const Post = () => {
             </MainContentContainer>
             <RandomPostListContainer>
               {
-              enhancer.randomPosts.map(p =>
+              enhancer.randomPosts.map((p) =>
                 <RandomPostContainer onClick={() => enhancer.pushPostDetailPage(p.id)}>
                   <SmallSizePostListItem post={p} />
-                </RandomPostContainer>)}
+                </RandomPostContainer>)
+            }
             </RandomPostListContainer>
           </Container>
-        </>
-      }
+        </>}
     </>
   );
 };

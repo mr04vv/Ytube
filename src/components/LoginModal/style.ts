@@ -3,7 +3,6 @@ import { COLOR_LIGHT_GRAY, COLOR_MAIN_TEXT, COLOR_TWITTER, COLOR_TWITTER_HOVER, 
 import Modal from 'react-modal';
 import styled from 'styled-components';
 
-
 export const CustomModal = styled(Modal)`
   width: 100%;
   left: unset;
@@ -28,7 +27,6 @@ export const ModalTitleContainer = styled.div`
   justify-content: center;
   margin-bottom: 14px;
 `;
-
 
 export const CloseButton = styled(Button)`
   color: ${COLOR_LIGHT_GRAY};

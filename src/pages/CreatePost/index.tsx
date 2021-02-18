@@ -9,7 +9,6 @@ import { HelpModal } from './HelpModal';
 import { SelectModal } from './SelectModal';
 import { CategoryName, Check, CheckContainer, Container, CustomTextField, FormContainer, Help, ItemTitle, NextIcon, PostButton, SelectItem, SelectItemContainer, TextFieldContainer, TimeSetButton, YouTubePlayer } from './style';
 
-
 export const CreatePost = () => {
   const w = useWindowDimensions();
   const enhancer = useEnhancer();
@@ -133,8 +132,7 @@ export const CreatePost = () => {
               {enhancer.selectedCategories.length === 0 ?
                 '選択してください' :
                 (enhancer.selectedCategories).map((item: Category) => (
-                  <CategoryName>{item.name}</CategoryName>))
-              }
+                  <CategoryName>{item.name}</CategoryName>))}
               <NextIcon />
             </SelectItem>
           </SelectItemContainer>
@@ -143,8 +141,7 @@ export const CreatePost = () => {
             <SelectItem onClick={enhancer.openSelectGame}>
               {enhancer.selectedGames.length === 0 ?
                 '選択してください' :
-                <CategoryName>{ enhancer.selectedGames[0].title}</CategoryName>
-              }
+                <CategoryName>{ enhancer.selectedGames[0].title}</CategoryName>}
               <NextIcon />
             </SelectItem>
           </SelectItemContainer>

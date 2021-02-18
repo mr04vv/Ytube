@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import configureStore from 'reduxes';
 import reactDom from 'react-dom';
-import * as firebase from 'firebase';
+import firebase from 'firebase';
 import 'firebase/firestore';
 import Header from 'components/Header';
 import { StylesProvider } from '@material-ui/styles';
@@ -13,6 +13,7 @@ import Post from 'pages/Post';
 import { MyPage } from 'pages/MyPage';
 import { CreatePost } from 'pages/CreatePost';
 import { EditPost } from 'pages/EditPost';
+import { OpenAppHeader } from 'components/OpenAppHeader';
 import * as serviceWorker from './serviceWorker';
 
 const firebaseConfig = {
@@ -28,6 +29,7 @@ const firebaseConfig = {
 // Initialize Firebase
 if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
 }
 
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
@@ -57,6 +59,7 @@ export const Ytube = () => (
   <Provider store={store}>
     <Router>
       <StylesProvider injectFirst>
+        <OpenAppHeader />
         <Header />
         <App />
       </StylesProvider>

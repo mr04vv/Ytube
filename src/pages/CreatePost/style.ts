@@ -12,6 +12,9 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (max-width: 480px) {
+    margin-top: 170px;
+  }
 `;
 
 export const ImageContainer = styled.img`

@@ -14,10 +14,10 @@ const initialState: FetchGamesState = {
 export const FETCH_GAME_LIST_SUCCESS = `redux/${MODULE_NAME}/FETCH_GAME_LIST_SUCCESS`;
 
 // Actions
-export const fetchSuccess = createActionCreator(FETCH_GAME_LIST_SUCCESS, resolve => (res: object) => resolve(res));
+export const fetchSuccess = createActionCreator(FETCH_GAME_LIST_SUCCESS, (resolve) => (res: object) => resolve(res));
 
 // Reducer
-const gameList = createReducer(initialState, handleAction => [
+const gameList = createReducer(initialState, (handleAction) => [
   handleAction(fetchSuccess, (state, action) => ({
     ...state,
     data: action.payload,

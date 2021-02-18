@@ -4,7 +4,6 @@ import { Category } from 'entity/entity/category';
 import { Game } from 'entity/entity/game';
 import { CategoryName, Container, ContentContainer, CustomModal, LoadingContainer, ModalTitleContainer, SearchIcon } from './style';
 
-
 type ItemType = 'game' | 'category';
 
 interface Props {
@@ -61,8 +60,7 @@ export const SelectModal: React.FC<Props> = ({ items, setItem, setIsOpen, isOpen
             (items as Game[]).map((item: Game) => (
               <CategoryName onClick={() => { setItem(item); setIsOpen(false); }}>{item.title}</CategoryName>
             ))}
-        </>
-        }
+        </>}
       </ContentContainer>
     </Container>
   </CustomModal>

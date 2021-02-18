@@ -14,10 +14,10 @@ const initialState: FetchCategoriesState = {
 export const FETCH_CATEGORY_LIST_SUCCESS = `redux/${MODULE_NAME}/FETCH_CATEGORY_LIST_SUCCESS`;
 
 // Actions
-export const fetchSuccess = createActionCreator(FETCH_CATEGORY_LIST_SUCCESS, resolve => (res: object) => resolve(res));
+export const fetchSuccess = createActionCreator(FETCH_CATEGORY_LIST_SUCCESS, (resolve) => (res: object) => resolve(res));
 
 // Reducer
-const categoryList = createReducer(initialState, handleAction => [
+const categoryList = createReducer(initialState, (handleAction) => [
   handleAction(fetchSuccess, (state, action) => ({
     ...state,
     data: action.payload,

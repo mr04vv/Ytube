@@ -6,6 +6,9 @@ export const Container = styled.div`
   margin: 80px 16px;
   display: flex;
   flex-direction: column;
+  @media (max-width: 480px) {
+    margin-top: 170px;
+  }
 `;
 
 export const PostContainer = styled.div`
@@ -14,15 +17,14 @@ export const PostContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-
 interface Props {
   width: number;
   splitSize: number;
   }
 
 export const PostListItemContainer = styled.div<Props>`
-  width: calc(${props => props.width}px / ${props => props.splitSize} + 25px);
-  min-width: calc(${props => props.width}px / 5);
+  width: calc(${(props) => props.width}px / ${(props) => props.splitSize} + 25px);
+  min-width: calc(${(props) => props.width}px / 5);
   margin: 18px 0;
   :hover {
     opacity: 0.7;

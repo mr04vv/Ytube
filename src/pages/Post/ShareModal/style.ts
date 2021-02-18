@@ -73,7 +73,6 @@ export const ModalTitleContainer = styled.div`
   color: ${COLOR_MAIN_TEXT};
 `;
 
-
 export const CloseButton = styled(Button)`
   position: absolute;
   right: 1em;

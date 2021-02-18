@@ -3,7 +3,6 @@ import { COLOR_MAIN, COLOR_MAIN_TEXT } from 'constants/colors';
 import Modal from 'react-modal';
 import styled, { css } from 'styled-components';
 
-
 export const CustomModal = styled(Modal)`
   width: 80%;
   height: 80%;
@@ -18,12 +17,18 @@ export const CustomModal = styled(Modal)`
   :focus {
     outline: none;
   }
+  @media (max-width: 1020px) {
+    width: 94%;
+  }
 `;
 
 export const Container = styled.div`
   padding: 24px 36px;
   display: flex;
   flex-direction: column;
+  @media (max-width: 1020px) {
+    padding: 18px 24px;
+  }
 `;
 
 const CategoryStyle = css`

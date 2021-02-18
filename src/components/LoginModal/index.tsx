@@ -3,11 +3,9 @@ import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Close } from '@material-ui/icons';
 import { GoogleIcon } from 'components/GoogleIcon';
+import Logo from 'assets/logo.png';
 import { useEnhancer } from './enhancer';
 import { A, Attention, ButtonContainer, CloseButton, Container, CustomButton, CustomButtonContainer, CustomModal, Explain, IconContainer, LogoContainer, ModalTitleContainer, TwitterButton } from './style';
-
-const icon = require('assets/logo.png');
-
 
 interface Props {
   isOpen: boolean;
@@ -40,7 +38,7 @@ export const LoginModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
         </CloseButton>
         <ModalTitleContainer>
           <LogoContainer>
-            <img height="40px" src={icon} alt="" />
+            <img height="40px" src={Logo} alt="" />
           </LogoContainer>
         </ModalTitleContainer>
         <Explain>

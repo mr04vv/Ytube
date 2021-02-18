@@ -68,8 +68,14 @@ interface ContainerProps {
 
 export const Container = styled.div<ContainerProps>`
   display: flex;
-  margin: ${props => (props.width < 1700 ? '80px 20px 0 20px' : '80px auto 0 auto')};
+  margin: ${(props) => (props.width < 1700 ? '80px 20px 0 20px' : '80px auto 0 auto')};
   max-width: 1700px;
+  @media (max-width: 1020px) {
+    flex-direction: column;
+  }
+  @media (max-width: 480px) {
+    margin-top: 170px;
+  }
 `;
 
 export const PostInfoContainer = styled.div`
@@ -96,7 +102,6 @@ export const Detail = styled.p`
   letter-spacing: 1.6px;
   white-space: pre-line;
 `;
-
 
 export const MetaContainer = styled.div`
   display: flex;
@@ -167,6 +172,12 @@ export const RandomPostListContainer = styled.div`
   min-width: ${SMALL_POST_LIST_CONTAINER_MAX_WIDTH}px;
   display: flex;
   flex-direction: column;
+  @media (max-width: 1020px) {
+    width: 100%;
+    max-width: unset;
+    min-width: unset;
+    margin: 0 auto;
+  }
 `;
 
 interface MainContentContainerProps {
@@ -175,8 +186,12 @@ interface MainContentContainerProps {
 
 export const MainContentContainer = styled.div<MainContentContainerProps>`
   display: flex;
-  width: ${props => props.width};
+  width: ${(props) => props.width};
   flex-direction: column;
+  @media (max-width: 1020px) {
+    width: 100%;
+    margin-bottom: 30px;
+  }
 `;
 
 export const Divider = styled.div`

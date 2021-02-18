@@ -1,4 +1,3 @@
-
 import firebase from 'firebase';
 import { useState, useEffect } from 'react';
 import useReactRouter from 'use-react-router';

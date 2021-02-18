@@ -43,7 +43,6 @@ export const useEnhancer = () => {
     setAnchorEl(null);
   };
 
-
   useEffect(() => {
     const postIdStr = params.id;
     const postId = Number(postIdStr);

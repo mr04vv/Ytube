@@ -4,7 +4,6 @@ import SimpleSnackBar from 'components/SimpleSnackBar';
 import useReactRouter from 'use-react-router';
 import { ButtonContainer, CloseButton, Container, CustomModal, DeleteButton, ModalTitleContainer } from './style';
 
-
 interface Props {
   isOpen: boolean;
   setIsOpen: (v: boolean) => void;

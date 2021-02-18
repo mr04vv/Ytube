@@ -3,7 +3,6 @@ import { COLOR_LIGHT_GRAY, COLOR_MAIN_TEXT, COLOR_WHITE } from 'constants/colors
 import Modal from 'react-modal';
 import styled from 'styled-components';
 
-
 export const CustomModal = styled(Modal)`
   width: 100%;
   left: unset;
@@ -36,7 +35,6 @@ export const ModalTitleContainer = styled.div`
   justify-content: space-between;
   color: ${COLOR_MAIN_TEXT};
 `;
-
 
 export const CloseButton = styled(Button)`
   position: absolute;
