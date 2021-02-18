@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import { Close, SearchOutlined } from '@material-ui/icons';
 import { COLOR_GRAY, COLOR_LIGHT_GRAY, COLOR_MAIN, COLOR_MAIN_TEXT, COLOR_WHITE } from 'constants/colors';
 import Modal from 'react-modal';
@@ -62,6 +62,8 @@ export const ModalTitleContainer = styled.div`
 export const ContentContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  padding-bottom: 18px;
+  border-bottom: thin solid ${COLOR_LIGHT_GRAY};
 `;
 
 export const SearchIcon = styled(SearchOutlined)`
@@ -97,11 +99,6 @@ export const SelectedTitle = styled.div`
   color: ${COLOR_MAIN_TEXT};
 `;
 
-export const CategoryContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
 export const NextButton = styled(Button)`
   color: ${COLOR_MAIN_TEXT};
   margin-left: 14px;
@@ -113,4 +110,32 @@ export const CloseIcon = styled(Close)`
   height: 18px;
   width: 18px;
   color: ${COLOR_GRAY};
+`;
+
+
+export const AddButton = styled(Button)`
+  color: ${COLOR_MAIN_TEXT};
+  margin-left: 14px;
+  font-size: 12px;
+  border: thin solid ${COLOR_LIGHT_GRAY};
+  height: 30px;
+`;
+
+export const CustomTextField = styled(TextField)`
+ .MuiInputBase-input {
+   font-size: 13px;
+   line-height: 20px;
+ }
+`;
+
+export const TextFieldContainer = styled.div`
+  margin-top: 14px;
+  display: flex;
+  align-items: flex-end;
+`;
+
+export const HelpText = styled.div`
+  margin-top: 8px;
+  font-size: 10px;
+  color: ${COLOR_MAIN_TEXT};
 `;

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import { CategoryInterface } from 'interfaces/CategoryInterface';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Category, implementsCategory } from 'entity/entity/category';
 import { Game, implementsGame } from 'entity/entity/game';
 import { FetchGamesState } from 'entity/reduxState/fetchGamesState';
@@ -12,6 +12,10 @@ import { CreatePostRequestDto } from 'entity/requestDto/createPostRequestDto';
 import { createPost } from 'api/posts/createPost';
 import useReactRouter from 'use-react-router';
 import { FetchMeState } from 'entity/reduxState/fetchMeState';
+import { createCategory } from 'api/categories/createCategory';
+import { CreateCategoryRequestDto } from 'entity/requestDto/createCategoryRequestDto';
+import { CreateGameRequestDto } from 'entity/requestDto/createGameRequestDto';
+import { createGame } from 'api/games/createGame';
 
 export const useEnhancer = () => {
   const [startTime, setStartTime] = useState<string>('');
@@ -37,7 +41,6 @@ export const useEnhancer = () => {
   const categoryState: FetchCategoriesState = useSelector(categorySelector);
   const [openGames, setOpenGames] = useState<boolean>(false);
   const [openCategories, setOpenCategories] = useState<boolean>(false);
-  const [loadingMeta, setLoadingMeta] = useState<boolean>(false);
   const [openHelp, setOpenHelp] = useState<boolean>(false);
   const [ref] = useState<React.MutableRefObject<ReactPlayer | undefined>>(
     React.useRef()
@@ -49,6 +52,11 @@ export const useEnhancer = () => {
   const userSelector = (state: any) => state.login;
   const userState: FetchMeState = useSelector(userSelector);
   const [isOpenLoginModal, setIsOpenLoginModal] = useState<boolean>(false);
+
+  const [addCategoryName, setAddCategoryName] = useState<string>('');
+  const [addGameName, setAddGameName] = useState<string>('');
+  const [loadingMeta, setLoadingMeta] = useState<boolean>(false);
+
 
   useEffect(() => {
     if (implementsGame(gameState.data)) {
@@ -96,7 +104,6 @@ export const useEnhancer = () => {
       return -1;
     }
   };
-
 
   const post = async () => {
     if (userState.status !== 'loggedIn') {
@@ -180,6 +187,44 @@ export const useEnhancer = () => {
     }
   }, [url, startTime, endTime, title, selectedCategories, selectedGames]);
 
+  const addCategory: () => Promise<boolean> = async () => {
+    setLoadingMeta(true);
+    const req: CreateCategoryRequestDto = {
+      name: addCategoryName
+    };
+    try {
+      const res = await createCategory(req);
+      setCategories(res);
+      setFilteredCategories(res);
+      setLoadingMeta(false);
+      setAddCategoryName('');
+      return true;
+    } catch (e) {
+      console.debug(e);
+      setLoadingMeta(false);
+      return false;
+    }
+  };
+
+  const addGame: () => Promise<boolean> = async () => {
+    setLoadingMeta(true);
+    const req: CreateGameRequestDto = {
+      title: addGameName
+    };
+    try {
+      const res = await createGame(req);
+      setGames(res);
+      setFilteredGames(res);
+      setLoadingMeta(false);
+      setAddGameName('');
+      return true;
+    } catch (e) {
+      setLoadingMeta(false);
+      console.debug(e);
+      return false;
+    }
+  };
+
 
   return {
     startTime,
@@ -250,5 +295,15 @@ export const useEnhancer = () => {
     canPost,
     isOpenLoginModal,
     setIsOpenLoginModal,
+    setAddCategoryName: (e: React.ChangeEvent<HTMLInputElement>) => {
+      setAddCategoryName(e.target.value);
+    },
+    addCategoryName,
+    setAddGameName: (e: React.ChangeEvent<HTMLInputElement>) => {
+      setAddGameName(e.target.value);
+    },
+    addGameName,
+    addGame,
+    addCategory,
   };
 };

@@ -33,6 +33,9 @@ export const CreatePost = () => {
           isOpen={enhancer.openCategories}
           setIsOpen={enhancer.setOpenCategories}
           selectedItems={enhancer.selectedCategories}
+          setAddName={enhancer.setAddCategoryName}
+          addName={enhancer.addCategoryName}
+          create={enhancer.addCategory}
         />
         <SelectModal
           unset={() => { }}
@@ -44,6 +47,9 @@ export const CreatePost = () => {
           isOpen={enhancer.openGames}
           setIsOpen={enhancer.setOpenGames}
           selectedItems={enhancer.selectedGames}
+          setAddName={enhancer.setAddGameName}
+          addName={enhancer.addGameName}
+          create={enhancer.addGame}
         />
         <YouTubePlayer
           ref={enhancer.ref}
