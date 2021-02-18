@@ -80,7 +80,7 @@ const Home = () => {
                 <CircularProgress size="30px" />
               </ProgressContainer>}
           </InfiniteScroll>}
-        {enhancer.posts.length === 0 &&
+        {enhancer.posts.length === 0 && !enhancer.isLoading && !enhancer.isMoreLoading && !enhancer.isSorting &&
           <NotFoundContainer>
             <NotFoundIcon size={60} />
             動画が見つかりませんでした
