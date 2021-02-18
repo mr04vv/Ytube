@@ -154,9 +154,9 @@ export const useEnhancer = () => {
   };
 
   const pushEdit = () => {
+    window.scrollTo(0, 0);
     history.push({
-      pathname: '/edit',
-      search: `?id=${post?.id}`
+      pathname: `/edit/${post?.id}`,
     });
   };
 
