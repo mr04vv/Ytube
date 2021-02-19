@@ -24,8 +24,7 @@ export const PostListItem = ({ post }: Props) => {
       </ThumbnailImageContainer>
       <CategoryGameContainer>
         <GameTitle>{post.game?.title}</GameTitle>
-        {post.categories?.map((category: Category) => <CategoryName>{category.name}</CategoryName>)}
-
+        {post.categories?.map((category: Category) => <CategoryName key={`category_name_${category.id}`}>{category.name}</CategoryName>)}
       </CategoryGameContainer>
       <Title>{post.title}</Title>
       <MetaContainer>

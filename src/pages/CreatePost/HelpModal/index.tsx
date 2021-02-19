@@ -13,6 +13,7 @@ interface Props {
 
 export const HelpModal: React.FC<Props> = ({ setIsOpen, isOpen }) => (
   <CustomModal
+    ariaHideApp={false}
     onRequestClose={() => setIsOpen(false)}
     isOpen={isOpen}
     style={{

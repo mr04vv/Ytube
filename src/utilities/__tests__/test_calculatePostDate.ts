@@ -133,7 +133,6 @@ describe('calculatePostDate()', () => {
     expect(formattedDate).toStrictEqual('23時間前');
   });
 
-
   test('1日前', () => {
     const comparedDate: string = '2020-01-01T23:59:59';
     const formattedDate = calculatePostDate(postDate, new Date(comparedDate));

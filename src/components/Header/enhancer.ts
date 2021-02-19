@@ -85,7 +85,7 @@ export const useEnhancer = () => {
         setSearchGame(game);
       }
     }
-  }, [gameState, params]);
+  }, [gameState]);
 
   useEffect(() => {
     if (implementsCategory(categoryState.data)) {
@@ -97,7 +97,7 @@ export const useEnhancer = () => {
         setSearchCategory(category);
       }
     }
-  }, [categoryState, params]);
+  }, [categoryState]);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);

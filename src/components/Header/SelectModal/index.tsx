@@ -18,6 +18,7 @@ interface Props {
 
 export const SelectModal: React.FC<Props> = ({ items, setItem, setIsOpen, isOpen, itemType, loading, search }) => (
   <CustomModal
+    ariaHideApp={false}
     onRequestClose={() => setIsOpen(false)}
     isOpen={isOpen}
     style={{
@@ -55,10 +56,10 @@ export const SelectModal: React.FC<Props> = ({ items, setItem, setIsOpen, isOpen
         <>
           {itemType === 'category' ?
             (items as Category[]).map((item: Category) => (
-              <CategoryName onClick={() => { setItem(item); setIsOpen(false); }}>{item.name}</CategoryName>))
+              <CategoryName key={`category_${item.id}`} onClick={() => { setItem(item); setIsOpen(false); }}>{item.name}</CategoryName>))
             :
             (items as Game[]).map((item: Game) => (
-              <CategoryName onClick={() => { setItem(item); setIsOpen(false); }}>{item.title}</CategoryName>
+              <CategoryName key={`game_${item.id}`} onClick={() => { setItem(item); setIsOpen(false); }}>{item.title}</CategoryName>
             ))}
         </>}
       </ContentContainer>

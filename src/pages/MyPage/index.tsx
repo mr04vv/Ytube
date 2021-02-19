@@ -65,15 +65,15 @@ export const MyPage = () => {
                     <>
                       {enhancer.myPosts.map((post) =>
                         (window.windowDimensions.width > 480 ?
-                          <PostListItemContainer onClick={() => enhancer.pushPostDetailPage(post.id)} width={window.windowDimensions.width} splitSize={window.splitSize}>
+                          <PostListItemContainer key={`mypost_large_${post.id}`} onClick={() => enhancer.pushPostDetailPage(post.id)} width={window.windowDimensions.width} splitSize={window.splitSize}>
                             <PostListItem post={post} />
                           </PostListItemContainer>
                           :
-                          <SmallPostListItemContainer onClick={() => enhancer.pushPostDetailPage(post.id)}>
+                          <SmallPostListItemContainer key={`mypost_small_${post.id}`} onClick={() => enhancer.pushPostDetailPage(post.id)}>
                             <SmallSizePostListItem post={post} />
                           </SmallPostListItemContainer>
                         ))}
-                      {window.windowDimensions.width > 480 && [...Array(dummyLength)].map(() => <PostListItemContainer width={window.windowDimensions.width} splitSize={window.splitSize} />)}
+                      {window.windowDimensions.width > 480 && [...Array(dummyLength)].map((_, i) => <PostListItemContainer key={`dummy_${i.toString()}`} width={window.windowDimensions.width} splitSize={window.splitSize} />)}
                     </>
                   </PostContainer>
                   {enhancer.isMoreLoading &&
@@ -96,15 +96,16 @@ export const MyPage = () => {
                     <>
                       {enhancer.likePosts.map((like) =>
                         (window.windowDimensions.width > 480 ?
-                          <PostListItemContainer onClick={() => enhancer.pushPostDetailPage(like.post.id)} width={window.windowDimensions.width} splitSize={window.splitSize}>
+                          <PostListItemContainer key={`like_large_${like.post.id}`} onClick={() => enhancer.pushPostDetailPage(like.post.id)} width={window.windowDimensions.width} splitSize={window.splitSize}>
+                            {console.debug(like.post.id)}
                             <PostListItem post={like.post} />
                           </PostListItemContainer>
                           :
-                          <SmallPostListItemContainer onClick={() => enhancer.pushPostDetailPage(like.post.id)}>
+                          <SmallPostListItemContainer key={`like_small_${like.post.id}`} onClick={() => enhancer.pushPostDetailPage(like.post.id)}>
                             <SmallSizePostListItem post={like.post} />
                           </SmallPostListItemContainer>
                         ))}
-                      {window.windowDimensions.width > 480 && [...Array(dummyLength)].map(() => <PostListItemContainer width={window.windowDimensions.width} splitSize={window.splitSize} />)}
+                      {window.windowDimensions.width > 480 && [...Array(dummyLength)].map((_, i) => <PostListItemContainer key={`dummy_${i.toString()}`} width={window.windowDimensions.width} splitSize={window.splitSize} />)}
                     </>
                   </PostContainer>
                   {enhancer.isMoreLoading &&

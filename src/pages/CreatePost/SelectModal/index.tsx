@@ -27,6 +27,7 @@ export const SelectModal: React.FC<Props> = ({ items, setItem, setIsOpen, isOpen
   const [error, setError] = useState<string>('');
   return (
     <CustomModal
+      ariaHideApp={false}
       onRequestClose={() => setIsOpen(false)}
       isOpen={isOpen}
       style={{
@@ -71,13 +72,15 @@ export const SelectModal: React.FC<Props> = ({ items, setItem, setIsOpen, isOpen
                 {selectedItems.length === 0 && '選択されていません'}
                 {itemType === 'category' ?
                   (selectedItems as Category[]).map((item: Category) => (
-                    <CategoryName onClick={() => unset(item)}>
+                    <CategoryName key={`selected_category_${item.id}`} onClick={() => unset(item)}>
                       {item.name}
                       <CloseIcon />
                     </CategoryName>))
-                  :
+                :
                   (selectedItems as Game[]).map((item: Game) => (
-                    <CategoryName onClick={() => {
+                    <CategoryName
+                      key={`selected_game_${item.id}`}
+                      onClick={() => {
                       setItem(item);
                       setIsOpen(false);
                     }}
@@ -95,10 +98,10 @@ export const SelectModal: React.FC<Props> = ({ items, setItem, setIsOpen, isOpen
           <>
             {itemType === 'category' ?
               (items as Category[]).map((item: Category) => (
-                <CategoryName onClick={() => { setItem(item); }}>{item.name}</CategoryName>))
+                <CategoryName key={`category_${item.id}`} onClick={() => { setItem(item); }}>{item.name}</CategoryName>))
               :
               (items as Game[]).map((item: Game) => (
-                <CategoryName onClick={() => { setItem(item); setIsOpen(false); }}>{item.title}</CategoryName>
+                <CategoryName key={`game_${item.id}`} onClick={() => { setItem(item); setIsOpen(false); }}>{item.title}</CategoryName>
               ))}
           </>}
         </ContentContainer>

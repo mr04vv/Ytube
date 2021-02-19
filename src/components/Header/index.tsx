@@ -5,14 +5,12 @@ import { LoginModal } from 'components/LoginModal';
 import { Category } from 'entity/entity/category';
 import { Game } from 'entity/entity/game';
 import Logo from 'assets/logo.png';
-import { useWindowDimensions } from 'usecase/useWindowDimensions';
 import { useEnhancer } from './enhancer';
 import { SelectModal } from './SelectModal';
 import { CustomAvatar, Container, WhiteAppBar, ImageContainer, BarContainer, AppBarLeftItem, AppBarRightItem, CustomIconLabel, CustomIconButton, CreatePostButton, CreatePostButtonLabel, VideoCallIcon, AvatarContainer, SearchContainer, SearchField, SearchButton, SearchIcon, TopLink, AccountInfo, UserName, IconContainer, CustomPopper, MenuItemIcon, CustomMenuItem, Divider, LoginButton, LoginButtonLabel, SearchPopup, PopupTitleContainer, PopupItemContainer, PopupLastItemContainer, UnselectButton } from './styles';
 
 const Header = () => {
   const enhancer = useEnhancer();
-  const window = useWindowDimensions();
   return (
     <>
       <LoginModal isOpen={enhancer.isOpenLoginModal} setIsOpen={enhancer.setIsOpenLoginModal} />
@@ -21,6 +19,7 @@ const Header = () => {
         <ClickAwayListener onClickAway={enhancer.searchPopupClose}>
           <div>
             <SelectModal
+              key="category_select_modal"
               search={enhancer.categoryFilter}
               loading={enhancer.loadingMeta}
               items={enhancer.filteredCategories}
@@ -30,6 +29,7 @@ const Header = () => {
               setIsOpen={enhancer.setOpenCategories}
             />
             <SelectModal
+              key="game_select_modal"
               search={enhancer.gameFilter}
               loading={enhancer.loadingMeta}
               items={enhancer.filteredGames}

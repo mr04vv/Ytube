@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
-import { ExpansionPanel, ExpansionPanelSummary } from '@material-ui/core';
-import { ExpansionPanelProps } from '@material-ui/core/ExpansionPanel';
+import { Accordion, AccordionProps, AccordionSummary } from '@material-ui/core';
 import { COLOR_LIGHT_GRAY, COLOR_MAIN_TEXT } from 'constants/colors';
 
 export const Container = styled.div`
@@ -19,7 +18,7 @@ export const PostContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-export const CustomExpantionPanel = styled(ExpansionPanel as React.FC<ExpansionPanelProps>)`
+export const CustomExpantionPanel = styled(Accordion as React.FC<AccordionProps>)`
   &.MuiPaper-elevation1 {
     box-shadow: unset;
   }
@@ -53,7 +52,7 @@ export const SmallPostListItemContainer = styled.div`
   }
 `;
 
-export const CustomExpansionPanelSummary = styled(ExpansionPanelSummary)`
+export const CustomExpansionPanelSummary = styled(AccordionSummary)`
   .MuiExpansionPanelSummary-expandIcon {
     order: -1;
     margin-right: 2px;
