@@ -1,13 +1,15 @@
-## Ytube
+## わいコレ(旧Ytube)
 
-[![image](https://user-images.githubusercontent.com/24749358/70367718-14e02500-18e6-11ea-8d91-7f7d46a24601.png)](https://yy-tube.com/)
+YouTubeで活躍する人気ゲーム実況者「わいわい」さんが配信する動画のお気に入りのシーンを投稿できる動画共有プラットフォーム「わいコレ」のブラウザ版
 
-Youtube で活躍する実況者 YY さんの好きなシーンを共有する SNS。Cloud funtions を使用して動的 OGP に対応しています。
+**リンク**
 
-### 認証システム
+[<img src=https://user-images.githubusercontent.com/24749358/108679763-5a5f3100-7530-11eb-9b1f-eb92f2e58425.png  width=50%>](https://yy-tube.com/)
 
-![image](https://user-images.githubusercontent.com/24749358/70367719-16115200-18e6-11ea-8d29-1de6c6351d6d.png)
+### 説明スライド
 
-### サイト画像
+<img src=https://user-images.githubusercontent.com/24749358/108680189-e4a79500-7530-11eb-8fae-4b20039bb454.png  width=50%>
 
-![image](https://user-images.githubusercontent.com/24749358/70367713-f11cdf00-18e5-11ea-8f6b-c520bb45fb08.png)
+### 構成
+
+<img src=https://user-images.githubusercontent.com/24749358/108680431-34865c00-7531-11eb-8bb4-59ddf481729e.png  width=50%>
