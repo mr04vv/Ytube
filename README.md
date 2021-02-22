@@ -4,7 +4,7 @@ YouTubeで活躍する人気ゲーム実況者「わいわい」さんが配信�
 
 **リンク**
 
-[<img src=https://user-images.githubusercontent.com/24749358/108679763-5a5f3100-7530-11eb-9b1f-eb92f2e58425.png  width=50%>](https://yy-tube.com/)
+<a href="https://yy-tube.com/" target="_blank">わいコレ</a>
 
 ### 説明スライド
 
