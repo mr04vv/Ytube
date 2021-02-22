@@ -8,7 +8,7 @@ YouTubeで活躍する人気ゲーム実況者「わいわい」さんが配信�
 
 ### 説明スライド
 
-<img src=https://user-images.githubusercontent.com/24749358/108680189-e4a79500-7530-11eb-8fae-4b20039bb454.png  width=50%>
+[<img src=https://user-images.githubusercontent.com/24749358/108680189-e4a79500-7530-11eb-8fae-4b20039bb454.png  width=50%>](https://speakerdeck.com/mr04vv/waikore-4908b790-4260-4822-9331-19dc39776032)
 
 ### 構成
 
