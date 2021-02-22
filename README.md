@@ -1,4 +1,6 @@
-## わいコレ(旧Ytube)
+![Screen Shot 2021-02-22 at 18 02 48](https://user-images.githubusercontent.com/24749358/108686046-3a337000-7538-11eb-9898-519a9029e2d2.png)
+
+<h2 align="center">わいコレ</h2>
 
 YouTubeで活躍する人気ゲーム実況者「わいわい」さんが配信する動画のお気に入りのシーンを投稿できる動画共有プラットフォーム「わいコレ」のブラウザ版
 
