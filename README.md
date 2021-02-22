@@ -6,7 +6,7 @@ YouTubeで活躍する人気ゲーム実況者「わいわい」さんが配信�
 
 ### 説明スライド
 
-<a href="https://speakerdeck.com/mr04vv/waikore-4908b790-4260-4822-9331-19dc39776032" target="_blank">わいコレ</a>
+<a href="https://speakerdeck.com/mr04vv/waikore-4908b790-4260-4822-9331-19dc39776032" target="_blank">わいコレ説明スライド</a>
 
 ### 構成
 
